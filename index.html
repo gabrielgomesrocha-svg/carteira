@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carteira Gabriel — Dashboard</title>
+<meta name="robots" content="noindex, nofollow">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#f5f6f8; --bg2:#edeff2; --card:#ffffff; --card2:#f2f3f6;
+  --border:#e1e4e9; --txt:#33373d; --muted:#878d96;
+  --orange:#a3556a; --orange2:#84394e; --blue:#5b7a99; --green:#3f8a58; --red:#c0564a; --yellow:#9aa3ad;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;min-height:100vh}
+header{background:linear-gradient(135deg,#fcfdfe,#edeff3);border-bottom:2px solid var(--orange);padding:22px 28px;position:sticky;top:0;z-index:50;box-shadow:0 2px 10px rgba(40,45,55,.07)}
+header h1{font-size:1.25rem;letter-spacing:.5px}
+header h1 span{color:var(--orange)}
+header .sub{color:var(--muted);font-size:.8rem;margin-top:4px}
+nav{display:flex;gap:6px;flex-wrap:wrap;padding:12px 28px;background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:78px;z-index:49}
+nav button{background:transparent;border:1px solid var(--border);color:var(--muted);padding:8px 16px;border-radius:20px;cursor:pointer;font-size:.85rem;transition:.2s}
+nav button:hover{border-color:var(--orange);color:var(--txt)}
+nav button.active{background:var(--orange);border-color:var(--orange);color:#fff;font-weight:700}
+main{padding:24px 28px;max-width:1280px;margin:0 auto}
+.tab{display:none}.tab.active{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:22px}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 18px;box-shadow:0 1px 6px rgba(40,45,55,.06)}
+.kpi .lbl{color:var(--muted);font-size:.74rem;text-transform:uppercase;letter-spacing:.8px}
+.kpi .val{font-size:1.45rem;font-weight:700;margin-top:6px}
+.kpi .det{font-size:.78rem;color:var(--muted);margin-top:4px}
+.kpi.hl .val{color:var(--orange)}
+.pos{color:var(--green)} .neg{color:var(--red)} .neu{color:var(--yellow)}
+.panel{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:20px;box-shadow:0 1px 6px rgba(40,45,55,.06)}
+.panel h2{font-size:.95rem;color:var(--orange2);margin-bottom:14px;letter-spacing:.4px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:900px){.grid2{grid-template-columns:1fr}}
+.chartbox{position:relative;height:300px}
+table{width:100%;border-collapse:collapse;font-size:.83rem}
+th{color:var(--muted);font-weight:600;text-align:right;padding:8px 10px;border-bottom:1px solid var(--border);text-transform:uppercase;font-size:.7rem;letter-spacing:.5px}
+th:first-child,td:first-child{text-align:left}
+td{padding:7px 10px;border-bottom:1px solid #eef0f3;text-align:right;white-space:nowrap}
+tr.group td{background:var(--card2);color:var(--orange2);font-weight:700;font-size:.78rem;letter-spacing:.5px}
+tr.subtotal td{font-weight:700;border-top:1px solid var(--border)}
+tr.total td{background:#e9ebef;font-weight:800;color:var(--orange2)}
+.tablewrap{overflow-x:auto}
+.barmeta{display:flex;align-items:center;gap:10px;margin:8px 0}
+.barmeta .nm{width:190px;font-size:.82rem;flex-shrink:0}
+.barmeta .bar{flex:1;height:18px;background:#e7e9ee;border-radius:9px;overflow:hidden;position:relative}
+.barmeta .fill{height:100%;background:linear-gradient(90deg,#d8c2c9,#a3556a);border-radius:9px}
+.barmeta .marker{position:absolute;top:-2px;bottom:-2px;width:2px;background:#84394e}
+.barmeta .pc{width:120px;font-size:.8rem;text-align:right;flex-shrink:0}
+.alert{display:flex;gap:12px;align-items:flex-start;background:var(--card2);border-left:4px solid var(--yellow);border-radius:8px;padding:12px 14px;margin-bottom:10px}
+.alert.acao{border-left-color:var(--red)}
+.alert.resolvido{border-left-color:var(--green);opacity:.75}
+.alert .tk{font-weight:800;min-width:90px}
+.alert .tx{font-size:.85rem;color:var(--muted)}
+.progress-goal{height:26px;background:#e7e9ee;border-radius:13px;overflow:hidden;position:relative;margin-top:8px}
+.progress-goal .fill{height:100%;background:linear-gradient(90deg,#c98b9b,#a3556a);display:flex;align-items:center;justify-content:flex-end;padding-right:10px;font-size:.78rem;font-weight:800;color:#fff}
+footer{text-align:center;color:var(--muted);font-size:.75rem;padding:24px}
+#err{display:none;background:#fbe9e6;border:1px solid var(--red);border-radius:10px;padding:16px;margin:24px;color:#8a3a30}
+</style>
+</head>
+<body>
+<header>
+  <h1>CARTEIRA <span>GABRIEL GOMES ROCHA</span></h1>
+  <div class="sub" id="headsub">Carregando…</div>
+</header>
+<nav id="nav"></nav>
+<div id="err"></div>
+<main id="main"></main>
+<footer>Fonte: Relatório Inter Win · Dashboard estático em GitHub Pages · Dados em <code>dados.js</code></footer>
+
+<script>
+const fBRL=v=>v==null?'—':v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const fBRL0=v=>v==null?'—':'R$ '+Math.round(v).toLocaleString('pt-BR');
+const fPct=(v,d=2)=>v==null?'—':v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d})+'%';
+const cls=v=>v==null?'':(v>0?'pos':v<0?'neg':'');
+const COLORS=['#a3556a','#5b7a99','#7a8450','#c98b9b','#9aa3ad','#c0564a','#5f9ea0','#b8bec6'];
+Chart.defaults.color='#878d96';Chart.defaults.borderColor='#e1e4e9';Chart.defaults.font.family="'Segoe UI',sans-serif";
+
+const TABS=[['dash','Dashboard'],['rent','Rentabilidade'],['pos','Posição'],['ganhos','Ganhos'],['evo','Evolução'],['div','Dividendos'],['estr','Estratégia & Alertas']];
+
+(function(){
+  const s=document.createElement('script');
+  s.src='dados.js?v='+Date.now();
+  s.onload=()=>{ if(typeof DADOS!=='undefined'){ render(DADOS); } else { showErr('dados.js carregou mas a variável DADOS não foi encontrada. O arquivo deve começar com: var DADOS = { ... };'); } };
+  s.onerror=()=>showErr('Não foi possível carregar dados.js. Verifique se o arquivo está na mesma pasta do index.html.');
+  document.head.appendChild(s);
+  function showErr(msg){ const e=document.getElementById('err'); e.style.display='block'; e.textContent='Erro: '+msg; document.getElementById('headsub').textContent='Falha ao carregar dados'; }
+})();
+
+function render(D){
+  const ult=D.evolucaoMensal[D.evolucaoMensal.length-1];
+  document.getElementById('headsub').textContent=`Fonte: ${D.meta.fonte} · Referência: ${D.meta.mesReferencia} · Atualizado em ${D.meta.atualizadoEm} · Meta: ${fBRL0(D.meta.metaPatrimonio)} até ${D.meta.metaPrazo}`;
+
+  const nav=document.getElementById('nav');
+  const main=document.getElementById('main');
+  TABS.forEach(([id,nm],i)=>{
+    const b=document.createElement('button');b.textContent=nm;b.dataset.t=id;if(i===0)b.classList.add('active');
+    b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+      document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.getElementById('tab-'+id).classList.add('active');};
+    nav.appendChild(b);
+    const d=document.createElement('div');d.className='tab'+(i===0?' active':'');d.id='tab-'+id;main.appendChild(d);
+  });
+
+  /* ===== DASHBOARD ===== */
+  const progresso=ult.patrimonio/D.meta.metaPatrimonio*100;
+  const ganhos2026=D.evolucaoMensal.filter(m=>m.mes.includes('2026')).reduce((s,m)=>s+(m.ganhos||0),0);
+  document.getElementById('tab-dash').innerHTML=`
+  <div class="cards">
+    <div class="kpi hl"><div class="lbl">Patrimônio (${ult.mes})</div><div class="val">${fBRL0(ult.patrimonio)}</div><div class="det">Meta: ${fBRL0(D.meta.metaPatrimonio)} (${D.meta.metaPrazo})</div></div>
+    <div class="kpi"><div class="lbl">Rent. no mês</div><div class="val ${cls(ult.rentMes)}">${fPct(ult.rentMes)}</div><div class="det">Selic ${fPct(ult.selic)} a.a.</div></div>
+    <div class="kpi"><div class="lbl">Rent. 12 meses</div><div class="val pos">${fPct(ult.rent12m)}</div><div class="det">${fPct(ult.pctCdi12m,1)} do CDI</div></div>
+    <div class="kpi"><div class="lbl">Ganhos no mês</div><div class="val pos">${fBRL0(ult.ganhos)}</div><div class="det">Acumulado 2026: ${fBRL0(ganhos2026)}</div></div>
+    <div class="kpi"><div class="lbl">Desde início (${D.meta.inicioCarteira})</div><div class="val pos">${fPct(D.posicaoDetalhada.total.desdeInicio)}</div><div class="det">Ganho total: ${fBRL0(D.ganhosPorEstrategia.find(g=>g.estrategia==='TOTAL').desdeInicio)}</div></div>
+  </div>
+  <div class="panel"><h2>▌ PROGRESSO DA META — ${fBRL0(D.meta.metaPatrimonio)}</h2>
+    <div class="progress-goal"><div class="fill" style="width:${Math.min(progresso,100)}%">${fPct(progresso,1)}</div></div>
+    <div style="margin-top:8px;font-size:.8rem;color:var(--muted)">Faltam ${fBRL0(D.meta.metaPatrimonio-ult.patrimonio)} até ${D.meta.metaPrazo}</div>
+  </div>
+  <div class="grid2">
+    <div class="panel"><h2>📈 EVOLUÇÃO DO PATRIMÔNIO</h2><div class="chartbox"><canvas id="cPatr"></canvas></div></div>
+    <div class="panel"><h2>📊 ALOCAÇÃO ATUAL — ${D.alocacao.mesAtual}</h2><div class="chartbox"><canvas id="cAloc"></canvas></div></div>
+  </div>
+  <div class="panel"><h2>🎯 ALOCAÇÃO vs META</h2><div id="alocMeta"></div></div>`;
+
+  new Chart(cPatr,{type:'line',data:{labels:D.evolucaoMensal.map(m=>m.mes),datasets:[{label:'Patrimônio',data:D.evolucaoMensal.map(m=>m.patrimonio),borderColor:'#a3556a',backgroundColor:'rgba(163,85,106,.12)',fill:true,tension:.3,pointRadius:4}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
+  new Chart(cAloc,{type:'doughnut',data:{labels:D.alocacao.classes.map(c=>c.classe),datasets:[{data:D.alocacao.classes.map(c=>c.saldo),backgroundColor:COLORS,borderColor:'#ffffff',borderWidth:2}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:12,font:{size:11}}},tooltip:{callbacks:{label:c=>` ${c.label}: ${fBRL0(c.raw)} (${(c.raw/ult.patrimonio*100).toFixed(2)}%)`}}}}});
+  document.getElementById('alocMeta').innerHTML=D.alocacao.classes.map(c=>`
+    <div class="barmeta"><div class="nm">${c.classe}</div>
+    <div class="bar"><div class="fill" style="width:${Math.min(c.pct/Math.max(c.metaPct*1.4,10)*100,100)}%"></div>${c.metaPct?`<div class="marker" style="left:${Math.min(c.metaPct/Math.max(c.metaPct*1.4,10)*100,100)}%"></div>`:''}</div>
+    <div class="pc">${fPct(c.pct)} <span style="color:var(--muted)">/ ${c.metaPct}%</span></div></div>`).join('');
+
+  /* ===== RENTABILIDADE ===== */
+  const mesesN=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  const matriz=(rows,fmt)=>`<div class="tablewrap"><table><tr><th>Ano</th>${mesesN.map(m=>`<th>${m}</th>`).join('')}<th>Ano</th><th>Acum.</th></tr>
+    ${rows.map(r=>`<tr><td><b>${r.ano}</b></td>${r.meses.map(v=>`<td class="${cls(v)}">${v==null?'—':fmt(v)}</td>`).join('')}<td><b>${fmt(r.ano_pct)}</b></td><td><b>${fmt(r.acum_pct)}</b></td></tr>`).join('')}</table></div>`;
+  document.getElementById('tab-rent').innerHTML=`
+  <div class="panel"><h2>▌ RENTABILIDADES MENSAIS (%)</h2>${matriz(D.rentabilidadeMensal.anos,v=>fPct(v))}</div>
+  <div class="panel"><h2>▌ % DO CDI POR MÊS</h2>${matriz(D.pctCdiAnual.anos,v=>v.toLocaleString('pt-BR',{maximumFractionDigits:1}))}</div>
+  <div class="grid2">
+    <div class="panel"><h2>▌ COMPARATIVO DE PERÍODOS (${D.meta.mesReferencia})</h2>
+      <table><tr><th>Período</th><th>Carteira</th><th>CDI</th><th>% CDI</th><th>Vol.</th></tr>
+      ${D.comparativoPeriodos.map(p=>`<tr><td>${p.periodo}</td><td class="pos">${fPct(p.carteira)}</td><td>${fPct(p.cdi)}</td><td>${fPct(p.pctCdi,1)}</td><td>${fPct(p.vol)}</td></tr>`).join('')}</table></div>
+    <div class="panel"><h2>📈 CARTEIRA vs CDI (12m móvel %)</h2><div class="chartbox"><canvas id="cCdi"></canvas></div></div>
+  </div>`;
+  new Chart(cCdi,{type:'bar',data:{labels:D.evolucaoMensal.map(m=>m.mes),datasets:[{label:'% do CDI 12m',data:D.evolucaoMensal.map(m=>m.pctCdi12m),backgroundColor:D.evolucaoMensal.map(m=>m.pctCdi12m>=100?'#3f8a58':'#c0564a'),borderRadius:5}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{suggestedMin:80}}}});
+
+  /* ===== POSIÇÃO ===== */
+  const P=D.posicaoDetalhada;
+  document.getElementById('tab-pos').innerHTML=`
+  <div class="panel"><h2>▌ POSIÇÃO DETALHADA POR ATIVO — ${P.mesReferencia}</h2>
+  <div class="tablewrap"><table>
+  <tr><th>Ativo</th><th>Saldo Anterior</th><th>Aplicações</th><th>Resgates</th><th>Saldo Atual</th><th>Rent. Mês</th><th>Rent. 12m</th><th>Desde Início</th><th>Part.</th></tr>
+  ${P.grupos.map(g=>`
+    <tr class="group"><td colspan="9">${g.grupo}</td></tr>
+    ${g.ativos.map(a=>`<tr><td>${a.ativo}</td><td>${fBRL(a.saldoAnt)}</td><td>${a.aplicacoes?fBRL(a.aplicacoes):'—'}</td><td>${a.resgates?fBRL(a.resgates):'—'}</td><td><b>${fBRL(a.saldo)}</b></td><td class="${cls(a.rentMes)}">${fPct(a.rentMes)}</td><td class="${cls(a.rent12m)}">${fPct(a.rent12m)}</td><td class="${cls(a.desdeInicio)}">${fPct(a.desdeInicio)}</td><td>${fPct(a.part)}</td></tr>`).join('')}
+    <tr class="subtotal"><td>Sub-total</td><td>${fBRL(g.subtotal.saldoAnt)}</td><td>${g.subtotal.aplicacoes?fBRL(g.subtotal.aplicacoes):'—'}</td><td>${g.subtotal.resgates?fBRL(g.subtotal.resgates):'—'}</td><td>${fBRL(g.subtotal.saldo)}</td><td colspan="4"></td></tr>`).join('')}
+  <tr class="total"><td>TOTAL CARTEIRA</td><td>${fBRL(P.total.saldoAnt)}</td><td>${fBRL(P.total.aplicacoes)}</td><td>${fBRL(P.total.resgates)}</td><td>${fBRL(P.total.saldo)}</td><td>${fPct(P.total.rentMes)}</td><td>${fPct(P.total.rent12m)}</td><td>${fPct(P.total.desdeInicio)}</td><td>100%</td></tr>
+  </table></div></div>`;
+
+  /* ===== GANHOS ===== */
+  document.getElementById('tab-ganhos').innerHTML=`
+  <div class="panel"><h2>▌ GANHOS FINANCEIROS POR ESTRATÉGIA (R$)</h2>
+  <div class="tablewrap"><table><tr><th>Estratégia</th><th>No Mês</th><th>No Ano</th><th>3 meses</th><th>6 meses</th><th>12 meses</th><th>Desde ${D.meta.inicioCarteira}</th></tr>
+  ${D.ganhosPorEstrategia.map(g=>`<tr class="${g.estrategia==='TOTAL'?'total':''}"><td>${g.estrategia}</td><td class="${cls(g.noMes)}">${fBRL(g.noMes)}</td><td class="${cls(g.noAno)}">${fBRL(g.noAno)}</td><td class="${cls(g.m03)}">${fBRL(g.m03)}</td><td class="${cls(g.m06)}">${fBRL(g.m06)}</td><td class="${cls(g.m12)}">${fBRL(g.m12)}</td><td class="${cls(g.desdeInicio)}">${fBRL(g.desdeInicio)}</td></tr>`).join('')}</table></div></div>
+  <div class="grid2">
+    <div class="panel"><h2>💰 GANHOS MENSAIS (R$)</h2><div class="chartbox"><canvas id="cGan"></canvas></div></div>
+    <div class="panel"><h2>🏆 GANHOS POR ESTRATÉGIA — DESDE INÍCIO</h2><div class="chartbox"><canvas id="cGanE"></canvas></div></div>
+  </div>
+  <div class="panel"><h2>▌ HISTÓRICO MENSAL POR ESTRATÉGIA (R$)</h2>
+  <div class="tablewrap"><table><tr><th>Estratégia</th>${D.ganhosMensaisPorEstrategia.meses.map(m=>`<th>${m}</th>`).join('')}</tr>
+  ${D.ganhosMensaisPorEstrategia.linhas.map(l=>`<tr><td>${l.estrategia}</td>${l.valores.map(v=>`<td class="${cls(v)}">${v==null?'—':fBRL(v)}</td>`).join('')}</tr>`).join('')}</table></div></div>`;
+  new Chart(cGan,{type:'bar',data:{labels:D.evolucaoMensal.map(m=>m.mes),datasets:[{data:D.evolucaoMensal.map(m=>m.ganhos),backgroundColor:'#5b7a99',borderRadius:5}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
+  const gE=D.ganhosPorEstrategia.filter(g=>g.estrategia!=='TOTAL').sort((a,b)=>b.desdeInicio-a.desdeInicio);
+  new Chart(cGanE,{type:'bar',data:{labels:gE.map(g=>g.estrategia),datasets:[{data:gE.map(g=>g.desdeInicio),backgroundColor:gE.map(g=>g.desdeInicio>=0?'#a3556a':'#c0564a'),borderRadius:5}]},options:{indexAxis:'y',maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
+
+  /* ===== EVOLUÇÃO ===== */
+  document.getElementById('tab-evo').innerHTML=`
+  <div class="panel"><h2>▌ LOG DE EVOLUÇÃO MENSAL</h2>
+  <div class="tablewrap"><table><tr><th>Mês</th><th>Patrimônio</th><th>Aplicações</th><th>Resgates</th><th>Ganhos</th><th>Dividendos</th><th>Rent. Mês</th><th>Rent. Ano</th><th>Rent. 12m</th><th>% CDI 12m</th><th>Selic</th></tr>
+  ${D.evolucaoMensal.map(m=>`<tr><td><b>${m.mes}</b></td><td>${fBRL(m.patrimonio)}</td><td>${fBRL(m.aplicacoes)}</td><td>${fBRL(m.resgates)}</td><td class="pos">${fBRL(m.ganhos)}</td><td>${fBRL(m.dividendos)}</td><td>${fPct(m.rentMes)}</td><td>${fPct(m.rentAno)}</td><td>${fPct(m.rent12m)}</td><td>${m.pctCdi12m==null?'—':fPct(m.pctCdi12m,1)}</td><td>${fPct(m.selic)}</td></tr>`).join('')}</table></div></div>
+  <div class="panel"><h2>📊 SALDO POR CLASSE — EVOLUÇÃO MENSAL</h2><div class="chartbox" style="height:360px"><canvas id="cHist"></canvas></div></div>
+  <div class="panel"><h2>▌ SALDO POR CLASSE (R$)</h2>
+  <div class="tablewrap"><table><tr><th>Classe</th>${D.historicoPosicoes.meses.map(m=>`<th>${m}</th>`).join('')}</tr>
+  ${D.historicoPosicoes.classes.map(c=>`<tr><td>${c.classe}</td>${c.valores.map(v=>`<td>${v==null?'—':fBRL0(v)}</td>`).join('')}</tr>`).join('')}</table></div></div>`;
+  new Chart(cHist,{type:'bar',data:{labels:D.historicoPosicoes.meses,datasets:D.historicoPosicoes.classes.map((c,i)=>({label:c.classe,data:c.valores,backgroundColor:COLORS[i%COLORS.length]}))},options:{maintainAspectRatio:false,scales:{x:{stacked:true},y:{stacked:true,ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}},plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}}}}});
+
+  /* ===== DIVIDENDOS ===== */
+  const dv=D.dividendos;
+  document.getElementById('tab-div').innerHTML=`
+  <div class="cards">
+    <div class="kpi hl"><div class="lbl">Total acumulado 2026</div><div class="val">${fBRL(dv.totalAcumulado)}</div></div>
+    <div class="kpi"><div class="lbl">FIIs / mês (estável)</div><div class="val">${fBRL(dv.resumoMensal[0].fiis)}</div></div>
+    <div class="kpi"><div class="lbl">Ações no período</div><div class="val">${fBRL(dv.resumoMensal.reduce((s,m)=>s+m.acoes,0))}</div><div class="det">Dividendos + JCP esporádicos</div></div>
+  </div>
+  <div class="grid2">
+    <div class="panel"><h2>💵 PROVENTOS MENSAIS</h2><div class="chartbox"><canvas id="cDiv"></canvas></div></div>
+    <div class="panel"><h2>▌ RESUMO MENSAL (R$)</h2>
+    <table><tr><th>Mês</th><th>FIIs</th><th>Ações</th><th>Total</th></tr>
+    ${dv.resumoMensal.map(m=>`<tr><td>${m.mes}</td><td>${fBRL(m.fiis)}</td><td>${m.acoes?fBRL(m.acoes):'—'}</td><td><b>${fBRL(m.total)}</b></td></tr>`).join('')}</table></div>
+  </div>
+  <div class="panel"><h2>▌ PROVENTOS POR ATIVO (R$)</h2>
+  <div class="tablewrap"><table><tr><th>Ativo</th><th>Tipo</th>${dv.resumoMensal.map(m=>`<th>${m.mes}</th>`).join('')}<th>Total</th></tr>
+  ${dv.porAtivo.map(a=>`<tr><td><b>${a.ativo}</b></td><td>${a.tipo}</td>${a.valores.map(v=>`<td>${v?fBRL(v):'—'}</td>`).join('')}<td><b>${fBRL(a.total)}</b></td></tr>`).join('')}</table></div></div>`;
+  new Chart(cDiv,{type:'bar',data:{labels:dv.resumoMensal.map(m=>m.mes),datasets:[{label:'FIIs',data:dv.resumoMensal.map(m=>m.fiis),backgroundColor:'#5b7a99',borderRadius:4},{label:'Ações',data:dv.resumoMensal.map(m=>m.acoes),backgroundColor:'#a3556a',borderRadius:4}]},options:{maintainAspectRatio:false,scales:{x:{stacked:true},y:{stacked:true}},plugins:{legend:{position:'bottom'}}}});
+
+  /* ===== ESTRATÉGIA & ALERTAS ===== */
+  const E=D.estrategia;
+  document.getElementById('tab-estr').innerHTML=`
+  <div class="panel"><h2>⚠️ ALERTAS ATIVOS</h2>
+  ${D.alertas.map(a=>`<div class="alert ${a.nivel}"><div class="tk">${a.ativo}</div><div class="tx">${a.texto}</div></div>`).join('')}</div>
+  <div class="grid2">
+    <div class="panel"><h2>🎯 ESTRATÉGIA DE APORTES</h2>
+      <table><tr><th>Destino</th><th>Valor</th></tr>
+      ${E.aportesTrimestrais.map(a=>`<tr><td>${a.destino}</td><td>${fBRL0(a.valor)}</td></tr>`).join('')}</table>
+      <div style="margin-top:12px;font-size:.84rem;color:var(--muted)">Capacidade de aporte: <b style="color:var(--txt)">${fBRL0(E.aporteCapacidade)}/mês</b> · Próximo aporte trimestral: <b style="color:var(--orange)">${E.proximoAporte}</b><br>Meta renda fixa: acumular <b style="color:var(--txt)">${fBRL0(D.meta.metaRendaFixa)}</b> (equivalente à dívida) para garantir o spread.</div></div>
+    <div class="panel"><h2>🏠 FINANCIAMENTO IMOBILIÁRIO</h2>
+      <table>
+      <tr><td>Contrato</td><td>${E.financiamento.banco}</td></tr>
+      <tr><td>Saldo devedor</td><td>${fBRL0(E.financiamento.saldoDevedor)}</td></tr>
+      <tr><td>Parcela (SAC)</td><td>~${fBRL0(E.financiamento.parcela)}/mês</td></tr>
+      <tr><td>CET</td><td>${fPct(E.financiamento.cet)} a.a.</td></tr>
+      </table>
+      <div style="margin-top:12px;font-size:.84rem;color:#84394e">📌 ${E.financiamento.regra}</div></div>
+  </div>`;
+}
+</script>
+</body>
+</html>
