@@ -111,7 +111,7 @@ var DADOS = {
       "rentMes": 1.01,
       "rentAno": 6.26,
       "rent12m": 15.78,
-      "pctCdi12m": 93.99,
+      "pctCdi12m": 106.93,
       "selic": 14.5
     }
   ],
