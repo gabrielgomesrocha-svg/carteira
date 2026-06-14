@@ -103,8 +103,8 @@ var DADOS = {
     },
     {
       "mes": "Mai/2026",
-      "patrimonio": 1576822.36,
-      "aplicacoes": 124391.96,
+      "patrimonio": 1584322.36,
+      "aplicacoes": 131891.96,
       "resgates": 186751.74,
       "ganhos": 13637.8,
       "dividendos": 463.34,
@@ -122,65 +122,65 @@ var DADOS = {
         "classe": "Pós-fixado",
         "metaPct": 60,
         "saldo": 1044156.9,
-        "pct": 66.22,
+        "pct": 65.91,
         "historico": {
           "Jan/2026": 58.53,
           "Fev/2026": 62.05,
           "Mar/2026": 60.85,
           "Abr/2026": 60.38,
-          "Mai/2026": 66.22
+          "Mai/2026": 65.91
         }
       },
       {
         "classe": "Prefixado",
         "metaPct": 15,
         "saldo": 156039.85,
-        "pct": 9.9,
+        "pct": 9.85,
         "historico": {
           "Jan/2026": 12.0,
           "Fev/2026": 12.71,
           "Mar/2026": 17.73,
           "Abr/2026": 16.61,
-          "Mai/2026": 9.9
+          "Mai/2026": 9.85
         }
       },
       {
         "classe": "Inflação (IPCA+)",
         "metaPct": 15,
         "saldo": 263292.07,
-        "pct": 16.7,
+        "pct": 16.62,
         "historico": {
           "Jan/2026": 15.96,
           "Fev/2026": 16.93,
           "Mar/2026": 13.35,
           "Abr/2026": 15.99,
-          "Mai/2026": 16.7
+          "Mai/2026": 16.62
         }
       },
       {
         "classe": "Título Público",
         "metaPct": 5,
         "saldo": 50144.73,
-        "pct": 3.18,
+        "pct": 3.17,
         "historico": {
           "Jan/2026": 6.19,
           "Fev/2026": 4.79,
           "Mar/2026": 4.44,
           "Abr/2026": 3.09,
-          "Mai/2026": 3.18
+          "Mai/2026": 3.17
         }
       },
       {
         "classe": "FIIs",
         "metaPct": 5,
         "saldo": 44089.53,
-        "pct": 2.8,
+        "pct": 2.78,
         "historico": {
           "Jan/2026": 2.49,
           "Fev/2026": 2.59,
           "Mar/2026": 2.68,
           "Abr/2026": 2.61,
-          "Mai/2026": 2.8
+          "Mai/2026": 2.78
         }
       },
       {
@@ -207,6 +207,15 @@ var DADOS = {
           "Mar/2026": 0.19,
           "Abr/2026": 0.13,
           "Mai/2026": 0.0
+        }
+      },
+      {
+        "classe": "Cripto (Bitcoin)",
+        "metaPct": 5,
+        "saldo": 7500.0,
+        "pct": 0.47,
+        "historico": {
+          "Mai/2026": 0.47
         }
       }
     ]
@@ -1061,13 +1070,35 @@ var DADOS = {
             "part": 0.03
           }
         ]
+      },
+      {
+        "grupo": "CRIPTO",
+        "subtotal": {
+          "saldoAnt": 0,
+          "aplicacoes": 7500.0,
+          "resgates": 0,
+          "saldo": 7500.0
+        },
+        "ativos": [
+          {
+            "ativo": "Bitcoin (BTC) — USD 1.500 × R$ 5,00",
+            "saldoAnt": 0,
+            "aplicacoes": 7500.0,
+            "resgates": 0,
+            "saldo": 7500.0,
+            "rentMes": 0,
+            "rent12m": 0,
+            "desdeInicio": 0,
+            "part": 0.47
+          }
+        ]
       }
     ],
     "total": {
       "saldoAnt": 1626012.08,
-      "aplicacoes": 124391.96,
+      "aplicacoes": 131891.96,
       "resgates": 186751.74,
-      "saldo": 1576822.36,
+      "saldo": 1584322.36,
       "rentMes": 1.01,
       "rent12m": 15.78,
       "desdeInicio": 72.03
@@ -1188,43 +1219,133 @@ var DADOS = {
     "linhas": [
       {
         "estrategia": "Liquidez",
-        "valores": [596.84, 843.66, 556.83, 1067.29, 234.3, 65.6, 55.52, 12.52]
+        "valores": [
+          596.84,
+          843.66,
+          556.83,
+          1067.29,
+          234.3,
+          65.6,
+          55.52,
+          12.52
+        ]
       },
       {
         "estrategia": "Título Público",
-        "valores": [317.18, 798.83, 162.17, 28.05, 958.3, -248.0, 1000.33, 3.36]
+        "valores": [
+          317.18,
+          798.83,
+          162.17,
+          28.05,
+          958.3,
+          -248.0,
+          1000.33,
+          3.36
+        ]
       },
       {
         "estrategia": "Pós-fixado",
-        "valores": [8275.61, 7500.34, 8232.35, 8965.16, 7412.66, 8575.85, 8362.95, 10527.74]
+        "valores": [
+          8275.61,
+          7500.34,
+          8232.35,
+          8965.16,
+          7412.66,
+          8575.85,
+          8362.95,
+          10527.74
+        ]
       },
       {
         "estrategia": "Inflação",
-        "valores": [1875.6, 1072.32, 1383.06, 1656.52, 1411.63, 2372.13, 2870.41, 3354.29]
+        "valores": [
+          1875.6,
+          1072.32,
+          1383.06,
+          1656.52,
+          1411.63,
+          2372.13,
+          2870.41,
+          3354.29
+        ]
       },
       {
         "estrategia": "Prefixado",
-        "valores": [1415.64, 1183.65, 1589.28, 2440.75, 2107.73, 2528.33, 2464.47, 1622.49]
+        "valores": [
+          1415.64,
+          1183.65,
+          1589.28,
+          2440.75,
+          2107.73,
+          2528.33,
+          2464.47,
+          1622.49
+        ]
       },
       {
         "estrategia": "Multimercado",
-        "valores": [57.67, 6.87, 0, 0, 0, 0, 0, 0]
+        "valores": [
+          57.67,
+          6.87,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
       },
       {
         "estrategia": "Renda Variável",
-        "valores": [352.54, 1213.46, -260.33, 2416.11, 703.84, 203.41, 225.58, -1507.54]
+        "valores": [
+          352.54,
+          1213.46,
+          -260.33,
+          2416.11,
+          703.84,
+          203.41,
+          225.58,
+          -1507.54
+        ]
       },
       {
         "estrategia": "Global",
-        "valores": [null, null, null, -141.44, 286.47, -297.92, -208.71, 87.97]
+        "valores": [
+          null,
+          null,
+          null,
+          -141.44,
+          286.47,
+          -297.92,
+          -208.71,
+          87.97
+        ]
       },
       {
         "estrategia": "Fundos Listados (FIIs)",
-        "valores": [null, null, null, 818.97, 567.77, -393.65, 291.54, -463.03]
+        "valores": [
+          null,
+          null,
+          null,
+          818.97,
+          567.77,
+          -393.65,
+          291.54,
+          -463.03
+        ]
       },
       {
         "estrategia": "Outros",
-        "valores": [null, null, null, 0, 0, 0.32, 0, 0]
+        "valores": [
+          null,
+          null,
+          null,
+          0,
+          0,
+          0.32,
+          0,
+          0
+        ]
       }
     ]
   },
@@ -1242,74 +1363,341 @@ var DADOS = {
     "classes": [
       {
         "classe": "Pós-fixado",
-        "valores": [747506.04, 754740.14, 771536.0, 780612.49, 745900.0, 746532.25, 981832.81, 1044156.9]
+        "valores": [
+          747506.04,
+          754740.14,
+          771536.0,
+          780612.49,
+          745900.0,
+          746532.25,
+          981832.81,
+          1044156.9
+        ]
       },
       {
         "classe": "Prefixado",
-        "valores": [155971.26, 108929.06, 158317.57, 212916.83, 217000.0, 217552.89, 270017.36, 156039.85]
+        "valores": [
+          155971.26,
+          108929.06,
+          158317.57,
+          212916.83,
+          217000.0,
+          217552.89,
+          270017.36,
+          156039.85
+        ]
       },
       {
         "classe": "Inflação",
-        "valores": [null, null, null, 160041.34, 162000.0, 163825.1, 259937.78, 263292.07]
+        "valores": [
+          null,
+          null,
+          null,
+          160041.34,
+          162000.0,
+          163825.1,
+          259937.78,
+          263292.07
+        ]
       },
       {
         "classe": "Título Público",
-        "valores": [81640.66, 44239.5, 61700.9, 43909.54, 44000.0, 44405.56, 50254.76, 50144.73]
+        "valores": [
+          81640.66,
+          44239.5,
+          61700.9,
+          43909.54,
+          44000.0,
+          44405.56,
+          50254.76,
+          50144.73
+        ]
       },
       {
         "classe": "Ações",
-        "valores": [50990.41, 50971.73, 46460.12, 18539.49, 18500.0, 19238.2, 19402.58, 19099.28]
+        "valores": [
+          50990.41,
+          50971.73,
+          46460.12,
+          18539.49,
+          18500.0,
+          19238.2,
+          19402.58,
+          19099.28
+        ]
       },
       {
         "classe": "FIIs",
-        "valores": [55061.44, 33574.3, 48017.04, 33247.43, 32900.0, 32872.05, 42445.83, 44089.53]
+        "valores": [
+          55061.44,
+          33574.3,
+          48017.04,
+          33247.43,
+          32900.0,
+          32872.05,
+          42445.83,
+          44089.53
+        ]
       },
       {
         "classe": "Global (IAU/Ouro)",
-        "valores": [0, 0, 2587.39, 1857.8, 2000.0, 2329.68, 2120.96, 0]
+        "valores": [
+          0,
+          0,
+          2587.39,
+          1857.8,
+          2000.0,
+          2329.68,
+          2120.96,
+          0
+        ]
       },
       {
         "classe": "Liquidez (CDB Diária)",
-        "valores": [0, 9207.66, 0, 82540.06, 50000.0, 0, 0, 0]
+        "valores": [
+          0,
+          9207.66,
+          0,
+          82540.06,
+          50000.0,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "classe": "Cripto (Bitcoin)",
+        "valores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          7500.0
+        ]
       }
     ]
   },
   "dividendos": {
     "resumoMensal": [
-      {"mes": "Jan/26", "fiis": 277.04, "acoes": 0, "total": 277.04},
-      {"mes": "Fev/26", "fiis": 277.04, "acoes": 0, "total": 277.04},
-      {"mes": "Mar/26", "fiis": 277.04, "acoes": 157.47, "total": 434.51},
-      {"mes": "Abr/26", "fiis": 277.04, "acoes": 61.2, "total": 338.24},
-      {"mes": "Mai/26", "fiis": 380.45, "acoes": 82.89, "total": 463.34}
+      {
+        "mes": "Jan/26",
+        "fiis": 277.04,
+        "acoes": 0,
+        "total": 277.04
+      },
+      {
+        "mes": "Fev/26",
+        "fiis": 277.04,
+        "acoes": 0,
+        "total": 277.04
+      },
+      {
+        "mes": "Mar/26",
+        "fiis": 277.04,
+        "acoes": 157.47,
+        "total": 434.51
+      },
+      {
+        "mes": "Abr/26",
+        "fiis": 277.04,
+        "acoes": 61.2,
+        "total": 338.24
+      },
+      {
+        "mes": "Mai/26",
+        "fiis": 380.45,
+        "acoes": 82.89,
+        "total": 463.34
+      }
     ],
     "totalAcumulado": 1790.17,
     "porAtivo": [
-      {"ativo": "XPML11", "tipo": "FII", "valores": [58.88, 58.88, 58.88, 58.88, 58.88], "total": 294.4},
-      {"ativo": "VISC11", "tipo": "FII", "valores": [41.16, 41.16, 41.16, 41.16, 41.16], "total": 205.8},
-      {"ativo": "RZTR11", "tipo": "FII", "valores": [34.0, 34.0, 34.0, 34.0, 34.0], "total": 170.0},
-      {"ativo": "CPTS11", "tipo": "FII", "valores": [27.0, 27.0, 27.0, 27.0, 60.75], "total": 168.75},
-      {"ativo": "XPCI11", "tipo": "FII", "valores": [25.5, 25.5, 25.5, 25.5, 54.0], "total": 156.0},
-      {"ativo": "LVBI11", "tipo": "FII", "valores": [22.5, 22.5, 22.5, 22.5, 22.5], "total": 112.5},
-      {"ativo": "HGBS11", "tipo": "FII", "valores": [22.1, 22.1, 22.1, 22.1, 22.1], "total": 110.5},
-      {"ativo": "KNRI11", "tipo": "FII", "valores": [20.9, 20.9, 20.9, 20.9, 20.9], "total": 104.5},
-      {"ativo": "HGLG11", "tipo": "FII", "valores": [20.9, 20.9, 20.9, 20.9, 20.9], "total": 104.5},
-      {"ativo": "TRXF11", "tipo": "FII", "valores": [0, 0, 0, 0, 20.46], "total": 20.46},
-      {"ativo": "XPLG11", "tipo": "FII", "valores": [4.1, 4.1, 4.1, 4.1, 4.1], "total": 20.5},
-      {"ativo": "Ações (Div./JCP)", "tipo": "Ações", "valores": [0, 0, 157.47, 61.2, 82.89], "total": 301.56}
+      {
+        "ativo": "XPML11",
+        "tipo": "FII",
+        "valores": [
+          58.88,
+          58.88,
+          58.88,
+          58.88,
+          58.88
+        ],
+        "total": 294.4
+      },
+      {
+        "ativo": "VISC11",
+        "tipo": "FII",
+        "valores": [
+          41.16,
+          41.16,
+          41.16,
+          41.16,
+          41.16
+        ],
+        "total": 205.8
+      },
+      {
+        "ativo": "RZTR11",
+        "tipo": "FII",
+        "valores": [
+          34.0,
+          34.0,
+          34.0,
+          34.0,
+          34.0
+        ],
+        "total": 170.0
+      },
+      {
+        "ativo": "CPTS11",
+        "tipo": "FII",
+        "valores": [
+          27.0,
+          27.0,
+          27.0,
+          27.0,
+          60.75
+        ],
+        "total": 168.75
+      },
+      {
+        "ativo": "XPCI11",
+        "tipo": "FII",
+        "valores": [
+          25.5,
+          25.5,
+          25.5,
+          25.5,
+          54.0
+        ],
+        "total": 156.0
+      },
+      {
+        "ativo": "LVBI11",
+        "tipo": "FII",
+        "valores": [
+          22.5,
+          22.5,
+          22.5,
+          22.5,
+          22.5
+        ],
+        "total": 112.5
+      },
+      {
+        "ativo": "HGBS11",
+        "tipo": "FII",
+        "valores": [
+          22.1,
+          22.1,
+          22.1,
+          22.1,
+          22.1
+        ],
+        "total": 110.5
+      },
+      {
+        "ativo": "KNRI11",
+        "tipo": "FII",
+        "valores": [
+          20.9,
+          20.9,
+          20.9,
+          20.9,
+          20.9
+        ],
+        "total": 104.5
+      },
+      {
+        "ativo": "HGLG11",
+        "tipo": "FII",
+        "valores": [
+          20.9,
+          20.9,
+          20.9,
+          20.9,
+          20.9
+        ],
+        "total": 104.5
+      },
+      {
+        "ativo": "XPLG11",
+        "tipo": "FII",
+        "valores": [
+          4.1,
+          4.1,
+          4.1,
+          4.1,
+          4.1
+        ],
+        "total": 20.5
+      },
+      {
+        "ativo": "TRXF11",
+        "tipo": "FII",
+        "valores": [
+          0,
+          0,
+          0,
+          0,
+          20.46
+        ],
+        "total": 20.46
+      },
+      {
+        "ativo": "Ações (Div./JCP)",
+        "tipo": "Ações",
+        "valores": [
+          0,
+          0,
+          157.47,
+          61.2,
+          82.89
+        ],
+        "total": 301.56
+      }
     ]
   },
   "alertas": [
-    {"ativo": "HGBS11", "nivel": "atencao", "texto": "Queda relevante vs preço médio — verificar vacância antes de novo aporte."},
-    {"ativo": "EGIE3", "nivel": "atencao", "texto": "-21,91% vs preço médio — definir tese de saída ou manutenção."},
-    {"ativo": "LVBI11", "nivel": "atencao", "texto": "Vacância subindo (saída Nestlé ago/26, Solistica out/26) — não aumentar posição."},
-    {"ativo": "IAU (Ouro)", "nivel": "resolvido", "texto": "Posição encerrada em Mai/2026 (resgate de R$ 2.208,94) conforme planejado."}
+    {
+      "ativo": "HGBS11",
+      "nivel": "atencao",
+      "texto": "Queda relevante vs preço médio — verificar vacância antes de novo aporte."
+    },
+    {
+      "ativo": "EGIE3",
+      "nivel": "atencao",
+      "texto": "-21,91% vs preço médio — definir tese de saída ou manutenção."
+    },
+    {
+      "ativo": "LVBI11",
+      "nivel": "atencao",
+      "texto": "Vacância subindo (saída Nestlé ago/26, Solistica out/26) — não aumentar posição."
+    },
+    {
+      "ativo": "IAU (Ouro)",
+      "nivel": "resolvido",
+      "texto": "Posição encerrada em Mai/2026 (resgate de R$ 2.208,94) conforme planejado."
+    }
   ],
   "estrategia": {
     "aporteCapacidade": 51000,
     "aportesTrimestrais": [
-      {"destino": "Tesouro IPCA+", "valor": 5000},
-      {"destino": "FII ou Ação", "valor": 5000},
-      {"destino": "Bitcoin (DCA mensal a partir de Jun/2026)", "valor": 5000}
+      {
+        "destino": "Tesouro IPCA+",
+        "valor": 5000
+      },
+      {
+        "destino": "FII ou Ação",
+        "valor": 5000
+      },
+      {
+        "destino": "Bitcoin (DCA mensal a partir de Jun/2026)",
+        "valor": 5000
+      }
     ],
     "proximoAporte": "Jul/2026",
     "financiamento": {
