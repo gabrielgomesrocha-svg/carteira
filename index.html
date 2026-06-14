@@ -111,7 +111,7 @@ function render(D){
   document.getElementById('tab-dash').innerHTML=`
   <div class="cards">
     <div class="kpi hl"><div class="lbl">Patrimônio (${ult.mes})</div><div class="val">${fBRL0(ult.patrimonio)}</div><div class="det">Meta: ${fBRL0(D.meta.metaPatrimonio)} (${D.meta.metaPrazo})</div></div>
-    <div class="kpi"><div class="lbl">Rent. no mês</div><div class="val ${cls(ult.rentMes)}">${fPct(ult.rentMes)}</div><div class="det">Selic ${fPct(ult.selic)} a.a.</div></div>
+    <div class="kpi"><div class="lbl">Rent. no mês</div><div class="val ${cls(ult.rentMes)}">${fPct(ult.rentMes)}</div><div class="det">CDI ${fPct((Math.pow(1+ult.selic/100,1/12)-1)*100)} no mês</div></div>
     <div class="kpi"><div class="lbl">Rent. 12 meses</div><div class="val pos">${fPct(ult.rent12m)}</div><div class="det">${fPct(ult.pctCdi12m,1)} do CDI</div></div>
     <div class="kpi"><div class="lbl">Ganhos no mês</div><div class="val pos">${fBRL0(ult.ganhos)}</div><div class="det">Acumulado 2026: ${fBRL0(ganhos2026)}</div></div>
     <div class="kpi"><div class="lbl">Desde início (${D.meta.inicioCarteira})</div><div class="val pos">${fPct(D.posicaoDetalhada.total.desdeInicio)}</div><div class="det">Ganho total: ${fBRL0(D.ganhosPorEstrategia.find(g=>g.estrategia==='TOTAL').desdeInicio)}</div></div>
