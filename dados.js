@@ -1898,7 +1898,7 @@ var DADOS = {
         "Fev/2026",
         "Mar/2026"
       ],
-      "valor": 0
+      "valor": 300000
     },
     {
       "trimestre": "T2/2026",
