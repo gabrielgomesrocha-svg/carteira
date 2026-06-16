@@ -473,7 +473,8 @@ function renderResultado(D){
     <h2>▌ RETIRADAS TRIMESTRAIS</h2>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px" id="retiradasGrid">
       ${retiradas.map((t,i)=>`
-      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 16px">
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;position:relative">
+        <button onclick="excluirTrimestre(${i})" title="Excluir trimestre" style="position:absolute;top:8px;right:8px;background:none;border:1px solid #f5c6c6;border-radius:6px;padding:2px 7px;cursor:pointer;font-size:.75rem;color:var(--red)">🗑️</button>
         <div style="font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px">${t.trimestre} · ${t.meses.join(', ')}</div>
         <div style="display:flex;align-items:center;gap:8px">
           <input id="ret_${i}" type="number" step="100" value="${t.valor||''}" placeholder="0"
@@ -493,6 +494,10 @@ function renderResultado(D){
   <div class="panel">
     <h2>📊 RESULTADO MENSAL</h2>
     <div style="position:relative;height:300px"><canvas id="cResultado"></canvas></div>
+  </div>
+  <div class="panel">
+    <h2>📊 ENTRADAS VS SAÍDAS</h2>
+    <div style="position:relative;height:300px"><canvas id="cEntradaSaida"></canvas></div>
   </div>
   <div class="panel">
     <h2>▌ DETALHAMENTO MENSAL</h2>
@@ -529,6 +534,24 @@ function renderResultado(D){
         scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'},grid:{color:'#e1e4e9'}}}
       }
     });
+    new Chart(document.getElementById('cEntradaSaida'),{
+      type:'bar',
+      data:{
+        labels:rowsComDados.map(r=>r.mes),
+        datasets:[
+          {label:'Entrada (mensal)',data:rowsComDados.map(r=>r.retiradaMensal),backgroundColor:'#3f8a58',borderRadius:4},
+          {label:'Saída (custo pessoal)',data:rowsComDados.map(r=>r.custoPessoal),backgroundColor:'#c0564a',borderRadius:4}
+        ]
+      },
+      options:{
+        maintainAspectRatio:false,
+        plugins:{
+          legend:{position:'bottom',labels:{boxWidth:14,font:{size:12}}},
+          tooltip:{callbacks:{label:ctx=>`${ctx.dataset.label}: ${fBRL(ctx.raw)}`}}
+        },
+        scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'},grid:{color:'#e1e4e9'}}}
+      }
+    });
   }
 }
 
@@ -539,6 +562,16 @@ async function adicionarTrimestre(){
   const ok=await pushDadosGitHub();
   if(ok){renderResultado(DADOS);}
   else{DADOS.retiradas.pop();alert('Erro ao salvar. Tente novamente.');}
+}
+
+async function excluirTrimestre(idx){
+  const t=DADOS.retiradas[idx];
+  if(!confirm(`Excluir ${t.trimestre}?\nEsta ação não pode ser desfeita.`))return;
+  const backup=[...DADOS.retiradas];
+  DADOS.retiradas.splice(idx,1);
+  const ok=await pushDadosGitHub();
+  if(ok){renderResultado(DADOS);}
+  else{alert('Erro ao excluir.');DADOS.retiradas=backup;}
 }
 
 async function salvarRetirada(idx){
