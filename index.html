@@ -13,12 +13,12 @@
   --orange:#a3556a; --orange2:#84394e; --blue:#5b7a99; --green:#3f8a58; --red:#c0564a; --yellow:#9aa3ad;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;min-height:100vh}
-header{background:linear-gradient(135deg,#fcfdfe,#edeff3);border-bottom:2px solid var(--orange);padding:18px 16px;position:sticky;top:0;z-index:50;box-shadow:0 2px 10px rgba(40,45,55,.07)}
+body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;min-height:100vh;scroll-padding-top:120px}
+header{background:linear-gradient(135deg,#fcfdfe,#edeff3);border-bottom:2px solid var(--orange);padding:16px 16px;position:sticky;top:0;z-index:50;box-shadow:0 2px 10px rgba(40,45,55,.07)}
 header h1{font-size:1.25rem;letter-spacing:.5px}
 header h1 span{color:var(--orange)}
 header .sub{color:var(--muted);font-size:.8rem;margin-top:4px}
-nav{display:flex;gap:6px;flex-wrap:wrap;padding:12px 16px;background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:78px;z-index:49}
+nav{display:flex;gap:6px;flex-wrap:wrap;padding:12px 16px;background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:66px;z-index:49}
 nav button{background:transparent;border:1px solid var(--border);color:var(--muted);padding:8px 16px;border-radius:20px;cursor:pointer;font-size:.85rem;transition:.2s}
 nav button:hover{border-color:var(--orange);color:var(--txt)}
 nav button.active{background:var(--orange);border-color:var(--orange);color:#fff;font-weight:700}
@@ -87,6 +87,7 @@ footer{text-align:center;color:var(--muted);font-size:.75rem;padding:24px}
 <script>
 const fBRL=v=>v==null?'—':v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
 const fBRL0=v=>v==null?'—':'R$ '+Math.round(v).toLocaleString('pt-BR');
+const fC=v=>v==null||v===0?'—':'R$ '+v.toLocaleString('pt-BR',{minimumFractionDigits:0,maximumFractionDigits:0});
 const fPct=(v,d=2)=>v==null?'—':v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d})+'%';
 const cls=v=>v==null?'':(v>0?'pos':v<0?'neg':'');
 const COLORS=['#a3556a','#5b7a99','#7a8450','#c98b9b','#9aa3ad','#c0564a','#5f9ea0','#b8bec6'];
@@ -271,9 +272,9 @@ function renderCustos(D){
     <div class="panel"><h2>👤 CUSTO PESSOAL (sua parte)</h2><div class="chartbox"><canvas id="cPessBar"></canvas></div></div>
   </div>
   <div class="panel"><h2>▌ HISTÓRICO MENSAL DE CUSTOS</h2>
-    <div class="tablewrap"><table>
+    <div class="tablewrap" style="overflow-x:hidden"><table style="table-layout:fixed;width:100%">
       <tr><th>Mês</th>${CAMPOS_CUSTOS.map(c=>`<th>${c.label}</th>`).join('')}<th>Custo Casa</th><th>Custo Pessoal</th><th></th></tr>
-      ${custos.map((m,i)=>`<tr><td><b>${m.mes}</b></td>${CAMPOS_CUSTOS.map(c=>`<td>${fBRL(m.detalhe[c.key])}</td>`).join('')}<td><b>${fBRL(m.custoCasa)}</b></td><td><b>${fBRL(m.custoPessoal)}</b></td><td style="white-space:nowrap;display:flex;gap:4px">
+      ${custos.map((m,i)=>`<tr><td><b>${m.mes}</b></td>${CAMPOS_CUSTOS.map(c=>`<td>${fC(m.detalhe[c.key])}</td>`).join('')}<td><b>${fC(m.custoCasa)}</b></td><td><b>${fC(m.custoPessoal)}</b></td><td style="white-space:nowrap;display:flex;gap:4px">
   <button onclick="editarMes(${i})" style="background:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:.75rem;color:var(--muted)" title="Editar">✏️</button>
   <button onclick="excluirMes(${i})" style="background:none;border:1px solid #f5c6c6;border-radius:6px;padding:3px 8px;cursor:pointer;font-size:.75rem;color:var(--red)" title="Excluir">🗑️</button>
 </td></tr>`).join('')}
