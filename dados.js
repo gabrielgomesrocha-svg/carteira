@@ -1707,5 +1707,178 @@ var DADOS = {
       "cet": 12.59,
       "regra": "Manter financiamento enquanto rentabilidade da carteira > 14% a.a. (spread atual ~+4,1 p.p.)"
     }
-  }
+  },
+  "custos": [
+    {
+      "mes": "Out/2025",
+      "custoCasa": 36977.14,
+      "custoPessoal": 43525.57,
+      "detalhe": {
+        "parcelaAp": 19500.0,
+        "cartaoInd": 5537.0,
+        "haras": 0.0,
+        "cartaoConj": 12044.0,
+        "contaCorrente": 2500.0,
+        "condominio": 1350.0,
+        "iptu": 699.07,
+        "escola": 0.0,
+        "paty": 1350.0,
+        "personal": 300.0,
+        "inglesLis": 245.5,
+        "ipva": 0.0
+      }
+    },
+    {
+      "mes": "Nov/2025",
+      "custoCasa": 36217.29,
+      "custoPessoal": 43038.65,
+      "detalhe": {
+        "parcelaAp": 19500.0,
+        "cartaoInd": 5430.0,
+        "haras": 0.0,
+        "cartaoConj": 10555.0,
+        "contaCorrente": 1000.0,
+        "condominio": 1350.0,
+        "iptu": 699.07,
+        "escola": 2280.0,
+        "paty": 1579.08,
+        "personal": 400.0,
+        "inglesLis": 245.5,
+        "ipva": 0.0
+      }
+    },
+    {
+      "mes": "Dez/2025",
+      "custoCasa": 50002.14,
+      "custoPessoal": 54413.07,
+      "detalhe": {
+        "parcelaAp": 19500.0,
+        "cartaoInd": 4912.0,
+        "haras": 5000.0,
+        "cartaoConj": 15676.5,
+        "contaCorrente": 3000.0,
+        "condominio": 1350.0,
+        "iptu": 699.07,
+        "escola": 2280.0,
+        "paty": 1350.0,
+        "personal": 400.0,
+        "inglesLis": 245.5,
+        "ipva": 0.0
+      }
+    },
+    {
+      "mes": "Jan/2026",
+      "custoCasa": 48877.13,
+      "custoPessoal": 53828.57,
+      "detalhe": {
+        "parcelaAp": 19500.0,
+        "cartaoInd": 4890.0,
+        "haras": 5000.0,
+        "cartaoConj": 15471.0,
+        "contaCorrente": 2500.0,
+        "condominio": 1350.0,
+        "iptu": 0.0,
+        "escola": 2280.0,
+        "paty": 2587.57,
+        "personal": 250.0,
+        "inglesLis": 0.0,
+        "ipva": 0.0
+      }
+    },
+    {
+      "mes": "Fev/2026",
+      "custoCasa": 45535.0,
+      "custoPessoal": 53137.5,
+      "detalhe": {
+        "parcelaAp": 19500.0,
+        "cartaoInd": 5870.0,
+        "haras": 5000.0,
+        "cartaoConj": 12957.0,
+        "contaCorrente": 2500.0,
+        "condominio": 1350.0,
+        "iptu": 724.5,
+        "escola": 2440.0,
+        "paty": 1150.0,
+        "personal": 300.0,
+        "inglesLis": 0.0,
+        "ipva": 1346.0
+      }
+    },
+    {
+      "mes": "Mar/2026",
+      "custoCasa": 42013.0,
+      "custoPessoal": 52236.5,
+      "detalhe": {
+        "parcelaAp": 19500.0,
+        "cartaoInd": 6730.0,
+        "haras": 5000.0,
+        "cartaoConj": 11812.0,
+        "contaCorrente": 1500.0,
+        "condominio": 1350.0,
+        "iptu": 724.5,
+        "escola": 2440.0,
+        "paty": 1140.0,
+        "personal": 450.0,
+        "inglesLis": 261.5,
+        "ipva": 1328.5
+      }
+    },
+    {
+      "mes": "Abr/2026",
+      "custoCasa": 38821.0,
+      "custoPessoal": 50585.5,
+      "detalhe": {
+        "parcelaAp": 19500.0,
+        "cartaoInd": 6675.0,
+        "haras": 5000.0,
+        "cartaoConj": 9320.5,
+        "contaCorrente": 2000.0,
+        "condominio": 1350.0,
+        "iptu": 724.5,
+        "escola": 2450.0,
+        "paty": 1625.0,
+        "personal": 350.0,
+        "inglesLis": 261.5,
+        "ipva": 1329.0
+      }
+    },
+    {
+      "mes": "Mai/2026",
+      "custoCasa": 39422.0,
+      "custoPessoal": 49011.0,
+      "detalhe": {
+        "parcelaAp": 19500.0,
+        "cartaoInd": 4800.0,
+        "haras": 5000.0,
+        "cartaoConj": 10700.0,
+        "contaCorrente": 2500.0,
+        "condominio": 1350.0,
+        "iptu": 724.5,
+        "escola": 2450.0,
+        "paty": 1275.0,
+        "personal": 450.0,
+        "inglesLis": 261.5,
+        "ipva": 0.0
+      }
+    },
+    {
+      "mes": "Jun/2026",
+      "custoCasa": 34322.0,
+      "custoPessoal": 45636.0,
+      "detalhe": {
+        "parcelaAp": 19500.0,
+        "cartaoInd": 3975.0,
+        "haras": 5000.0,
+        "cartaoConj": 8300.0,
+        "contaCorrente": 2500.0,
+        "condominio": 1350.0,
+        "iptu": 724.5,
+        "escola": 2450.0,
+        "paty": 1275.0,
+        "personal": 300.0,
+        "inglesLis": 261.5,
+        "ipva": 0.0
+      }
+    }
+  ]
 };
