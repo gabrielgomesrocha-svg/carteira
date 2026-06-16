@@ -1916,7 +1916,7 @@ var DADOS = {
         "Ago/2026",
         "Set/2026"
       ],
-      "valor": 0
+      "valor": 10
     }
   ]
 };
