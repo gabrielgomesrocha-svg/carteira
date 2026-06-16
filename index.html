@@ -63,6 +63,18 @@ footer{text-align:center;color:var(--muted);font-size:.75rem;padding:24px}
 </style>
 </head>
 <body>
+<div id="tokenModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;align-items:center;justify-content:center">
+  <div style="background:var(--card);border-radius:14px;padding:28px 32px;max-width:480px;width:90%;box-shadow:0 8px 40px rgba(0,0,0,.2)">
+    <div style="font-size:1.1rem;font-weight:700;margin-bottom:8px">🔑 Token GitHub</div>
+    <div style="font-size:.85rem;color:var(--muted);margin-bottom:16px">Para salvar custos diretamente no site, informe seu Personal Access Token do GitHub. Ele ficará salvo apenas neste navegador.</div>
+    <input id="tokenInput" type="password" placeholder="github_pat_..." style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:.9rem;background:var(--bg2);color:var(--txt);margin-bottom:12px">
+    <div style="display:flex;gap:10px">
+      <button onclick="salvarToken()" style="background:var(--orange);color:#fff;border:none;border-radius:8px;padding:10px 22px;cursor:pointer;font-weight:700;flex:1">Salvar</button>
+      <button onclick="fecharTokenModal()" style="background:none;border:1px solid var(--border);border-radius:8px;padding:10px 18px;cursor:pointer;color:var(--muted)">Cancelar</button>
+    </div>
+    <div id="tokenStatus" style="font-size:.8rem;color:var(--red);margin-top:8px"></div>
+  </div>
+</div>
 <header>
   <h1>CARTEIRA <span>GABRIEL GOMES ROCHA</span></h1>
   <div class="sub" id="headsub">Carregando…</div>
@@ -80,7 +92,7 @@ const cls=v=>v==null?'':(v>0?'pos':v<0?'neg':'');
 const COLORS=['#a3556a','#5b7a99','#7a8450','#c98b9b','#9aa3ad','#c0564a','#5f9ea0','#b8bec6'];
 Chart.defaults.color='#878d96';Chart.defaults.borderColor='#e1e4e9';Chart.defaults.font.family="'Segoe UI',sans-serif";
 
-const TABS=[['dash','Dashboard'],['rent','Rentabilidade'],['pos','Posição'],['ganhos','Ganhos'],['evo','Evolução'],['div','Dividendos'],['estr','Estratégia & Alertas']];
+const TABS=[['dash','Dashboard'],['rent','Rentabilidade'],['pos','Posição'],['ganhos','Ganhos'],['evo','Evolução'],['div','Dividendos'],['estr','Estratégia & Alertas'],['custos','Custos']];
 
 (function(){
   const s=document.createElement('script');
@@ -226,7 +238,164 @@ function render(D){
       </table>
       <div style="margin-top:12px;font-size:.84rem;color:#84394e">📌 ${E.financiamento.regra}</div></div>
   </div>`;
+
+  /* ===== CUSTOS ===== */
+  renderCustos(D);
 }
+
+const CAMPOS_CUSTOS = [
+  {key:'parcelaAp',    label:'Parcela AP',       tipo:'individual'},
+  {key:'cartaoInd',    label:'Cartão Individual', tipo:'individual'},
+  {key:'haras',        label:'Haras do Passo',   tipo:'individual'},
+  {key:'cartaoConj',   label:'Cartão Conjunto',  tipo:'conjunto'},
+  {key:'contaCorrente',label:'Conta Corrente',   tipo:'conjunto'},
+  {key:'condominio',   label:'Condomínio',       tipo:'conjunto'},
+  {key:'iptu',         label:'IPTU',             tipo:'conjunto'},
+  {key:'escola',       label:'Escola',           tipo:'conjunto'},
+  {key:'paty',         label:'Paty',             tipo:'conjunto'},
+  {key:'personal',     label:'Personal',         tipo:'conjunto'},
+  {key:'inglesLis',    label:'Inglês Lis',       tipo:'conjunto'},
+  {key:'ipva',         label:'IPVA',             tipo:'conjunto'},
+];
+
+const MESES_SEQ=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+function proximoMes(m){const[ms,a]=m.split('/');const i=MESES_SEQ.indexOf(ms);return i===11?`Jan/${parseInt(a)+1}`:`${MESES_SEQ[i+1]}/${a}`;}
+
+function renderCustos(D){
+  const tab=document.getElementById('tab-custos');
+  const custos=D.custos||[];
+  const labels=custos.map(m=>m.mes);
+  tab.innerHTML=`
+  <div class="grid2">
+    <div class="panel"><h2>🏠 CUSTO DA CASA (total casal)</h2><div class="chartbox"><canvas id="cCasaBar"></canvas></div></div>
+    <div class="panel"><h2>👤 CUSTO PESSOAL (sua parte)</h2><div class="chartbox"><canvas id="cPessBar"></canvas></div></div>
+  </div>
+  <div class="panel"><h2>▌ HISTÓRICO MENSAL DE CUSTOS</h2>
+    <div class="tablewrap"><table>
+      <tr><th>Mês</th>${CAMPOS_CUSTOS.map(c=>`<th>${c.label}</th>`).join('')}<th>Custo Casa</th><th>Custo Pessoal</th><th></th></tr>
+      ${custos.map((m,i)=>`<tr><td><b>${m.mes}</b></td>${CAMPOS_CUSTOS.map(c=>`<td>${fBRL(m.detalhe[c.key])}</td>`).join('')}<td><b>${fBRL(m.custoCasa)}</b></td><td><b>${fBRL(m.custoPessoal)}</b></td><td><button onclick="editarMes(${i})" style="background:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:.75rem;color:var(--muted)">✏️</button></td></tr>`).join('')}
+    </table></div>
+    <div style="margin-top:14px"><button onclick="abrirNovoMes()" style="background:var(--orange);color:#fff;border:none;border-radius:8px;padding:10px 22px;cursor:pointer;font-weight:700;font-size:.9rem">+ Novo Mês</button></div>
+  </div>
+  <div id="formCustos" style="display:none" class="panel">
+    <h2 id="formTitle">▌ NOVO MÊS</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px" id="formFields"></div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <button onclick="salvarMes()" style="background:var(--green);color:#fff;border:none;border-radius:8px;padding:10px 22px;cursor:pointer;font-weight:700">💾 Salvar</button>
+      <button onclick="cancelarForm()" style="background:none;border:1px solid var(--border);border-radius:8px;padding:10px 18px;cursor:pointer;color:var(--muted)">Cancelar</button>
+      <span id="formStatus" style="font-size:.85rem;color:var(--muted)"></span>
+    </div>
+  </div>`;
+  new Chart(cCasaBar,{type:'bar',data:{labels,datasets:[{data:custos.map(m=>m.custoCasa),backgroundColor:'#5b7a99',borderRadius:5}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
+  new Chart(cPessBar,{type:'bar',data:{labels,datasets:[{data:custos.map(m=>m.custoPessoal),backgroundColor:'#a3556a',borderRadius:5}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
+}
+
+let __editIdx=null;
+
+function abrirNovoMes(){
+  const custos=(typeof DADOS!=='undefined'&&DADOS.custos)?DADOS.custos:[];
+  const ultimo=custos.length>0?custos[custos.length-1]:null;
+  const novoLabel=ultimo?proximoMes(ultimo.mes):'Jul/2026';
+  __editIdx=null;
+  document.getElementById('formTitle').textContent='▌ NOVO MÊS — '+novoLabel;
+  document.getElementById('formTitle').dataset.mes=novoLabel;
+  renderFormFields(ultimo?ultimo.detalhe:{});
+  document.getElementById('formCustos').style.display='block';
+  document.getElementById('formCustos').scrollIntoView({behavior:'smooth'});
+}
+
+function editarMes(idx){
+  const m=DADOS.custos[idx];
+  __editIdx=idx;
+  document.getElementById('formTitle').textContent='▌ EDITANDO — '+m.mes;
+  document.getElementById('formTitle').dataset.mes=m.mes;
+  renderFormFields(m.detalhe);
+  document.getElementById('formCustos').style.display='block';
+  document.getElementById('formCustos').scrollIntoView({behavior:'smooth'});
+}
+
+function renderFormFields(detalhe){
+  document.getElementById('formFields').innerHTML=CAMPOS_CUSTOS.map(c=>{
+    const val=detalhe[c.key]||0;
+    const badge=c.tipo==='individual'?'<span style="font-size:.68rem;background:#f2f3f6;border-radius:4px;padding:1px 5px;color:#a3556a;margin-left:4px">100% seu</span>':'<span style="font-size:.68rem;background:#f2f3f6;border-radius:4px;padding:1px 5px;color:#5b7a99;margin-left:4px">÷2</span>';
+    return `<div><div style="font-size:.75rem;color:var(--muted);margin-bottom:4px">${c.label}${badge}</div><input id="f_${c.key}" type="number" step="0.01" value="${val}" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:.9rem;background:var(--card);color:var(--txt)"></div>`;
+  }).join('');
+}
+
+function cancelarForm(){document.getElementById('formCustos').style.display='none';__editIdx=null;}
+
+function calcTotais(d){
+  const comp=['cartaoConj','contaCorrente','condominio','iptu','escola','paty','personal','inglesLis','ipva'];
+  const ind=['parcelaAp','cartaoInd','haras'];
+  let casa=0; comp.forEach(k=>{casa+=(d[k]||0)*2;});
+  let pess=casa/2; ind.forEach(k=>{pess+=(d[k]||0);});
+  return{custoCasa:Math.round(casa*100)/100,custoPessoal:Math.round(pess*100)/100};
+}
+
+async function salvarMes(){
+  const mes=document.getElementById('formTitle').dataset.mes;
+  const status=document.getElementById('formStatus');
+  const detalhe={};
+  CAMPOS_CUSTOS.forEach(c=>{detalhe[c.key]=parseFloat(document.getElementById('f_'+c.key).value)||0;});
+  const{custoCasa,custoPessoal}=calcTotais(detalhe);
+  const novoItem={mes,custoCasa,custoPessoal,detalhe};
+  if(!DADOS.custos)DADOS.custos=[];
+  const backup=[...DADOS.custos];
+  if(__editIdx!==null){DADOS.custos[__editIdx]=novoItem;}else{DADOS.custos.push(novoItem);}
+  status.textContent='⏳ Salvando no GitHub...';
+  const ok=await pushDadosGitHub();
+  if(ok){status.textContent='✅ Salvo!';document.getElementById('formCustos').style.display='none';renderCustos(DADOS);}
+  else{status.textContent='❌ Erro ao salvar.';DADOS.custos=backup;}
+}
+
+async function pushDadosGitHub(){
+  const TOKEN=localStorage.getItem('gh_token')||'';
+  const REPO='gabrielgomesrocha-svg/carteira';
+  const FILE='dados.js';
+  try{
+    const mr=await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE}`,{headers:{'Authorization':'Bearer '+TOKEN,'Accept':'application/vnd.github+json'}});
+    const meta=await mr.json();
+    const content='var DADOS = '+JSON.stringify(DADOS,null,2)+';\n';
+    const b64=btoa(unescape(encodeURIComponent(content)));
+    const pr=await fetch(`https://api.github.com/repos/${REPO}/contents/${FILE}`,{method:'PUT',headers:{'Authorization':'Bearer '+TOKEN,'Accept':'application/vnd.github+json','Content-Type':'application/json'},body:JSON.stringify({message:`Custos — ${new Date().toLocaleDateString('pt-BR')}`,content:b64,sha:meta.sha})});
+    return pr.ok;
+  }catch(e){return false;}
+}
+function salvarToken(){
+  const t=document.getElementById('tokenInput').value.trim();
+  if(!t.startsWith('github_pat_')){document.getElementById('tokenStatus').textContent='Token inválido. Deve começar com github_pat_';return;}
+  localStorage.setItem('gh_token',t);
+  fecharTokenModal();
+  document.getElementById('tokenStatus').textContent='';
+}
+function fecharTokenModal(){document.getElementById('tokenModal').style.display='none';}
+function abrirTokenModal(){
+  const t=localStorage.getItem('gh_token')||'';
+  document.getElementById('tokenInput').value=t;
+  document.getElementById('tokenModal').style.display='flex';
+  document.getElementById('tokenStatus').textContent='';
+}
+// Show token modal if not set and user opens Custos tab
+document.addEventListener('click',function(e){
+  if(e.target&&e.target.dataset&&e.target.dataset.t==='custos'){
+    if(!localStorage.getItem('gh_token')){
+      setTimeout(abrirTokenModal,300);
+    }
+  }
+});
+// Token button in header
+document.addEventListener('DOMContentLoaded',function(){
+  const hdr=document.querySelector('header');
+  if(hdr){
+    const btn=document.createElement('button');
+    btn.textContent='🔑';
+    btn.title='Configurar token GitHub';
+    btn.onclick=abrirTokenModal;
+    btn.style.cssText='position:absolute;top:18px;right:20px;background:none;border:1px solid var(--border);border-radius:8px;padding:6px 10px;cursor:pointer;font-size:.85rem;color:var(--muted)';
+    hdr.style.position='relative';
+    hdr.appendChild(btn);
+  }
+});
 </script>
 </body>
 </html>
