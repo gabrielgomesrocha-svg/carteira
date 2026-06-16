@@ -18,7 +18,7 @@ header{background:linear-gradient(135deg,#fcfdfe,#edeff3);border-bottom:2px soli
 header h1{font-size:1.25rem;letter-spacing:.5px}
 header h1 span{color:var(--orange)}
 header .sub{color:var(--muted);font-size:.8rem;margin-top:4px}
-nav{display:flex;gap:6px;flex-wrap:wrap;padding:12px 16px;background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:62px;z-index:49}
+nav{display:flex;gap:6px;flex-wrap:wrap;padding:12px 16px;background:var(--bg2);border-bottom:1px solid var(--border);position:relative;z-index:49}
 nav button{background:transparent;border:1px solid var(--border);color:var(--muted);padding:8px 16px;border-radius:20px;cursor:pointer;font-size:.85rem;transition:.2s}
 nav button:hover{border-color:var(--orange);color:var(--txt)}
 nav button.active{background:var(--orange);border-color:var(--orange);color:#fff;font-weight:700}
@@ -84,18 +84,6 @@ footer{text-align:center;color:var(--muted);font-size:.75rem;padding:24px}
 <main id="main"></main>
 <footer>Fonte: Relatório Inter Win · Dashboard estático em GitHub Pages · Dados em <code>dados.js</code></footer>
 
-<script>
-// Set nav top = header height dynamically
-window.addEventListener('DOMContentLoaded',function(){
-  function fixNavTop(){
-    var h=document.querySelector('header');
-    var nav=document.querySelector('nav');
-    if(h&&nav){nav.style.top=h.offsetHeight+'px';}
-  }
-  fixNavTop();
-  window.addEventListener('resize',fixNavTop);
-});
-</script>
 <script>
 const fBRL=v=>v==null?'—':v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
 const fBRL0=v=>v==null?'—':'R$ '+Math.round(v).toLocaleString('pt-BR');
