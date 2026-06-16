@@ -13,7 +13,7 @@ var DADOS = {
     {
       "mes": "Out/2025",
       "patrimonio": 1300010.5,
-      "aplicacoes": 314520.0,
+      "aplicacoes": 314520,
       "resgates": 77627.99,
       "ganhos": 12861.56,
       "dividendos": 224.43,
@@ -39,7 +39,7 @@ var DADOS = {
     {
       "mes": "Dez/2025",
       "patrimonio": 1241109.78,
-      "aplicacoes": 299000.0,
+      "aplicacoes": 299000,
       "resgates": 227155.08,
       "ganhos": 12101.59,
       "dividendos": 463.52,
@@ -78,7 +78,7 @@ var DADOS = {
     {
       "mes": "Mar/2026",
       "patrimonio": 1226755.73,
-      "aplicacoes": 39000.0,
+      "aplicacoes": 39000,
       "resgates": 144774.29,
       "ganhos": 12806.07,
       "dividendos": 437.64,
@@ -137,7 +137,7 @@ var DADOS = {
         "saldo": 156039.85,
         "pct": 9.85,
         "historico": {
-          "Jan/2026": 12.0,
+          "Jan/2026": 12,
           "Fev/2026": 12.71,
           "Mar/2026": 17.73,
           "Abr/2026": 16.61,
@@ -199,20 +199,20 @@ var DADOS = {
       {
         "classe": "Global (Ouro)",
         "metaPct": 0,
-        "saldo": 0.0,
-        "pct": 0.0,
+        "saldo": 0,
+        "pct": 0,
         "historico": {
           "Jan/2026": 0.14,
           "Fev/2026": 0.16,
           "Mar/2026": 0.19,
           "Abr/2026": 0.13,
-          "Mai/2026": 0.0
+          "Mai/2026": 0
         }
       },
       {
         "classe": "Cripto (Bitcoin)",
         "metaPct": 5,
-        "saldo": 7500.0,
+        "saldo": 7500,
         "pct": 0.47,
         "historico": {
           "Mai/2026": 0.47
@@ -247,7 +247,7 @@ var DADOS = {
           1.1,
           0.97,
           1.29,
-          1.0,
+          1,
           1.19,
           1.05,
           0.98,
@@ -481,7 +481,7 @@ var DADOS = {
         "grupo": "LIQUIDEZ",
         "subtotal": {
           "saldoAnt": 0,
-          "aplicacoes": 7000.0,
+          "aplicacoes": 7000,
           "resgates": 7012.52,
           "saldo": 0
         },
@@ -489,7 +489,7 @@ var DADOS = {
           {
             "ativo": "CDB LIQUIDEZ DIÁRIA",
             "saldoAnt": 0,
-            "aplicacoes": 7000.0,
+            "aplicacoes": 7000,
             "resgates": 7012.52,
             "saldo": 0,
             "rentMes": 0.22,
@@ -514,7 +514,7 @@ var DADOS = {
             "aplicacoes": 0,
             "resgates": 0,
             "saldo": 23517.21,
-            "rentMes": -0.0,
+            "rentMes": 0,
             "rent12m": 8.72,
             "desdeInicio": 15.52,
             "part": 1.49
@@ -565,10 +565,10 @@ var DADOS = {
         "ativos": [
           {
             "ativo": "LCI LIQUIDEZ 6 MESES (Isento)",
-            "saldoAnt": 551312.0,
+            "saldoAnt": 551312,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 556873.0,
+            "saldo": 556873,
             "rentMes": 1.19,
             "rent12m": 13.51,
             "desdeInicio": 13.51,
@@ -581,19 +581,19 @@ var DADOS = {
             "resgates": 0,
             "saldo": 101698.6,
             "rentMes": 1.2,
-            "rent12m": 2.0,
-            "desdeInicio": 2.0,
+            "rent12m": 2,
+            "desdeInicio": 2,
             "part": 6.45
           },
           {
             "ativo": "CDB QISTA CDI 08/05/2028",
             "saldoAnt": 0,
-            "aplicacoes": 60000.0,
+            "aplicacoes": 60000,
             "resgates": 0,
             "saldo": 60597.43,
-            "rentMes": 1.0,
-            "rent12m": 1.0,
-            "desdeInicio": 1.0,
+            "rentMes": 1,
+            "rent12m": 1,
+            "desdeInicio": 1,
             "part": 3.84
           },
           {
@@ -601,7 +601,7 @@ var DADOS = {
             "saldoAnt": 51999.98,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 52474.0,
+            "saldo": 52474,
             "rentMes": 1.07,
             "rent12m": 1.07,
             "desdeInicio": 1.07,
@@ -621,7 +621,7 @@ var DADOS = {
           {
             "ativo": "CRA BRF E447 E1 CDI 15/10/2030 (Isento)",
             "saldoAnt": 0,
-            "aplicacoes": 50000.0,
+            "aplicacoes": 50000,
             "resgates": 0,
             "saldo": 50435.37,
             "rentMes": 1.03,
@@ -735,7 +735,7 @@ var DADOS = {
         "subtotal": {
           "saldoAnt": 270017.36,
           "aplicacoes": 0,
-          "resgates": 115600.0,
+          "resgates": 115600,
           "saldo": 156039.85
         },
         "ativos": [
@@ -744,7 +744,7 @@ var DADOS = {
             "saldoAnt": 104375.3,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 105385.0,
+            "saldo": 105385,
             "rentMes": 1.14,
             "rent12m": 6.36,
             "desdeInicio": 6.36,
@@ -765,7 +765,7 @@ var DADOS = {
             "ativo": "CDB AGIBANK PRE 04/05/2026",
             "saldoAnt": 115533.51,
             "aplicacoes": 0,
-            "resgates": 115600.0,
+            "resgates": 115600,
             "saldo": 0,
             "rentMes": 0.06,
             "rent12m": 14.28,
@@ -788,7 +788,7 @@ var DADOS = {
             "saldoAnt": 3787.11,
             "aplicacoes": 512.33,
             "resgates": 0,
-            "saldo": 4004.0,
+            "saldo": 4004,
             "rentMes": -7.78,
             "rent12m": 33.44,
             "desdeInicio": 33.44,
@@ -796,10 +796,10 @@ var DADOS = {
           },
           {
             "ativo": "BBDC4",
-            "saldoAnt": 3864.0,
+            "saldoAnt": 3864,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 3540.0,
+            "saldo": 3540,
             "rentMes": -8.31,
             "rent12m": 14.4,
             "desdeInicio": 55.47,
@@ -810,7 +810,7 @@ var DADOS = {
             "saldoAnt": 3975.48,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 3402.0,
+            "saldo": 3402,
             "rentMes": -13.9,
             "rent12m": 43.42,
             "desdeInicio": 40.08,
@@ -833,7 +833,7 @@ var DADOS = {
             "aplicacoes": 382.3,
             "resgates": 0,
             "saldo": 2388.76,
-            "rentMes": -6.0,
+            "rentMes": -6,
             "rent12m": 19.76,
             "desdeInicio": 30.54,
             "part": 0.15
@@ -841,7 +841,7 @@ var DADOS = {
           {
             "ativo": "BBAS3",
             "saldoAnt": 244.31,
-            "aplicacoes": 1007.0,
+            "aplicacoes": 1007,
             "resgates": 0,
             "saldo": 1238.3,
             "rentMes": -7.56,
@@ -854,7 +854,7 @@ var DADOS = {
             "saldoAnt": 901.5,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 825.0,
+            "saldo": 825,
             "rentMes": -8.49,
             "rent12m": 21.31,
             "desdeInicio": 60.9,
@@ -873,10 +873,10 @@ var DADOS = {
           },
           {
             "ativo": "CMIG4",
-            "saldoAnt": 615.0,
+            "saldoAnt": 615,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 538.0,
+            "saldo": 538,
             "rentMes": -12.52,
             "rent12m": 6.63,
             "desdeInicio": 15.47,
@@ -931,8 +931,8 @@ var DADOS = {
             "saldoAnt": 7120.64,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 6848.0,
-            "rentMes": -3.0,
+            "saldo": 6848,
+            "rentMes": -3,
             "rent12m": 13.57,
             "desdeInicio": 36.68,
             "part": 0.43
@@ -940,7 +940,7 @@ var DADOS = {
           {
             "ativo": "CPTS11",
             "saldoAnt": 5352.75,
-            "aplicacoes": 525.0,
+            "aplicacoes": 525,
             "resgates": 0,
             "saldo": 5691.8,
             "rentMes": -2.54,
@@ -964,7 +964,7 @@ var DADOS = {
             "saldoAnt": 5029.2,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 5076.0,
+            "saldo": 5076,
             "rentMes": 2.03,
             "rent12m": 6.62,
             "desdeInicio": 6.62,
@@ -1028,10 +1028,10 @@ var DADOS = {
           {
             "ativo": "RBRX11",
             "saldoAnt": 2021.7,
-            "aplicacoes": 492.0,
+            "aplicacoes": 492,
             "resgates": 0,
             "saldo": 2447.6,
-            "rentMes": -3.0,
+            "rentMes": -3,
             "rent12m": -2.22,
             "desdeInicio": -2.22,
             "part": 0.16
@@ -1075,17 +1075,17 @@ var DADOS = {
         "grupo": "CRIPTO",
         "subtotal": {
           "saldoAnt": 0,
-          "aplicacoes": 7500.0,
+          "aplicacoes": 7500,
           "resgates": 0,
-          "saldo": 7500.0
+          "saldo": 7500
         },
         "ativos": [
           {
             "ativo": "Bitcoin (BTC) — USD 1.500 × R$ 5,00",
             "saldoAnt": 0,
-            "aplicacoes": 7500.0,
+            "aplicacoes": 7500,
             "resgates": 0,
-            "saldo": 7500.0,
+            "saldo": 7500,
             "rentMes": 0,
             "rent12m": 0,
             "desdeInicio": 0,
@@ -1238,7 +1238,7 @@ var DADOS = {
           162.17,
           28.05,
           958.3,
-          -248.0,
+          -248,
           1000.33,
           3.36
         ]
@@ -1366,9 +1366,9 @@ var DADOS = {
         "valores": [
           747506.04,
           754740.14,
-          771536.0,
+          771536,
           780612.49,
-          745900.0,
+          745900,
           746532.25,
           981832.81,
           1044156.9
@@ -1381,7 +1381,7 @@ var DADOS = {
           108929.06,
           158317.57,
           212916.83,
-          217000.0,
+          217000,
           217552.89,
           270017.36,
           156039.85
@@ -1394,7 +1394,7 @@ var DADOS = {
           null,
           null,
           160041.34,
-          162000.0,
+          162000,
           163825.1,
           259937.78,
           263292.07
@@ -1407,7 +1407,7 @@ var DADOS = {
           44239.5,
           61700.9,
           43909.54,
-          44000.0,
+          44000,
           44405.56,
           50254.76,
           50144.73
@@ -1420,7 +1420,7 @@ var DADOS = {
           50971.73,
           46460.12,
           18539.49,
-          18500.0,
+          18500,
           19238.2,
           19402.58,
           19099.28
@@ -1433,7 +1433,7 @@ var DADOS = {
           33574.3,
           48017.04,
           33247.43,
-          32900.0,
+          32900,
           32872.05,
           42445.83,
           44089.53
@@ -1446,7 +1446,7 @@ var DADOS = {
           0,
           2587.39,
           1857.8,
-          2000.0,
+          2000,
           2329.68,
           2120.96,
           0
@@ -1459,7 +1459,7 @@ var DADOS = {
           9207.66,
           0,
           82540.06,
-          50000.0,
+          50000,
           0,
           0,
           0
@@ -1475,7 +1475,7 @@ var DADOS = {
           0,
           0,
           0,
-          7500.0
+          7500
         ]
       }
     ]
@@ -1543,22 +1543,22 @@ var DADOS = {
         "ativo": "RZTR11",
         "tipo": "FII",
         "valores": [
-          34.0,
-          34.0,
-          34.0,
-          34.0,
-          34.0
+          34,
+          34,
+          34,
+          34,
+          34
         ],
-        "total": 170.0
+        "total": 170
       },
       {
         "ativo": "CPTS11",
         "tipo": "FII",
         "valores": [
-          27.0,
-          27.0,
-          27.0,
-          27.0,
+          27,
+          27,
+          27,
+          27,
           60.75
         ],
         "total": 168.75
@@ -1571,9 +1571,9 @@ var DADOS = {
           25.5,
           25.5,
           25.5,
-          54.0
+          54
         ],
-        "total": 156.0
+        "total": 156
       },
       {
         "ativo": "LVBI11",
@@ -1714,18 +1714,18 @@ var DADOS = {
       "custoCasa": 36977.14,
       "custoPessoal": 43525.57,
       "detalhe": {
-        "parcelaAp": 19500.0,
-        "cartaoInd": 5537.0,
-        "haras": 0.0,
-        "cartaoConj": 24088.0,
-        "contaCorrente": 5000.0,
-        "condominio": 2700.0,
+        "parcelaAp": 19500,
+        "cartaoInd": 5537,
+        "haras": 0,
+        "cartaoConj": 24088,
+        "contaCorrente": 5000,
+        "condominio": 2700,
         "iptu": 1398.14,
-        "escola": 0.0,
-        "paty": 2700.0,
-        "personal": 600.0,
-        "inglesLis": 491.0,
-        "ipva": 0.0
+        "escola": 0,
+        "paty": 2700,
+        "personal": 600,
+        "inglesLis": 491,
+        "ipva": 0
       }
     },
     {
@@ -1733,18 +1733,18 @@ var DADOS = {
       "custoCasa": 36217.3,
       "custoPessoal": 43038.65,
       "detalhe": {
-        "parcelaAp": 19500.0,
-        "cartaoInd": 5430.0,
-        "haras": 0.0,
-        "cartaoConj": 21110.0,
-        "contaCorrente": 2000.0,
-        "condominio": 2700.0,
+        "parcelaAp": 19500,
+        "cartaoInd": 5430,
+        "haras": 0,
+        "cartaoConj": 21110,
+        "contaCorrente": 2000,
+        "condominio": 2700,
         "iptu": 1398.14,
-        "escola": 4560.0,
+        "escola": 4560,
         "paty": 3158.16,
-        "personal": 800.0,
-        "inglesLis": 491.0,
-        "ipva": 0.0
+        "personal": 800,
+        "inglesLis": 491,
+        "ipva": 0
       }
     },
     {
@@ -1752,18 +1752,18 @@ var DADOS = {
       "custoCasa": 50002.14,
       "custoPessoal": 54413.07,
       "detalhe": {
-        "parcelaAp": 19500.0,
-        "cartaoInd": 4912.0,
-        "haras": 5000.0,
-        "cartaoConj": 31353.0,
-        "contaCorrente": 6000.0,
-        "condominio": 2700.0,
+        "parcelaAp": 19500,
+        "cartaoInd": 4912,
+        "haras": 5000,
+        "cartaoConj": 31353,
+        "contaCorrente": 6000,
+        "condominio": 2700,
         "iptu": 1398.14,
-        "escola": 4560.0,
-        "paty": 2700.0,
-        "personal": 800.0,
-        "inglesLis": 491.0,
-        "ipva": 0.0
+        "escola": 4560,
+        "paty": 2700,
+        "personal": 800,
+        "inglesLis": 491,
+        "ipva": 0
       }
     },
     {
@@ -1771,113 +1771,113 @@ var DADOS = {
       "custoCasa": 48877.14,
       "custoPessoal": 53828.57,
       "detalhe": {
-        "parcelaAp": 19500.0,
-        "cartaoInd": 4890.0,
-        "haras": 5000.0,
-        "cartaoConj": 30942.0,
-        "contaCorrente": 5000.0,
-        "condominio": 2700.0,
-        "iptu": 0.0,
-        "escola": 4560.0,
+        "parcelaAp": 19500,
+        "cartaoInd": 4890,
+        "haras": 5000,
+        "cartaoConj": 30942,
+        "contaCorrente": 5000,
+        "condominio": 2700,
+        "iptu": 0,
+        "escola": 4560,
         "paty": 5175.14,
-        "personal": 500.0,
-        "inglesLis": 0.0,
-        "ipva": 0.0
+        "personal": 500,
+        "inglesLis": 0,
+        "ipva": 0
       }
     },
     {
       "mes": "Fev/2026",
-      "custoCasa": 45535.0,
+      "custoCasa": 45535,
       "custoPessoal": 53137.5,
       "detalhe": {
-        "parcelaAp": 19500.0,
-        "cartaoInd": 5870.0,
-        "haras": 5000.0,
-        "cartaoConj": 25914.0,
-        "contaCorrente": 5000.0,
-        "condominio": 2700.0,
-        "iptu": 1449.0,
-        "escola": 4880.0,
-        "paty": 2300.0,
-        "personal": 600.0,
-        "inglesLis": 0.0,
-        "ipva": 2692.0
+        "parcelaAp": 19500,
+        "cartaoInd": 5870,
+        "haras": 5000,
+        "cartaoConj": 25914,
+        "contaCorrente": 5000,
+        "condominio": 2700,
+        "iptu": 1449,
+        "escola": 4880,
+        "paty": 2300,
+        "personal": 600,
+        "inglesLis": 0,
+        "ipva": 2692
       }
     },
     {
       "mes": "Mar/2026",
-      "custoCasa": 42013.0,
+      "custoCasa": 42013,
       "custoPessoal": 52236.5,
       "detalhe": {
-        "parcelaAp": 19500.0,
-        "cartaoInd": 6730.0,
-        "haras": 5000.0,
-        "cartaoConj": 23624.0,
-        "contaCorrente": 3000.0,
-        "condominio": 2700.0,
-        "iptu": 1449.0,
-        "escola": 4880.0,
-        "paty": 2280.0,
-        "personal": 900.0,
-        "inglesLis": 523.0,
-        "ipva": 2657.0
+        "parcelaAp": 19500,
+        "cartaoInd": 6730,
+        "haras": 5000,
+        "cartaoConj": 23624,
+        "contaCorrente": 3000,
+        "condominio": 2700,
+        "iptu": 1449,
+        "escola": 4880,
+        "paty": 2280,
+        "personal": 900,
+        "inglesLis": 523,
+        "ipva": 2657
       }
     },
     {
       "mes": "Abr/2026",
-      "custoCasa": 38821.0,
+      "custoCasa": 38821,
       "custoPessoal": 50585.5,
       "detalhe": {
-        "parcelaAp": 19500.0,
-        "cartaoInd": 6675.0,
-        "haras": 5000.0,
-        "cartaoConj": 18641.0,
-        "contaCorrente": 4000.0,
-        "condominio": 2700.0,
-        "iptu": 1449.0,
-        "escola": 4900.0,
-        "paty": 3250.0,
-        "personal": 700.0,
-        "inglesLis": 523.0,
-        "ipva": 2658.0
+        "parcelaAp": 19500,
+        "cartaoInd": 6675,
+        "haras": 5000,
+        "cartaoConj": 18641,
+        "contaCorrente": 4000,
+        "condominio": 2700,
+        "iptu": 1449,
+        "escola": 4900,
+        "paty": 3250,
+        "personal": 700,
+        "inglesLis": 523,
+        "ipva": 2658
       }
     },
     {
       "mes": "Mai/2026",
-      "custoCasa": 39422.0,
-      "custoPessoal": 49011.0,
+      "custoCasa": 39422,
+      "custoPessoal": 49011,
       "detalhe": {
-        "parcelaAp": 19500.0,
-        "cartaoInd": 4800.0,
-        "haras": 5000.0,
-        "cartaoConj": 21400.0,
-        "contaCorrente": 5000.0,
-        "condominio": 2700.0,
-        "iptu": 1449.0,
-        "escola": 4900.0,
-        "paty": 2550.0,
-        "personal": 900.0,
-        "inglesLis": 523.0,
-        "ipva": 0.0
+        "parcelaAp": 19500,
+        "cartaoInd": 4800,
+        "haras": 5000,
+        "cartaoConj": 21400,
+        "contaCorrente": 5000,
+        "condominio": 2700,
+        "iptu": 1449,
+        "escola": 4900,
+        "paty": 2550,
+        "personal": 900,
+        "inglesLis": 523,
+        "ipva": 0
       }
     },
     {
       "mes": "Jun/2026",
-      "custoCasa": 34322.0,
-      "custoPessoal": 45636.0,
+      "custoCasa": 34322,
+      "custoPessoal": 45636,
       "detalhe": {
-        "parcelaAp": 19500.0,
-        "cartaoInd": 3975.0,
-        "haras": 5000.0,
-        "cartaoConj": 16600.0,
-        "contaCorrente": 5000.0,
-        "condominio": 2700.0,
-        "iptu": 1449.0,
-        "escola": 4900.0,
-        "paty": 2550.0,
-        "personal": 600.0,
-        "inglesLis": 523.0,
-        "ipva": 0.0
+        "parcelaAp": 19500,
+        "cartaoInd": 3975,
+        "haras": 5000,
+        "cartaoConj": 16600,
+        "contaCorrente": 5000,
+        "condominio": 2700,
+        "iptu": 1449,
+        "escola": 4900,
+        "paty": 2550,
+        "personal": 600,
+        "inglesLis": 523,
+        "ipva": 0
       }
     }
   ],
@@ -1889,7 +1889,7 @@ var DADOS = {
         "Nov/2025",
         "Dez/2025"
       ],
-      "valor": 0
+      "valor": 300000
     },
     {
       "trimestre": "T1/2026",
