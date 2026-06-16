@@ -295,15 +295,15 @@ function renderCustos(D){
   const tooltipCasa={callbacks:{label:ctx=>{
     const m=custos[ctx.dataIndex];const d=m.detalhe;
     const linhas=[`Total casal: ${fBRL(ctx.raw)}`,'─────────────'];
-    CAMPOS_CASA.forEach(c=>{if(d[c.key]*2>0)linhas.push(`${c.label}: ${fBRL(d[c.key]*2)}`);});
+    CAMPOS_CASA.forEach(c=>{if(d[c.key]>0)linhas.push(`${c.label}: ${fBRL(d[c.key])}`);});
     return linhas;
   }}};
   const tooltipPess={callbacks:{label:ctx=>{
     const m=custos[ctx.dataIndex];const d=m.detalhe;
     const linhas=[`Total seu: ${fBRL(ctx.raw)}`,'─────────────'];
-    CAMPOS_PESS.forEach(c=>{if(d[c.key]>0)linhas.push(`${c.label} (100%): ${fBRL(d[c.key])}`);});
+    CAMPOS_PESS.forEach(c=>{if(d[c.key]>0)linhas.push(`${c.label}: ${fBRL(d[c.key])}`);});
     linhas.push('─────────────');
-    CAMPOS_CASA.forEach(c=>{if(d[c.key]>0)linhas.push(`${c.label} (÷2): ${fBRL(d[c.key])}`);});
+    CAMPOS_CASA.forEach(c=>{if(d[c.key]>0)linhas.push(`${c.label} (÷2): ${fBRL(d[c.key]/2)}`);});
     return linhas;
   }}};
   new Chart(cCasaBar,{type:'bar',data:{labels,datasets:[{data:custos.map(m=>m.custoCasa),backgroundColor:'#5b7a99',borderRadius:5}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tooltipCasa},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
@@ -339,7 +339,7 @@ function renderFormFields(detalhe,pago){
   document.getElementById('formFields').innerHTML=CAMPOS_CUSTOS.map(c=>{
     const val=detalhe[c.key]||0;
     const isPago=pagoSet[c.key]||false;
-    const badge=c.tipo==='individual'?'<span style="font-size:.68rem;background:#f2f3f6;border-radius:4px;padding:1px 5px;color:#a3556a;margin-left:4px">100% seu</span>':'<span style="font-size:.68rem;background:#f2f3f6;border-radius:4px;padding:1px 5px;color:#5b7a99;margin-left:4px">÷2</span>';
+    const badge=c.tipo==='individual'?'<span style="font-size:.68rem;background:#f2f3f6;border-radius:4px;padding:1px 5px;color:#a3556a;margin-left:4px">100% seu</span>':'<span style="font-size:.68rem;background:#f2f3f6;border-radius:4px;padding:1px 5px;color:#5b7a99;margin-left:4px">total</span>';
     return `<div style="position:relative"><div style="font-size:.75rem;color:var(--muted);margin-bottom:4px">${c.label}${badge}</div>
     <input id="f_${c.key}" type="number" step="0.01" value="${val}" style="width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:.9rem;background:var(--card);color:var(--txt)">
     <label style="display:flex;align-items:center;gap:5px;margin-top:5px;font-size:.75rem;color:var(--muted);cursor:pointer">
@@ -363,7 +363,7 @@ async function excluirMes(idx){
 function calcTotais(d){
   const comp=['cartaoConj','contaCorrente','condominio','iptu','escola','paty','personal','inglesLis','ipva'];
   const ind=['parcelaAp','cartaoInd','haras'];
-  let casa=0; comp.forEach(k=>{casa+=(d[k]||0)*2;});
+  let casa=0; comp.forEach(k=>{casa+=(d[k]||0);});
   let pess=casa/2; ind.forEach(k=>{pess+=(d[k]||0);});
   return{custoCasa:Math.round(casa*100)/100,custoPessoal:Math.round(pess*100)/100};
 }
