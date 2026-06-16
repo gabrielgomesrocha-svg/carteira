@@ -1935,6 +1935,15 @@ var DADOS = {
         "Mar/2027"
       ],
       "valor": 0
+    },
+    {
+      "trimestre": "T2/2027",
+      "meses": [
+        "Abr/2027",
+        "Mai/2027",
+        "Jun/2027"
+      ],
+      "valor": 0
     }
   ]
 };
