@@ -290,17 +290,24 @@ function renderCustos(D){
       <span id="formStatus" style="font-size:.85rem;color:var(--muted)"></span>
     </div>
   </div>`;
-  const tooltipCustos=(campo)=>({
-    callbacks:{label:ctx=>{
-      const m=custos[ctx.dataIndex];
-      const d=m.detalhe;
-      const linhas=[`Total: ${fBRL(ctx.raw)}`,'─────────────'];
-      CAMPOS_CUSTOS.forEach(c=>{if(d[c.key]>0)linhas.push(`${c.label}: ${fBRL(d[c.key])}`);});
-      return linhas;
-    }}
-  });
-  new Chart(cCasaBar,{type:'bar',data:{labels,datasets:[{data:custos.map(m=>m.custoCasa),backgroundColor:'#5b7a99',borderRadius:5}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tooltipCustos('custoCasa')},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
-  new Chart(cPessBar,{type:'bar',data:{labels,datasets:[{data:custos.map(m=>m.custoPessoal),backgroundColor:'#a3556a',borderRadius:5}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tooltipCustos('custoPessoal')},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
+  const CAMPOS_CASA=CAMPOS_CUSTOS.filter(c=>c.tipo==='conjunto');
+  const CAMPOS_PESS=CAMPOS_CUSTOS.filter(c=>c.tipo==='individual');
+  const tooltipCasa={callbacks:{label:ctx=>{
+    const m=custos[ctx.dataIndex];const d=m.detalhe;
+    const linhas=[`Total casal: ${fBRL(ctx.raw)}`,'─────────────'];
+    CAMPOS_CASA.forEach(c=>{if(d[c.key]*2>0)linhas.push(`${c.label}: ${fBRL(d[c.key]*2)}`);});
+    return linhas;
+  }}};
+  const tooltipPess={callbacks:{label:ctx=>{
+    const m=custos[ctx.dataIndex];const d=m.detalhe;
+    const linhas=[`Total seu: ${fBRL(ctx.raw)}`,'─────────────'];
+    CAMPOS_PESS.forEach(c=>{if(d[c.key]>0)linhas.push(`${c.label} (100%): ${fBRL(d[c.key])}`);});
+    linhas.push('─────────────');
+    CAMPOS_CASA.forEach(c=>{if(d[c.key]>0)linhas.push(`${c.label} (÷2): ${fBRL(d[c.key])}`);});
+    return linhas;
+  }}};
+  new Chart(cCasaBar,{type:'bar',data:{labels,datasets:[{data:custos.map(m=>m.custoCasa),backgroundColor:'#5b7a99',borderRadius:5}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tooltipCasa},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
+  new Chart(cPessBar,{type:'bar',data:{labels,datasets:[{data:custos.map(m=>m.custoPessoal),backgroundColor:'#a3556a',borderRadius:5}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tooltipPess},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
 }
 
 let __editIdx=null;
