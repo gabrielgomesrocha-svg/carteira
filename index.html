@@ -438,16 +438,24 @@ document.addEventListener('DOMContentLoaded',function(){
     hdr.appendChild(btn);
   }
 });
+function proximoTrimestre(ultimo){
+  const map={'T1':'T2','T2':'T3','T3':'T4','T4':'T1'};
+  const m={'T1':['Jan','Fev','Mar'],'T2':['Abr','Mai','Jun'],'T3':['Jul','Ago','Set'],'T4':['Out','Nov','Dez']};
+  const [t,a]=ultimo.trimestre.split('/');
+  const prox=map[t];
+  const ano=prox==='T1'?parseInt(a)+1:parseInt(a);
+  const meses=m[prox].map(ms=>`${ms}/${ano}`);
+  return{trimestre:`${prox}/${ano}`,meses,valor:0};
+}
+
 function renderResultado(D){
   const tab=document.getElementById('tab-resultado');
   const retiradas=D.retiradas||[];
   const custos=D.custos||[];
 
-  // Build month map: mes -> custoPessoal
   const custoMap={};
   custos.forEach(m=>{custoMap[m.mes]=m.custoPessoal;});
 
-  // Build monthly result rows
   const rows=[];
   retiradas.forEach(t=>{
     const mensal=t.valor>0?t.valor/3:null;
@@ -461,9 +469,9 @@ function renderResultado(D){
   const rowsComDados=rows.filter(r=>r.retiradaTrimestral>0&&r.custoPessoal!=null);
 
   tab.innerHTML=`
-  <div class="panel" style="margin-bottom:20px">
+  <div class="panel">
     <h2>▌ RETIRADAS TRIMESTRAIS</h2>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px" id="retiradasGrid">
       ${retiradas.map((t,i)=>`
       <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 16px">
         <div style="font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px">${t.trimestre} · ${t.meses.join(', ')}</div>
@@ -475,6 +483,9 @@ function renderResultado(D){
         <div style="font-size:.75rem;color:var(--muted);margin-top:6px">${t.valor>0?'≈ '+fBRL0(t.valor/3)+'/mês':'Não informado'}</div>
         <div id="retStatus_${i}" style="font-size:.75rem;color:var(--green);margin-top:4px"></div>
       </div>`).join('')}
+    </div>
+    <div style="margin-top:14px">
+      <button onclick="adicionarTrimestre()" style="background:var(--orange);color:#fff;border:none;border-radius:8px;padding:10px 20px;cursor:pointer;font-weight:700;font-size:.9rem">+ Novo Trimestre</button>
     </div>
   </div>
 
@@ -519,6 +530,15 @@ function renderResultado(D){
       }
     });
   }
+}
+
+async function adicionarTrimestre(){
+  const ultimo=DADOS.retiradas[DADOS.retiradas.length-1];
+  const novo=proximoTrimestre(ultimo);
+  DADOS.retiradas.push(novo);
+  const ok=await pushDadosGitHub();
+  if(ok){renderResultado(DADOS);}
+  else{DADOS.retiradas.pop();alert('Erro ao salvar. Tente novamente.');}
 }
 
 async function salvarRetirada(idx){
