@@ -487,15 +487,16 @@ function renderResultado(D){
     <h2>▌ DETALHAMENTO MENSAL</h2>
     <div class="tablewrap"><table>
       <tr><th>Mês</th><th>Trimestre</th><th>Retirada Trimestral</th><th>Retirada Mensal (÷3)</th><th>Custo Pessoal</th><th>Resultado</th></tr>
-      ${rows.filter(r=>r.custoPessoal!=null).map(r=>`
-      <tr>
+      ${rows.filter(r=>r.custoPessoal!=null).map((r,i,arr)=>{
+        const isFirst=i===0||arr[i-1].trimestre!==r.trimestre;
+        return `<tr>
         <td><b>${r.mes}</b></td>
-        <td style="color:var(--muted)">${r.trimestre}</td>
-        <td>${r.retiradaTrimestral?fBRL(r.retiradaTrimestral):'—'}</td>
+        <td style="color:var(--muted)">${isFirst?r.trimestre:''}</td>
+        <td>${isFirst&&r.retiradaTrimestral?fBRL(r.retiradaTrimestral):'—'}</td>
         <td>${r.retiradaMensal?fBRL(r.retiradaMensal):'—'}</td>
         <td>${r.custoPessoal?fBRL(r.custoPessoal):'—'}</td>
         <td><b class="${r.resultado!=null?(r.resultado>=0?'pos':'neg'):''}">${r.resultado!=null?fBRL(r.resultado):'—'}</b></td>
-      </tr>`).join('')}
+      </tr>`;}).join('')}
     </table></div>
   </div>`:'<div class="panel" style="text-align:center;color:var(--muted);padding:40px">Informe as retiradas trimestrais acima para ver o resultado.</div>'}`;
 
