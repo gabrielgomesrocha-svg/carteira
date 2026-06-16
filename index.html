@@ -93,7 +93,7 @@ const cls=v=>v==null?'':(v>0?'pos':v<0?'neg':'');
 const COLORS=['#a3556a','#5b7a99','#7a8450','#c98b9b','#9aa3ad','#c0564a','#5f9ea0','#b8bec6'];
 Chart.defaults.color='#878d96';Chart.defaults.borderColor='#e1e4e9';Chart.defaults.font.family="'Segoe UI',sans-serif";
 
-const TABS=[['dash','Dashboard'],['rent','Rentabilidade'],['pos','Posição'],['ganhos','Ganhos'],['evo','Evolução'],['div','Dividendos'],['estr','Estratégia & Alertas'],['custos','Custos']];
+const TABS=[['dash','Dashboard'],['rent','Rentabilidade'],['pos','Posição'],['ganhos','Ganhos'],['evo','Evolução'],['div','Dividendos'],['estr','Estratégia & Alertas'],['custos','Custos'],['resultado','Resultado']];
 
 (function(){
   const s=document.createElement('script');
@@ -242,6 +242,8 @@ function render(D){
 
   /* ===== CUSTOS ===== */
   renderCustos(D);
+  /* ===== RESULTADO ===== */
+  renderResultado(D);
 }
 
 const CAMPOS_CUSTOS = [
@@ -436,6 +438,104 @@ document.addEventListener('DOMContentLoaded',function(){
     hdr.appendChild(btn);
   }
 });
+function renderResultado(D){
+  const tab=document.getElementById('tab-resultado');
+  const retiradas=D.retiradas||[];
+  const custos=D.custos||[];
+
+  // Build month map: mes -> custoPessoal
+  const custoMap={};
+  custos.forEach(m=>{custoMap[m.mes]=m.custoPessoal;});
+
+  // Build monthly result rows
+  const rows=[];
+  retiradas.forEach(t=>{
+    const mensal=t.valor>0?t.valor/3:null;
+    t.meses.forEach(mes=>{
+      const custo=custoMap[mes]||null;
+      const resultado=(mensal!=null&&custo!=null)?mensal-custo:null;
+      rows.push({mes,trimestre:t.trimestre,retiradaTrimestral:t.valor,retiradaMensal:mensal,custoPessoal:custo,resultado});
+    });
+  });
+
+  const rowsComDados=rows.filter(r=>r.retiradaTrimestral>0&&r.custoPessoal!=null);
+
+  tab.innerHTML=`
+  <div class="panel" style="margin-bottom:20px">
+    <h2>▌ RETIRADAS TRIMESTRAIS</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px">
+      ${retiradas.map((t,i)=>`
+      <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 16px">
+        <div style="font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px">${t.trimestre} · ${t.meses.join(', ')}</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <input id="ret_${i}" type="number" step="100" value="${t.valor||''}" placeholder="0"
+            style="flex:1;padding:8px 10px;border:1px solid var(--border);border-radius:8px;font-size:1rem;font-weight:700;background:var(--card);color:var(--txt)">
+          <button onclick="salvarRetirada(${i})" style="background:var(--orange);color:#fff;border:none;border-radius:8px;padding:8px 14px;cursor:pointer;font-weight:700;font-size:.85rem">✓</button>
+        </div>
+        <div style="font-size:.75rem;color:var(--muted);margin-top:6px">${t.valor>0?'≈ '+fBRL0(t.valor/3)+'/mês':'Não informado'}</div>
+        <div id="retStatus_${i}" style="font-size:.75rem;color:var(--green);margin-top:4px"></div>
+      </div>`).join('')}
+    </div>
+  </div>
+
+  ${rowsComDados.length>0?`
+  <div class="panel">
+    <h2>📊 RESULTADO MENSAL</h2>
+    <div style="position:relative;height:300px"><canvas id="cResultado"></canvas></div>
+  </div>
+  <div class="panel">
+    <h2>▌ DETALHAMENTO MENSAL</h2>
+    <div class="tablewrap"><table>
+      <tr><th>Mês</th><th>Trimestre</th><th>Retirada Trimestral</th><th>Retirada Mensal (÷3)</th><th>Custo Pessoal</th><th>Resultado</th></tr>
+      ${rows.filter(r=>r.custoPessoal!=null).map(r=>`
+      <tr>
+        <td><b>${r.mes}</b></td>
+        <td style="color:var(--muted)">${r.trimestre}</td>
+        <td>${r.retiradaTrimestral?fBRL(r.retiradaTrimestral):'—'}</td>
+        <td>${r.retiradaMensal?fBRL(r.retiradaMensal):'—'}</td>
+        <td>${r.custoPessoal?fBRL(r.custoPessoal):'—'}</td>
+        <td><b class="${r.resultado!=null?(r.resultado>=0?'pos':'neg'):''}">${r.resultado!=null?fBRL(r.resultado):'—'}</b></td>
+      </tr>`).join('')}
+    </table></div>
+  </div>`:'<div class="panel" style="text-align:center;color:var(--muted);padding:40px">Informe as retiradas trimestrais acima para ver o resultado.</div>'}`;
+
+  if(rowsComDados.length>0){
+    new Chart(document.getElementById('cResultado'),{
+      type:'bar',
+      data:{
+        labels:rowsComDados.map(r=>r.mes),
+        datasets:[{
+          label:'Resultado',
+          data:rowsComDados.map(r=>r.resultado),
+          backgroundColor:rowsComDados.map(r=>r.resultado>=0?'#3f8a58':'#c0564a'),
+          borderRadius:5
+        }]
+      },
+      options:{
+        maintainAspectRatio:false,
+        plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`Resultado: ${fBRL(ctx.raw)}`}}},
+        scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'},grid:{color:'#e1e4e9'}}}
+      }
+    });
+  }
+}
+
+async function salvarRetirada(idx){
+  const val=parseFloat(document.getElementById('ret_'+idx).value)||0;
+  const status=document.getElementById('retStatus_'+idx);
+  DADOS.retiradas[idx].valor=val;
+  status.textContent='⏳ Salvando...';
+  const ok=await pushDadosGitHub();
+  if(ok){
+    status.textContent='✅ Salvo!';
+    renderResultado(DADOS);
+    setTimeout(()=>{status.textContent='';},3000);
+  } else {
+    status.textContent='❌ Erro ao salvar.';
+    DADOS.retiradas[idx].valor=0;
+  }
+}
+
 </script>
 </body>
 </html>
