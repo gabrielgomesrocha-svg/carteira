@@ -59,6 +59,9 @@ tr.total td{background:#e9ebef;font-weight:800;color:var(--orange2)}
 .progress-goal{height:26px;background:#e7e9ee;border-radius:13px;overflow:hidden;position:relative;margin-top:8px}
 .progress-goal .fill{height:100%;background:linear-gradient(90deg,#c98b9b,#a3556a);display:flex;align-items:center;justify-content:flex-end;padding-right:10px;font-size:.78rem;font-weight:800;color:#fff}
 footer{text-align:center;color:var(--muted);font-size:.75rem;padding:24px}
+#retiradasGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;}
+@media(max-width:1200px){#retiradasGrid{grid-template-columns:repeat(3,minmax(0,1fr));}}
+@media(max-width:800px){#retiradasGrid{grid-template-columns:repeat(2,minmax(0,1fr));}}
 #err{display:none;background:#fbe9e6;border:1px solid var(--red);border-radius:10px;padding:16px;margin:24px;color:#8a3a30}
 </style>
 </head>
@@ -471,7 +474,7 @@ function renderResultado(D){
   tab.innerHTML=`
   <div class="panel">
     <h2>▌ RETIRADAS TRIMESTRAIS</h2>
-    <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;max-width:100%" id="retiradasGrid">
+    <div id="retiradasGrid">
       ${retiradas.map((t,i)=>`
       <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;position:relative">
         <button onclick="excluirTrimestre(${i})" title="Excluir trimestre" style="position:absolute;top:8px;right:8px;background:none;border:1px solid #f5c6c6;border-radius:6px;padding:2px 7px;cursor:pointer;font-size:.75rem;color:var(--red)">🗑️</button>
