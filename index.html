@@ -471,7 +471,26 @@ function renderResultado(D){
 
   const rowsComDados=rows.filter(r=>r.retiradaTrimestral>0&&r.custoPessoal!=null);
 
+  // ── KPIs ──────────────────────────────────────────────────────────────────
+  const mesesComResultado=rows.filter(r=>r.resultado!=null);
+  const totalConsolidado=mesesComResultado.reduce((s,r)=>s+r.resultado,0);
+  const mediaMenusal=mesesComResultado.length>0?totalConsolidado/mesesComResultado.length:null;
+  // Media trimestral: group by trimestre
+  const porTri={};
+  mesesComResultado.forEach(r=>{
+    if(!porTri[r.trimestre])porTri[r.trimestre]=0;
+    porTri[r.trimestre]+=r.resultado;
+  });
+  const triValues=Object.values(porTri);
+  const mediaTrimestral=triValues.length>0?triValues.reduce((s,v)=>s+v,0)/triValues.length:null;
+
   tab.innerHTML=`
+  ${mesesComResultado.length>0?`
+  <div class="cards" style="margin-bottom:20px">
+    <div class="kpi"><div class="lbl">Lucro Médio Mensal</div><div class="val ${mediaMenusal>=0?'pos':'neg'}">${mediaMenusal!=null?fBRL0(mediaMenusal):'—'}</div><div class="det">${mesesComResultado.length} meses com dados</div></div>
+    <div class="kpi"><div class="lbl">Lucro Médio Trimestral</div><div class="val ${mediaTrimestral>=0?'pos':'neg'}">${mediaTrimestral!=null?fBRL0(mediaTrimestral):'—'}</div><div class="det">${triValues.length} trimestres com dados</div></div>
+    <div class="kpi hl"><div class="lbl">Total Consolidado</div><div class="val ${totalConsolidado>=0?'pos':'neg'}">${fBRL0(totalConsolidado)}</div><div class="det">Resultado acumulado até ${mesesComResultado[mesesComResultado.length-1].mes}</div></div>
+  </div>`:''}
   <div class="panel">
     <h2>▌ RETIRADAS TRIMESTRAIS</h2>
     <div id="retiradasGrid">
