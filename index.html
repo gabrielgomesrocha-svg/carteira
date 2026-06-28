@@ -225,9 +225,14 @@ function render(D){
 
   /* ===== ESTRATÉGIA & ALERTAS ===== */
   const E=D.estrategia;
+  // ── Gera alertas automáticos ──────────────────────────────────────────────
+  const alertasAuto = gerarAlertasAuto(D);
+  const todosAlertas = [...alertasAuto, ...(D.alertas||[])];
+
   document.getElementById('tab-estr').innerHTML=`
   <div class="panel"><h2>⚠️ ALERTAS ATIVOS</h2>
-  ${D.alertas.map(a=>`<div class="alert ${a.nivel}"><div class="tk">${a.ativo}</div><div class="tx">${a.texto}</div></div>`).join('')}</div>
+  ${todosAlertas.length===0?'<div style="color:var(--muted);font-size:.9rem;padding:8px">Nenhum alerta ativo.</div>':''}
+  ${todosAlertas.map(a=>`<div class="alert ${a.nivel}"><div class="tk">${a.ativo}</div><div class="tx">${a.texto}</div></div>`).join('')}</div>
   <div class="grid2">
     <div class="panel"><h2>🎯 ESTRATÉGIA DE APORTES</h2>
       <table><tr><th>Destino</th><th>Valor</th></tr>
@@ -610,6 +615,78 @@ async function salvarRetirada(idx){
     status.textContent='❌ Erro ao salvar.';
     DADOS.retiradas[idx].valor=0;
   }
+}
+
+function gerarAlertasAuto(D){
+  const alertas=[];
+  const ult=D.evolucaoMensal[D.evolucaoMensal.length-1];
+  const pen=D.evolucaoMensal.length>1?D.evolucaoMensal[D.evolucaoMensal.length-2]:null;
+
+  // ── Regra 1: Ativo com rent. mês ou 12m negativa ──────────────────────────
+  if(D.posicaoDetalhada&&D.posicaoDetalhada.grupos){
+    D.posicaoDetalhada.grupos.forEach(g=>{
+      g.ativos.forEach(a=>{
+        if(a.saldo>0){
+          if(a.rentMes!=null&&a.rentMes<0){
+            alertas.push({ativo:a.ativo,nivel:'atencao',texto:`Rentabilidade negativa no mês: ${fPct(a.rentMes)}. Monitorar.`});
+          } else if(a.rent12m!=null&&a.rent12m<0){
+            alertas.push({ativo:a.ativo,nivel:'acao',texto:`Rentabilidade negativa em 12 meses: ${fPct(a.rent12m)}. Avaliar saída.`});
+          }
+        }
+      });
+    });
+  }
+
+  // ── Regra 2: Classe fora da meta (desvio > 3 p.p.) ───────────────────────
+  if(D.alocacao&&D.alocacao.classes){
+    D.alocacao.classes.forEach(c=>{
+      if(c.metaPct===0)return;
+      const desvio=c.pct-c.metaPct;
+      if(desvio>3){
+        alertas.push({ativo:c.classe,nivel:'atencao',texto:`Alocação acima da meta: ${fPct(c.pct)} (meta ${fPct(c.metaPct)}, desvio +${fPct(desvio,1)}). Considerar rebalanceamento.`});
+      } else if(desvio<-3){
+        alertas.push({ativo:c.classe,nivel:'atencao',texto:`Alocação abaixo da meta: ${fPct(c.pct)} (meta ${fPct(c.metaPct)}, desvio ${fPct(desvio,1)}). Considerar aporte.`});
+      }
+    });
+  }
+
+  // ── Regra 3: Prefixado abaixo de 100% CDI no mês ─────────────────────────
+  if(ult.pctCdi12m!=null&&ult.pctCdi12m<100){
+    alertas.push({ativo:'Carteira',nivel:'atencao',texto:`Rentabilidade 12m abaixo de 100% do CDI: ${fPct(ult.pctCdi12m,1)}. Revisar estratégia de alocação.`});
+  }
+
+  // ── Regra 4: Custo pessoal acima da retirada mensal ──────────────────────
+  if(D.retiradas&&D.custos){
+    const custoMap={};
+    D.custos.forEach(m=>{custoMap[m.mes]=m.custoPessoal;});
+    D.retiradas.forEach(t=>{
+      if(t.valor===0)return;
+      const mensal=t.valor/3;
+      t.meses.forEach(mes=>{
+        const custo=custoMap[mes];
+        if(custo&&custo>mensal){
+          alertas.push({ativo:mes,nivel:'acao',texto:`Custo pessoal (${fBRL0(custo)}) maior que retirada mensal (${fBRL0(mensal)}). Resultado negativo em ${fBRL0(custo-mensal)}.`});
+        }
+      });
+    });
+  }
+
+  // ── Regra 5: Patrimônio caindo 2 meses consecutivos ──────────────────────
+  const evo=D.evolucaoMensal;
+  if(evo.length>=3){
+    const m1=evo[evo.length-1];const m2=evo[evo.length-2];const m3=evo[evo.length-3];
+    // Compare patrimônio desconsiderando aportes/resgates (usar ganhos)
+    if(m1.ganhos<0&&m2.ganhos<0){
+      alertas.push({ativo:'Patrimônio',nivel:'acao',texto:`Ganhos financeiros negativos por 2 meses consecutivos (${m2.mes}: ${fBRL0(m2.ganhos)}, ${m1.mes}: ${fBRL0(m1.ganhos)}). Revisar carteira.`});
+    }
+  }
+
+  // ── Regra 6: Spread financiamento em risco (rent 12m < 14%) ─────────────
+  if(ult.rent12m!=null&&ult.rent12m<14){
+    alertas.push({ativo:'Financiamento',nivel:'acao',texto:`Rentabilidade 12m (${fPct(ult.rent12m)}) abaixo do CET do financiamento (12,59%). Spread negativo — reavaliar manutenção da dívida.`});
+  }
+
+  return alertas;
 }
 
 </script>
