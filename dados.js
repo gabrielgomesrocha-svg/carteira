@@ -1951,5 +1951,381 @@ var DADOS = {
       ],
       "valor": 0
     }
+  ],
+  "historicoPapeis": [
+    {
+      "ativo": "Tesouro Educa+ 2031",
+      "classe": "TÍTULO PÚBLICO",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 23517.21,
+        "Abr/2026": 23518.29
+      }
+    },
+    {
+      "ativo": "Tesouro IPCA+ 2035",
+      "classe": "TÍTULO PÚBLICO",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 16710.53,
+        "Abr/2026": 16797.56
+      }
+    },
+    {
+      "ativo": "Tesouro Educa+ 2026",
+      "classe": "TÍTULO PÚBLICO",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 5054.96,
+        "Abr/2026": 5116.38
+      }
+    },
+    {
+      "ativo": "Tesouro Educa+ 2027",
+      "classe": "TÍTULO PÚBLICO",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 4862.03,
+        "Abr/2026": 4822.53
+      }
+    },
+    {
+      "ativo": "LCI LIQUIDEZ 6 MESES (Isento)",
+      "classe": "PÓS-FIXADO",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 556873,
+        "Abr/2026": 551312
+      }
+    },
+    {
+      "ativo": "LCI LIQUIDEZ 12 MESES (Isento)",
+      "classe": "PÓS-FIXADO",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 101698.6,
+        "Abr/2026": 100672.2
+      }
+    },
+    {
+      "ativo": "CDB QISTA CDI 08/05/2028",
+      "classe": "PÓS-FIXADO",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 60597.43
+      }
+    },
+    {
+      "ativo": "LIG LIQUIDEZ CDI 24/02/2028 (Isento)",
+      "classe": "PÓS-FIXADO",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 52474,
+        "Abr/2026": 51999.98
+      }
+    },
+    {
+      "ativo": "LIG LIQUIDEZ CDI 19/01/2028 (Isento)",
+      "classe": "PÓS-FIXADO",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 51535.97,
+        "Abr/2026": 51070.35
+      }
+    },
+    {
+      "ativo": "CRA BRF E447 E1 CDI 15/10/2030 (Isento)",
+      "classe": "PÓS-FIXADO",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 50435.37
+      }
+    },
+    {
+      "ativo": "CRI MRV FLEX E561 S1 CDI 20/12/2030 (Isento)",
+      "classe": "PÓS-FIXADO",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 48842.08,
+        "Abr/2026": 50776.86
+      }
+    },
+    {
+      "ativo": "LIG LIQUIDEZ CDI 08/09/2027 (Isento)",
+      "classe": "PÓS-FIXADO",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 45452.69,
+        "Abr/2026": 90583.68
+      }
+    },
+    {
+      "ativo": "CDB CARUANA CDI 26/04/2030",
+      "classe": "PÓS-FIXADO",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 40560.03,
+        "Abr/2026": 40073.62
+      }
+    },
+    {
+      "ativo": "CDB OMNI CDI 12/06/2026",
+      "classe": "PÓS-FIXADO",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 35648.15,
+        "Abr/2026": 35224.4
+      }
+    },
+    {
+      "ativo": "CDB PORQUINHO OBJETIVO",
+      "classe": "PÓS-FIXADO",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 39.57,
+        "Abr/2026": 110.52
+      }
+    },
+    {
+      "ativo": "CDB BMG IPCA 24/04/2028",
+      "classe": "INFLAÇÃO (IPCA+)",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 152364.94,
+        "Abr/2026": 150401.23
+      }
+    },
+    {
+      "ativo": "LCA ABC IPCA 29/07/2026 (Isento)",
+      "classe": "INFLAÇÃO (IPCA+)",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 110927.13,
+        "Abr/2026": 109536.55
+      }
+    },
+    {
+      "ativo": "LCI PRE 180 DIAS (Isento)",
+      "classe": "PREFIXADO",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 105385,
+        "Abr/2026": 104375.3
+      }
+    },
+    {
+      "ativo": "CDB BMG PRE 24/04/2028",
+      "classe": "PREFIXADO",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 50654.85,
+        "Abr/2026": 50108.55
+      }
+    },
+    {
+      "ativo": "ITUB3",
+      "classe": "RENDA VARIÁVEL — AÇÕES",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 4004,
+        "Abr/2026": 3787.11
+      }
+    },
+    {
+      "ativo": "BBDC4",
+      "classe": "RENDA VARIÁVEL — AÇÕES",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 3540,
+        "Abr/2026": 3864
+      }
+    },
+    {
+      "ativo": "PETR4",
+      "classe": "RENDA VARIÁVEL — AÇÕES",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 3402,
+        "Abr/2026": 3975.48
+      }
+    },
+    {
+      "ativo": "VALE3",
+      "classe": "RENDA VARIÁVEL — AÇÕES",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 2567.42,
+        "Abr/2026": 2516.58
+      }
+    },
+    {
+      "ativo": "TAEE11",
+      "classe": "RENDA VARIÁVEL — AÇÕES",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 2388.76,
+        "Abr/2026": 2168.52
+      }
+    },
+    {
+      "ativo": "BBAS3",
+      "classe": "RENDA VARIÁVEL — AÇÕES",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 1238.3,
+        "Abr/2026": 244.31
+      }
+    },
+    {
+      "ativo": "B3SA3",
+      "classe": "RENDA VARIÁVEL — AÇÕES",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 825,
+        "Abr/2026": 901.5
+      }
+    },
+    {
+      "ativo": "EGIE3",
+      "classe": "RENDA VARIÁVEL — AÇÕES",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 595.8,
+        "Abr/2026": 635.58
+      }
+    },
+    {
+      "ativo": "CMIG4",
+      "classe": "RENDA VARIÁVEL — AÇÕES",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 538,
+        "Abr/2026": 615
+      }
+    },
+    {
+      "ativo": "XPML11",
+      "classe": "FIIs — FUNDOS LISTADOS",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 6848,
+        "Abr/2026": 7120.64
+      }
+    },
+    {
+      "ativo": "CPTS11",
+      "classe": "FIIs — FUNDOS LISTADOS",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 5691.8,
+        "Abr/2026": 5352.75
+      }
+    },
+    {
+      "ativo": "VISC11",
+      "classe": "FIIs — FUNDOS LISTADOS",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 5631.25,
+        "Abr/2026": 5359.13
+      }
+    },
+    {
+      "ativo": "XPCI11",
+      "classe": "FIIs — FUNDOS LISTADOS",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 5076,
+        "Abr/2026": 5029.2
+      }
+    },
+    {
+      "ativo": "LVBI11",
+      "classe": "FIIs — FUNDOS LISTADOS",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 3237.3,
+        "Abr/2026": 3238.5
+      }
+    },
+    {
+      "ativo": "KNRI11",
+      "classe": "FIIs — FUNDOS LISTADOS",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 3067.17,
+        "Abr/2026": 3168.82
+      }
+    },
+    {
+      "ativo": "RZTR11",
+      "classe": "FIIs — FUNDOS LISTADOS",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 3065.1,
+        "Abr/2026": 3028.72
+      }
+    },
+    {
+      "ativo": "HGLG11",
+      "classe": "FIIs — FUNDOS LISTADOS",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 2945.57,
+        "Abr/2026": 2950.7
+      }
+    },
+    {
+      "ativo": "HGBS11",
+      "classe": "FIIs — FUNDOS LISTADOS",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 2584.4,
+        "Abr/2026": 2679.3
+      }
+    },
+    {
+      "ativo": "RBRX11",
+      "classe": "FIIs — FUNDOS LISTADOS",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 2447.6,
+        "Abr/2026": 2021.7
+      }
+    },
+    {
+      "ativo": "TRXF11",
+      "classe": "FIIs — FUNDOS LISTADOS",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 1999.14,
+        "Abr/2026": 1996.72
+      }
+    },
+    {
+      "ativo": "MCRE11",
+      "classe": "FIIs — FUNDOS LISTADOS",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 1015.3
+      }
+    },
+    {
+      "ativo": "XPLG11",
+      "classe": "FIIs — FUNDOS LISTADOS",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 480.9,
+        "Abr/2026": 499.65
+      }
+    },
+    {
+      "ativo": "Bitcoin (BTC) — USD 1.500 × R$ 5,00",
+      "classe": "CRIPTO",
+      "taxa": "",
+      "historico": {
+        "Mai/2026": 7500
+      }
+    }
   ]
 };
