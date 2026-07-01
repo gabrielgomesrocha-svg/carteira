@@ -1879,6 +1879,39 @@ var DADOS = {
         "inglesLis": 523,
         "ipva": 0
       }
+    },
+    {
+      "mes": "Jul/2026",
+      "custoCasa": 32739,
+      "custoPessoal": 43069.5,
+      "detalhe": {
+        "parcelaAp": 19700,
+        "cartaoInd": 2000,
+        "haras": 5000,
+        "cartaoConj": 14868,
+        "contaCorrente": 4000,
+        "condominio": 2700,
+        "iptu": 1449,
+        "escola": 4900,
+        "paty": 3399,
+        "personal": 900,
+        "inglesLis": 523,
+        "ipva": 0
+      },
+      "pago": {
+        "parcelaAp": false,
+        "cartaoInd": false,
+        "haras": false,
+        "cartaoConj": false,
+        "contaCorrente": false,
+        "condominio": false,
+        "iptu": false,
+        "escola": false,
+        "paty": false,
+        "personal": false,
+        "inglesLis": false,
+        "ipva": false
+      }
     }
   ],
   "retiradas": [
