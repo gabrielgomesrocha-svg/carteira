@@ -96,7 +96,7 @@ const cls=v=>v==null?'':(v>0?'pos':v<0?'neg':'');
 const COLORS=['#a3556a','#5b7a99','#7a8450','#c98b9b','#9aa3ad','#c0564a','#5f9ea0','#b8bec6'];
 Chart.defaults.color='#878d96';Chart.defaults.borderColor='#e1e4e9';Chart.defaults.font.family="'Segoe UI',sans-serif";
 
-const TABS=[['dash','Dashboard'],['rent','Rentabilidade'],['pos','Posição'],['ganhos','Ganhos'],['evo','Evolução'],['div','Dividendos'],['estr','Estratégia & Alertas'],['custos','Custos'],['resultado','Resultado']];
+const TABS=[['dash','Dashboard'],['rent','Rentabilidade'],['pos','Posição'],['ganhos','Ganhos'],['evo','Evolução'],['div','Dividendos'],['estr','Estratégia & Alertas'],['custos','Custos'],['resultado','Resultado'],['papeis','Papéis']];
 
 (function(){
   const s=document.createElement('script');
@@ -252,6 +252,8 @@ function render(D){
   renderCustos(D);
   /* ===== RESULTADO ===== */
   renderResultado(D);
+  /* ===== PAPEIS ===== */
+  renderPapeis(D);
 }
 
 const CAMPOS_CUSTOS = [
@@ -738,6 +740,116 @@ function gerarAlertasAuto(D){
   }
 
   return alertas;
+}
+
+const CLASSE_COR = {
+  'TÍTULO PÚBLICO':        '#5b7a99',
+  'PÓS-FIXADO':            '#3f8a58',
+  'INFLAÇÃO (IPCA+)':      '#a3556a',
+  'PREFIXADO':             '#c98a2e',
+  'RENDA VARIÁVEL — AÇÕES':'#c0564a',
+  'FIIs — FUNDOS LISTADOS':'#7a5c99',
+  'CRIPTO':                '#f7931a',
+};
+
+function renderPapeis(D){
+  const tab = document.getElementById('tab-papeis');
+  const papeis = (D.historicoPapeis||[]);
+  if(!papeis.length){
+    tab.innerHTML='<div class="panel" style="text-align:center;color:var(--muted);padding:40px">Nenhum papel registrado ainda.</div>';
+    return;
+  }
+
+  // Group by classe
+  const classes = {};
+  papeis.forEach(p=>{
+    if(!classes[p.classe]) classes[p.classe]=[];
+    classes[p.classe].push(p);
+  });
+
+  // All months across all papeis
+  const allMeses = [...new Set(papeis.flatMap(p=>Object.keys(p.historico||{})))].sort((a,b)=>{
+    const mmap={'Jan':1,'Fev':2,'Mar':3,'Abr':4,'Mai':5,'Jun':6,'Jul':7,'Ago':8,'Set':9,'Out':10,'Nov':11,'Dez':12};
+    const [ma,ya]=a.split('/'); const [mb,yb]=b.split('/');
+    return (parseInt(ya)*100+mmap[ma])-(parseInt(yb)*100+mmap[mb]);
+  });
+
+  // Selected papel for chart
+  const firstPapel = papeis.find(p=>Object.keys(p.historico||{}).length>1)||papeis[0];
+
+  tab.innerHTML=`
+  <div class="panel">
+    <h2>📈 EVOLUÇÃO POR PAPEL</h2>
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:16px">
+      <select id="selPapel" onchange="atualizarGraficoPapel()" style="padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--txt);font-size:.85rem;flex:1;max-width:400px">
+        ${Object.entries(classes).map(([cls,ps])=>`<optgroup label="${cls}">${ps.map(p=>`<option value="${p.ativo}">${p.ativo.replace(' (Isento)','')}</option>`).join('')}</optgroup>`).join('')}
+      </select>
+      <span id="taxaPapel" style="font-size:.85rem;color:var(--orange);font-weight:600"></span>
+    </div>
+    <div style="position:relative;height:280px"><canvas id="cPapelEvo"></canvas></div>
+  </div>
+  <div class="panel">
+    <h2>▌ TABELA DE EVOLUÇÃO — TODOS OS PAPÉIS</h2>
+    <div class="tablewrap"><table>
+      <tr><th>Papel</th><th>Classe</th><th>Taxa Contratada</th>${allMeses.map(m=>`<th>${m}</th>`).join('')}<th>Var. %</th></tr>
+      ${papeis.map(p=>{
+        const vals=allMeses.map(m=>p.historico[m]||null);
+        const first=vals.find(v=>v!=null);
+        const last=[...vals].reverse().find(v=>v!=null);
+        const varpct=(first&&last&&first>0)?((last-first)/first*100):null;
+        return `<tr>
+          <td style="white-space:normal;max-width:200px;font-size:.78rem"><b>${p.ativo.replace(' (Isento)','')}</b></td>
+          <td style="font-size:.72rem;color:var(--muted)">${p.classe.replace('FIIs — FUNDOS LISTADOS','FIIs').replace('RENDA VARIÁVEL — AÇÕES','Ações').replace('INFLAÇÃO (IPCA+)','IPCA+')}</td>
+          <td style="font-size:.78rem;color:var(--orange)">${p.taxa||'—'}</td>
+          ${vals.map(v=>`<td>${v!=null?fC(v):'—'}</td>`).join('')}
+          <td class="${varpct!=null?(varpct>=0?'pos':'neg'):''}">${varpct!=null?fPct(varpct,1):'—'}</td>
+        </tr>`;}).join('')}
+    </table></div>
+  </div>`;
+
+  // Init chart with first papel
+  window.__chartPapel = null;
+  document.getElementById('selPapel').value = firstPapel.ativo;
+  atualizarGraficoPapel();
+}
+
+function atualizarGraficoPapel(){
+  const sel = document.getElementById('selPapel').value;
+  const papel = (DADOS.historicoPapeis||[]).find(p=>p.ativo===sel);
+  if(!papel) return;
+
+  // Show taxa
+  const taxaEl = document.getElementById('taxaPapel');
+  if(taxaEl) taxaEl.textContent = papel.taxa ? '📌 '+papel.taxa : '';
+
+  // Sort months
+  const mmap={'Jan':1,'Fev':2,'Mar':3,'Abr':4,'Mai':5,'Jun':6,'Jul':7,'Ago':8,'Set':9,'Out':10,'Nov':11,'Dez':12};
+  const meses = Object.keys(papel.historico||{}).sort((a,b)=>{
+    const [ma,ya]=a.split('/'); const [mb,yb]=b.split('/');
+    return (parseInt(ya)*100+mmap[ma])-(parseInt(yb)*100+mmap[mb]);
+  });
+  const vals = meses.map(m=>papel.historico[m]);
+  const cor = CLASSE_COR[papel.classe]||'#5b7a99';
+
+  if(window.__chartPapel) window.__chartPapel.destroy();
+  window.__chartPapel = new Chart(document.getElementById('cPapelEvo'),{
+    type:'line',
+    data:{labels:meses,datasets:[{
+      label:sel.replace(' (Isento)',''),
+      data:vals,
+      borderColor:cor,
+      backgroundColor:cor+'22',
+      fill:true,
+      tension:.3,
+      pointRadius:5,
+      pointHoverRadius:7
+    }]},
+    options:{
+      maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${fBRL(ctx.raw)}`}}},
+      scales:{y:{ticks:{callback:v=>'R$ '+(v>=1000?(v/1000).toFixed(0)+'k':v.toFixed(0))}}}
+    }
+  });
 }
 
 </script>
