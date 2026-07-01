@@ -364,15 +364,15 @@ function renderFormFields(detalhe,pago){
 function atualizarSubtotalPago(){
   const bar = document.getElementById('subtotalPago');
   if(!bar) return;
-  let pago=0, total=0;
+  let pago=0, total=0, totalCasa=0;
   CAMPOS_CUSTOS.forEach(c=>{
     const inp = document.getElementById('f_'+c.key);
     const chk = document.getElementById('p_'+c.key);
     if(!inp||!chk) return;
     const val = parseFloat(inp.value)||0;
-    // valor do custo pessoal: individual = val, conjunto = val/2
     const meuVal = c.tipo==='individual' ? val : val/2;
     total += meuVal;
+    totalCasa += val;
     if(chk.checked) pago += meuVal;
   });
   const falta = total - pago;
@@ -381,7 +381,8 @@ function atualizarSubtotalPago(){
     <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap">
       <div><span style="font-size:.75rem;color:var(--muted);display:block;margin-bottom:2px">✅ Pago</span><span style="font-size:1.1rem;font-weight:700;color:var(--green)">${fBRL0(pago)}</span></div>
       <div><span style="font-size:.75rem;color:var(--muted);display:block;margin-bottom:2px">⏳ Falta pagar</span><span style="font-size:1.1rem;font-weight:700;color:var(--red)">${fBRL0(falta)}</span></div>
-      <div><span style="font-size:.75rem;color:var(--muted);display:block;margin-bottom:2px">📋 Total do mês (pessoal)</span><span style="font-size:1.1rem;font-weight:700;color:var(--txt)">${fBRL0(total)}</span></div>
+      <div><span style="font-size:.75rem;color:var(--muted);display:block;margin-bottom:2px">📋 Total pessoal</span><span style="font-size:1.1rem;font-weight:700;color:var(--txt)">${fBRL0(total)}</span></div>
+      <div><span style="font-size:.75rem;color:var(--muted);display:block;margin-bottom:2px">🏠 Total casa (completo)</span><span style="font-size:1.1rem;font-weight:700;color:var(--txt)">${fBRL0(totalCasa)}</span></div>
       <div style="flex:1;min-width:160px">
         <div style="font-size:.75rem;color:var(--muted);margin-bottom:4px">${pct}% pago</div>
         <div style="height:10px;background:#e7e9ee;border-radius:5px;overflow:hidden">
