@@ -377,19 +377,36 @@ function atualizarSubtotalPago(){
   });
   const falta = total - pago;
   const pct = total>0 ? Math.round(pago/total*100) : 0;
-  bar.innerHTML = `
-    <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap">
-      <div><span style="font-size:.75rem;color:var(--muted);display:block;margin-bottom:2px">✅ Pago</span><span style="font-size:1.1rem;font-weight:700;color:var(--green)">${fBRL0(pago)}</span></div>
-      <div><span style="font-size:.75rem;color:var(--muted);display:block;margin-bottom:2px">⏳ Falta pagar</span><span style="font-size:1.1rem;font-weight:700;color:var(--red)">${fBRL0(falta)}</span></div>
-      <div><span style="font-size:.75rem;color:var(--muted);display:block;margin-bottom:2px">📋 Total pessoal</span><span style="font-size:1.1rem;font-weight:700;color:var(--txt)">${fBRL0(total)}</span></div>
-      <div><span style="font-size:.75rem;color:var(--muted);display:block;margin-bottom:2px">🏠 Total casa (completo)</span><span style="font-size:1.1rem;font-weight:700;color:var(--txt)">${fBRL0(totalCasa)}</span></div>
-      <div style="flex:1;min-width:160px">
-        <div style="font-size:.75rem;color:var(--muted);margin-bottom:4px">${pct}% pago</div>
-        <div style="height:10px;background:#e7e9ee;border-radius:5px;overflow:hidden">
-          <div style="height:100%;width:${pct}%;background:var(--green);border-radius:5px;transition:width .3s"></div>
+  const pagoCasa=0; // calculated below
+  // recalc for casa: pago casa = items marked as pago at full value
+  let pagoCasaVal=0, faltaCasa=0;
+  CAMPOS_CUSTOS.forEach(c=>{
+    const inp2=document.getElementById('f_'+c.key);
+    const chk2=document.getElementById('p_'+c.key);
+    if(!inp2||!chk2)return;
+    const v2=parseFloat(inp2.value)||0;
+    if(chk2.checked)pagoCasaVal+=v2; else faltaCasa+=v2;
+  });
+  const pctCasa=totalCasa>0?Math.round(pagoCasaVal/totalCasa*100):0;
+
+  function linhaSubtotal(lbl,pagoV,faltaV,totalV,pctV){
+    return `<div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;padding:10px 14px;background:var(--card);border-radius:8px;margin-bottom:8px">
+      <div style="font-size:.72rem;color:var(--muted);font-weight:700;min-width:60px;text-transform:uppercase">${lbl}</div>
+      <div><span style="font-size:.7rem;color:var(--muted);display:block">✅ Pago</span><span style="font-size:1rem;font-weight:700;color:var(--green)">${fBRL0(pagoV)}</span></div>
+      <div><span style="font-size:.7rem;color:var(--muted);display:block">⏳ Falta</span><span style="font-size:1rem;font-weight:700;color:var(--red)">${fBRL0(faltaV)}</span></div>
+      <div><span style="font-size:.7rem;color:var(--muted);display:block">📋 Total</span><span style="font-size:1rem;font-weight:700;color:var(--txt)">${fBRL0(totalV)}</span></div>
+      <div style="flex:1;min-width:140px">
+        <div style="font-size:.7rem;color:var(--muted);margin-bottom:3px">${pctV}% pago</div>
+        <div style="height:8px;background:#e7e9ee;border-radius:4px;overflow:hidden">
+          <div style="height:100%;width:${pctV}%;background:var(--green);border-radius:4px;transition:width .3s"></div>
         </div>
       </div>
     </div>`;
+  }
+
+  bar.innerHTML =
+    linhaSubtotal('Pessoal', pago, falta, total, pct) +
+    linhaSubtotal('Casa', pagoCasaVal, faltaCasa, totalCasa, pctCasa);
 }
 
 function cancelarForm(){document.getElementById('formCustos').style.display='none';__editIdx=null;}
