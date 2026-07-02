@@ -197,25 +197,12 @@ var DADOS = {
         }
       },
       {
-        "classe": "Global (Ouro)",
-        "metaPct": 0,
-        "saldo": 0,
-        "pct": 0,
-        "historico": {
-          "Jan/2026": 0.14,
-          "Fev/2026": 0.16,
-          "Mar/2026": 0.19,
-          "Abr/2026": 0.13,
-          "Mai/2026": 0
-        }
-      },
-      {
-        "classe": "Cripto (Bitcoin)",
+        "classe": "Mercado Exterior",
         "metaPct": 5,
-        "saldo": 7500,
-        "pct": 0.47,
+        "saldo": 0.0,
+        "pct": 0.0,
         "historico": {
-          "Mai/2026": 0.47
+          "Mai/2026": 0.0
         }
       }
     ]
