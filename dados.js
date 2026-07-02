@@ -120,7 +120,7 @@ var DADOS = {
     "classes": [
       {
         "classe": "Pós-fixado",
-        "metaPct": 60,
+        "metaPct": 50,
         "saldo": 1044156.9,
         "pct": 65.91,
         "historico": {
@@ -172,7 +172,7 @@ var DADOS = {
       },
       {
         "classe": "Ações + FIIs",
-        "metaPct": 10,
+        "metaPct": 5,
         "saldo": 63188.81,
         "pct": 3.99,
         "historico": {
