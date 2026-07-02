@@ -824,8 +824,8 @@ const CLASSE_COR = {
   'PÓS-FIXADO':            '#3f8a58',
   'INFLAÇÃO (IPCA+)':      '#a3556a',
   'PREFIXADO':             '#c98a2e',
-  'RENDA VARIÁVEL — AÇÕES':'#c0564a',
-  'FIIs — FUNDOS LISTADOS':'#7a5c99',
+  'Renda Variável (Ações)':'#c0564a',
+  'Ações + FIIs':'#7a5c99',
   'CRIPTO':                '#f7931a',
 };
 
@@ -870,7 +870,7 @@ function renderPapeis(D){
       <div style="font-size:.75rem;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.6px">Filtrar por categoria</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
         <button onclick="selecionarCategoria('todas')" id="cat_todas" class="catBtn active" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--orange);color:#fff;cursor:pointer;font-size:.8rem;font-weight:700">Todas</button>
-        ${Object.keys(classes).map(cls=>`<button onclick="selecionarCategoria('${cls}')" id="cat_${cls.replace(/[^a-z]/gi,'_')}" class="catBtn" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;font-size:.8rem">${cls.replace('FIIs — FUNDOS LISTADOS','FIIs').replace('RENDA VARIÁVEL — AÇÕES','Ações').replace('INFLAÇÃO (IPCA+)','IPCA+').replace('TÍTULO PÚBLICO','Tesouro')}</button>`).join('')}
+        ${Object.keys(classes).map(cls=>`<button onclick="selecionarCategoria('${cls}')" id="cat_${cls.replace(/[^a-z]/gi,'_')}" class="catBtn" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;font-size:.8rem">${cls.replace('Ações + FIIs','Ações + FIIs').replace('Renda Variável (Ações)','Ações').replace('INFLAÇÃO (IPCA+)','IPCA+').replace('TÍTULO PÚBLICO','Tesouro')}</button>`).join('')}
       </div>
       <div style="font-size:.75rem;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.6px">Selecionar papéis individualmente</div>
       <div style="display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap">
@@ -897,7 +897,7 @@ function renderPapeis(D){
         const varpct=(first&&last&&first>0)?((last-first)/first*100):null;
         return `<tr>
           <td style="white-space:normal;max-width:200px;font-size:.78rem"><b>${p.ativo.replace(' (Isento)','')}</b></td>
-          <td style="font-size:.72rem;color:var(--muted)">${p.classe.replace('FIIs — FUNDOS LISTADOS','FIIs').replace('RENDA VARIÁVEL — AÇÕES','Ações').replace('INFLAÇÃO (IPCA+)','IPCA+')}</td>
+          <td style="font-size:.72rem;color:var(--muted)">${p.classe.replace('Ações + FIIs','Ações + FIIs').replace('Renda Variável (Ações)','Ações').replace('INFLAÇÃO (IPCA+)','IPCA+')}</td>
           <td style="font-size:.78rem;color:var(--orange)">${p.taxa||'—'}</td>
           <td style="font-size:.78rem;color:var(--muted);white-space:nowrap">${p.venc?(p.venc==='TODAY'?'Liquidez Diária':new Date(p.venc).toLocaleDateString('pt-BR')):'—'}</td>
           ${vals.map(v=>`<td>${v!=null?fC(v):'—'}</td>`).join('')}
