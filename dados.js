@@ -2001,7 +2001,7 @@ var DADOS = {
         "Mai/2026": 556873,
         "Abr/2026": 551312
       },
-      "venc": null
+      "venc": "TODAY"
     },
     {
       "ativo": "LCI LIQUIDEZ 12 MESES (Isento)",
@@ -2011,7 +2011,7 @@ var DADOS = {
         "Mai/2026": 101698.6,
         "Abr/2026": 100672.2
       },
-      "venc": null
+      "venc": "TODAY"
     },
     {
       "ativo": "CDB QISTA CDI 08/05/2028",
