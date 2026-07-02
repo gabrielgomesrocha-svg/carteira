@@ -6,6 +6,7 @@
 <title>Carteira Gabriel — Dashboard</title>
 <meta name="robots" content="noindex, nofollow">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 <style>
 :root{
   --bg:#f5f6f8; --bg2:#edeff2; --card:#ffffff; --card2:#f2f3f6;
@@ -779,6 +780,11 @@ function renderPapeis(D){
 
   tab.innerHTML=`
   <div class="panel">
+    <h2>⏳ VENCIMENTOS — SALDO POR DATA</h2>
+    <div style="position:relative;height:320px"><canvas id="cVencimentos"></canvas></div>
+    <div style="font-size:.78rem;color:var(--muted);margin-top:8px">Apenas papéis com data de vencimento definida. Passe o mouse para ver detalhes.</div>
+  </div>
+  <div class="panel">
     <h2>📈 EVOLUÇÃO POR PAPEL</h2>
     <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:16px">
       <select id="selPapel" onchange="atualizarGraficoPapel()" style="padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--txt);font-size:.85rem;flex:1;max-width:400px">
@@ -811,6 +817,58 @@ function renderPapeis(D){
   window.__chartPapel = null;
   document.getElementById('selPapel').value = firstPapel.ativo;
   atualizarGraficoPapel();
+
+  // ── Vencimentos chart ────────────────────────────────────────────────────
+  const papeisComVenc = papeis.filter(p=>p.venc&&p.historico);
+  if(papeisComVenc.length>0){
+    // Get latest saldo for each
+    const mmap2={'Jan':1,'Fev':2,'Mar':3,'Abr':4,'Mai':5,'Jun':6,'Jul':7,'Ago':8,'Set':9,'Out':10,'Nov':11,'Dez':12};
+    const pontos = papeisComVenc.map(p=>{
+      const meses=Object.keys(p.historico).sort((a,b)=>{
+        const [ma,ya]=a.split('/');const [mb,yb]=b.split('/');
+        return (parseInt(ya)*100+mmap2[ma])-(parseInt(yb)*100+mmap2[mb]);
+      });
+      const saldo=p.historico[meses[meses.length-1]]||0;
+      return {x:p.venc, y:saldo, label:p.ativo.replace(' (Isento)',''), taxa:p.taxa||'—', saldo};
+    }).sort((a,b)=>a.x.localeCompare(b.x));
+
+    new Chart(document.getElementById('cVencimentos'),{
+      type:'bubble',
+      data:{datasets:[{
+        label:'Vencimentos',
+        data:pontos.map(p=>({x:new Date(p.x).getTime(), y:p.y, r:Math.max(6,Math.min(30,Math.sqrt(p.y/1000))), label:p.label, taxa:p.taxa})),
+        backgroundColor:pontos.map(p=>{
+          const anos=(new Date(p.x)-new Date())/31536000000;
+          return anos<1?'#c0564a88':anos<3?'#c98a2e88':'#3f8a5888';
+        }),
+        borderColor:pontos.map(p=>{
+          const anos=(new Date(p.x)-new Date())/31536000000;
+          return anos<1?'#c0564a':anos<3?'#c98a2e':'#3f8a58';
+        }),
+        borderWidth:2
+      }]},
+      options:{
+        maintainAspectRatio:false,
+        plugins:{
+          legend:{display:false},
+          tooltip:{callbacks:{
+            label:ctx=>{
+              const d=ctx.raw;
+              return [`${d.label}`,`Taxa: ${d.taxa}`,`Saldo: ${fBRL(d.y)}`,`Venc: ${new Date(d.x).toLocaleDateString('pt-BR')}`];
+            }
+          }}
+        },
+        scales:{
+          x:{
+            type:'time',
+            time:{unit:'year',displayFormats:{year:'yyyy'}},
+            title:{display:true,text:'Ano de Vencimento'}
+          },
+          y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'},title:{display:true,text:'Saldo atual'}}
+        }
+      }
+    });
+  }
 }
 
 function atualizarGraficoPapel(){
