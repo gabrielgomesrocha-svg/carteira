@@ -137,12 +137,12 @@ function render(D){
       const meta=D.meta.metaPatrimonio;
       const atual=ult.patrimonio;
       const prazoMeses=(()=>{const[m,a]=D.meta.metaPrazo.split('/');const mmap={'Jan':1,'Fev':2,'Mar':3,'Abr':4,'Mai':5,'Jun':6,'Jul':7,'Ago':8,'Set':9,'Out':10,'Nov':11,'Dez':12};const now=new Date();return Math.max(1,(parseInt(a)-now.getFullYear())*12+(mmap[m]-now.getMonth()-1));})();
-      const rentMensal=(ult.rent12m||14)/100/12;
+      const rentMensal=0.12/12; // fixo 12% a.a. conforme configuração
       // PMT formula: aporte = (FV - PV*(1+r)^n) * r / ((1+r)^n - 1)
       const fv=meta, pv=atual, r=rentMensal, n=prazoMeses;
       const fator=Math.pow(1+r,n);
       const aporte=(fv-pv*fator)*r/(fator-1);
-      return aporte>0?`<div class="kpi"><div class="lbl">Aporte Necessário/mês</div><div class="val" style="font-size:1.1rem">${fBRL0(aporte)}</div><div class="det">Para atingir meta em ${D.meta.metaPrazo} com rent. ${fPct(ult.rent12m)} a.a.</div></div>`:'';
+      return aporte>0?`<div class="kpi"><div class="lbl">Aporte Necessário/mês</div><div class="val" style="font-size:1.1rem">${fBRL0(aporte)}</div><div class="det">Para atingir meta em ${D.meta.metaPrazo} com rent. 12% a.a.</div></div>`:'';
     })()}
   </div>
   <div class="panel"><h2>▌ PROGRESSO DA META — ${fBRL0(D.meta.metaPatrimonio)}</h2>
@@ -167,7 +167,7 @@ const metaVals=D.evolucaoMensal.map((m,i)=>{
 new Chart(cPatr,{type:'line',data:{labels:D.evolucaoMensal.map(m=>m.mes),datasets:[
   {label:'Patrimônio',data:D.evolucaoMensal.map(m=>m.patrimonio),borderColor:'#a3556a',backgroundColor:'rgba(163,85,106,.12)',fill:true,tension:.3,pointRadius:4},
   {label:'Meta (linear)',data:metaVals,borderColor:'#3f8a58',backgroundColor:'transparent',borderDash:[6,3],tension:0,pointRadius:0,borderWidth:1.5}
-]},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
+]},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}},scales:{y:{ticks:{callback:v=>v>=1000000?'R$ '+(v/1000000).toFixed(0)+'M':v>=1000?'R$ '+(v/1000).toFixed(0)+'k':'R$ '+v},stepSize:1000000}}}}});
   new Chart(cAloc,{type:'doughnut',data:{labels:D.alocacao.classes.map(c=>c.classe),datasets:[{data:D.alocacao.classes.map(c=>c.saldo),backgroundColor:COLORS,borderColor:'#ffffff',borderWidth:2}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:12,font:{size:11}}},tooltip:{callbacks:{label:c=>` ${c.label}: ${fBRL0(c.raw)} (${(c.raw/ult.patrimonio*100).toFixed(2)}%)`}}}}});
   document.getElementById('alocMeta').innerHTML=D.alocacao.classes.map(c=>`
     <div class="barmeta"><div class="nm">${c.classe}</div>
