@@ -51,7 +51,7 @@ tr.total td{background:#e9ebef;font-weight:800;color:var(--orange2)}
 .barmeta .bar{flex:1;height:18px;background:#e7e9ee;border-radius:9px;overflow:hidden;position:relative}
 .barmeta .fill{height:100%;background:linear-gradient(90deg,#d8c2c9,#a3556a);border-radius:9px}
 .barmeta .marker{position:absolute;top:-2px;bottom:-2px;width:2px;background:#84394e}
-.barmeta .pc{width:120px;font-size:.8rem;text-align:right;flex-shrink:0}
+.barmeta .pc{width:160px;font-size:.8rem;text-align:right;flex-shrink:0}
 .alert{display:flex;gap:12px;align-items:flex-start;background:var(--card2);border-left:4px solid var(--yellow);border-radius:8px;padding:12px 14px;margin-bottom:10px}
 .alert.acao{border-left-color:var(--red)}
 .alert.resolvido{border-left-color:var(--green);opacity:.75}
@@ -172,7 +172,7 @@ new Chart(cPatr,{type:'line',data:{labels:D.evolucaoMensal.map(m=>m.mes),dataset
   document.getElementById('alocMeta').innerHTML=D.alocacao.classes.map(c=>`
     <div class="barmeta"><div class="nm">${c.classe}</div>
     <div class="bar"><div class="fill" style="width:${Math.min(c.pct/Math.max(c.metaPct*1.4,10)*100,100)}%"></div>${c.metaPct?`<div class="marker" style="left:${Math.min(c.metaPct/Math.max(c.metaPct*1.4,10)*100,100)}%"></div>`:''}</div>
-    <div class="pc">${fPct(c.pct)} <span style="color:var(--muted)">/ ${c.metaPct}%</span></div></div>`).join('');
+    <div class="pc">${fBRL0(c.saldo)}<br><span style="color:var(--muted);font-size:.72rem">${fPct(c.pct)} / meta ${c.metaPct}%</span></div></div>`).join('');
 
   /* ===== RENTABILIDADE ===== */
   const mesesN=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
