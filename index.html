@@ -786,18 +786,30 @@ function renderPapeis(D){
   </div>
   <div class="panel">
     <h2>📈 EVOLUÇÃO POR PAPEL</h2>
-    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:16px">
-      <select id="selPapel" onchange="atualizarGraficoPapel()" style="padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--txt);font-size:.85rem;flex:1;max-width:400px">
-        ${Object.entries(classes).map(([cls,ps])=>`<optgroup label="${cls}">${ps.map(p=>`<option value="${p.ativo}">${p.ativo.replace(' (Isento)','')}</option>`).join('')}</optgroup>`).join('')}
-      </select>
-      <span id="taxaPapel" style="font-size:.85rem;color:var(--orange);font-weight:600"></span>
+    <div style="margin-bottom:14px">
+      <div style="font-size:.75rem;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.6px">Filtrar por categoria</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+        <button onclick="selecionarCategoria('todas')" id="cat_todas" class="catBtn active" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--orange);color:#fff;cursor:pointer;font-size:.8rem;font-weight:700">Todas</button>
+        ${Object.keys(classes).map(cls=>`<button onclick="selecionarCategoria('${cls}')" id="cat_${cls.replace(/[^a-z]/gi,'_')}" class="catBtn" style="padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:var(--card);color:var(--muted);cursor:pointer;font-size:.8rem">${cls.replace('FIIs — FUNDOS LISTADOS','FIIs').replace('RENDA VARIÁVEL — AÇÕES','Ações').replace('INFLAÇÃO (IPCA+)','IPCA+').replace('TÍTULO PÚBLICO','Tesouro')}</button>`).join('')}
+      </div>
+      <div style="font-size:.75rem;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.6px">Selecionar papéis individualmente</div>
+      <div style="display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap">
+        <div style="flex:1;min-width:250px">
+          <select id="selPapel" style="width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:var(--card);color:var(--txt);font-size:.85rem">
+            ${Object.entries(classes).map(([cls,ps])=>`<optgroup label="${cls}">${ps.map(p=>`<option value="${p.ativo}">${p.ativo.replace(' (Isento)','')}</option>`).join('')}</optgroup>`).join('')}
+          </select>
+        </div>
+        <button onclick="adicionarPapelGrafico()" style="padding:8px 16px;background:var(--orange);color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;white-space:nowrap">+ Adicionar</button>
+        <button onclick="limparSelecao()" style="padding:8px 14px;background:none;border:1px solid var(--border);border-radius:8px;cursor:pointer;color:var(--muted);white-space:nowrap">Limpar</button>
+      </div>
+      <div id="papeisSelMsg" style="font-size:.78rem;color:var(--muted);margin-top:8px"></div>
     </div>
-    <div style="position:relative;height:280px"><canvas id="cPapelEvo"></canvas></div>
+    <div style="position:relative;height:300px"><canvas id="cPapelEvo"></canvas></div>
   </div>
   <div class="panel">
     <h2>▌ TABELA DE EVOLUÇÃO — TODOS OS PAPÉIS</h2>
     <div class="tablewrap"><table>
-      <tr><th>Papel</th><th>Classe</th><th>Taxa Contratada</th>${allMeses.map(m=>`<th>${m}</th>`).join('')}<th>Var. %</th></tr>
+      <tr><th>Papel</th><th>Classe</th><th>Taxa Contratada</th><th>Vencimento</th>${allMeses.map(m=>`<th>${m}</th>`).join('')}<th>Var. %</th></tr>
       ${papeis.map(p=>{
         const vals=allMeses.map(m=>p.historico[m]||null);
         const first=vals.find(v=>v!=null);
@@ -807,16 +819,16 @@ function renderPapeis(D){
           <td style="white-space:normal;max-width:200px;font-size:.78rem"><b>${p.ativo.replace(' (Isento)','')}</b></td>
           <td style="font-size:.72rem;color:var(--muted)">${p.classe.replace('FIIs — FUNDOS LISTADOS','FIIs').replace('RENDA VARIÁVEL — AÇÕES','Ações').replace('INFLAÇÃO (IPCA+)','IPCA+')}</td>
           <td style="font-size:.78rem;color:var(--orange)">${p.taxa||'—'}</td>
+          <td style="font-size:.78rem;color:var(--muted);white-space:nowrap">${p.venc?new Date(p.venc).toLocaleDateString('pt-BR'):'—'}</td>
           ${vals.map(v=>`<td>${v!=null?fC(v):'—'}</td>`).join('')}
           <td class="${varpct!=null?(varpct>=0?'pos':'neg'):''}">${varpct!=null?fPct(varpct,1):'—'}</td>
         </tr>`;}).join('')}
     </table></div>
   </div>`;
 
-  // Init chart with first papel
+  // Init chart — show first category by default
   window.__chartPapel = null;
-  document.getElementById('selPapel').value = firstPapel.ativo;
-  atualizarGraficoPapel();
+  setTimeout(()=>selecionarCategoria('todas'), 100);
 
   // ── Vencimentos chart ────────────────────────────────────────────────────
   const papeisComVenc = papeis.filter(p=>p.venc&&p.historico);
@@ -871,43 +883,97 @@ function renderPapeis(D){
   }
 }
 
-function atualizarGraficoPapel(){
-  const sel = document.getElementById('selPapel').value;
-  const papel = (DADOS.historicoPapeis||[]).find(p=>p.ativo===sel);
-  if(!papel) return;
+// Selected papeis set
+window.__papeisGrafico = [];
 
-  // Show taxa
-  const taxaEl = document.getElementById('taxaPapel');
-  if(taxaEl) taxaEl.textContent = papel.taxa ? '📌 '+papel.taxa : '';
+const CORES_GRAFICO = ['#a3556a','#5b7a99','#3f8a58','#c98a2e','#c0564a','#7a5c99','#f7931a','#41d2d8','#ff8c2e','#86b5d9'];
 
-  // Sort months
+function sortMeses(meses){
   const mmap={'Jan':1,'Fev':2,'Mar':3,'Abr':4,'Mai':5,'Jun':6,'Jul':7,'Ago':8,'Set':9,'Out':10,'Nov':11,'Dez':12};
-  const meses = Object.keys(papel.historico||{}).sort((a,b)=>{
-    const [ma,ya]=a.split('/'); const [mb,yb]=b.split('/');
-    return (parseInt(ya)*100+mmap[ma])-(parseInt(yb)*100+mmap[mb]);
+  return [...meses].sort((a,b)=>{const[ma,ya]=a.split('/');const[mb,yb]=b.split('/');return(parseInt(ya)*100+mmap[ma])-(parseInt(yb)*100+mmap[mb]);});
+}
+
+function adicionarPapelGrafico(){
+  const sel = document.getElementById('selPapel').value;
+  if(!sel) return;
+  if(window.__papeisGrafico.includes(sel)){
+    document.getElementById('papeisSelMsg').textContent='Papel já adicionado.';
+    return;
+  }
+  window.__papeisGrafico.push(sel);
+  document.getElementById('papeisSelMsg').textContent = window.__papeisGrafico.map(p=>p.replace(' (Isento)','')).join(' · ');
+  desenharGraficoPapeis(window.__papeisGrafico);
+}
+
+function limparSelecao(){
+  window.__papeisGrafico = [];
+  document.getElementById('papeisSelMsg').textContent='';
+  // Reset category buttons
+  document.querySelectorAll('.catBtn').forEach(b=>{b.style.background='var(--card)';b.style.color='var(--muted)';b.style.fontWeight='';});
+  const todas=document.getElementById('cat_todas');
+  if(todas){todas.style.background='var(--orange)';todas.style.color='#fff';todas.style.fontWeight='700';}
+  if(window.__chartPapel){window.__chartPapel.destroy();window.__chartPapel=null;}
+}
+
+function selecionarCategoria(cls){
+  // Update button styles
+  document.querySelectorAll('.catBtn').forEach(b=>{b.style.background='var(--card)';b.style.color='var(--muted)';b.style.fontWeight='';});
+  const btnId = 'cat_'+(cls==='todas'?'todas':cls.replace(/[^a-z]/gi,'_'));
+  const btn=document.getElementById(btnId);
+  if(btn){btn.style.background='var(--orange)';btn.style.color='#fff';btn.style.fontWeight='700';}
+
+  const papeis = DADOS.historicoPapeis||[];
+  let selecionados;
+  if(cls==='todas'){
+    selecionados = papeis.map(p=>p.ativo);
+  } else {
+    selecionados = papeis.filter(p=>p.classe===cls).map(p=>p.ativo);
+  }
+  window.__papeisGrafico = selecionados;
+  document.getElementById('papeisSelMsg').textContent = selecionados.length + ' papéis selecionados';
+  desenharGraficoPapeis(selecionados);
+}
+
+function desenharGraficoPapeis(ativos){
+  const papeis = DADOS.historicoPapeis||[];
+  const selecionados = papeis.filter(p=>ativos.includes(p.ativo));
+  if(!selecionados.length) return;
+
+  // All months union
+  const allM = sortMeses([...new Set(selecionados.flatMap(p=>Object.keys(p.historico||{})))]);
+
+  const datasets = selecionados.map((p,i)=>{
+    const cor = CORES_GRAFICO[i % CORES_GRAFICO.length];
+    return {
+      label: p.ativo.replace(' (Isento)','').substring(0,30),
+      data: allM.map(m=>p.historico[m]||null),
+      borderColor: cor,
+      backgroundColor: cor+'33',
+      fill: selecionados.length===1,
+      tension: .3,
+      pointRadius: 4,
+      pointHoverRadius: 6,
+      spanGaps: true
+    };
   });
-  const vals = meses.map(m=>papel.historico[m]);
-  const cor = CLASSE_COR[papel.classe]||'#5b7a99';
 
   if(window.__chartPapel) window.__chartPapel.destroy();
   window.__chartPapel = new Chart(document.getElementById('cPapelEvo'),{
     type:'line',
-    data:{labels:meses,datasets:[{
-      label:sel.replace(' (Isento)',''),
-      data:vals,
-      borderColor:cor,
-      backgroundColor:cor+'22',
-      fill:true,
-      tension:.3,
-      pointRadius:5,
-      pointHoverRadius:7
-    }]},
+    data:{labels:allM, datasets},
     options:{
       maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`${fBRL(ctx.raw)}`}}},
+      plugins:{
+        legend:{display:selecionados.length>1,position:'bottom',labels:{boxWidth:12,font:{size:11}}},
+        tooltip:{callbacks:{label:ctx=>`${ctx.dataset.label}: ${fBRL(ctx.raw)}`}}
+      },
       scales:{y:{ticks:{callback:v=>'R$ '+(v>=1000?(v/1000).toFixed(0)+'k':v.toFixed(0))}}}
     }
   });
+}
+
+function atualizarGraficoPapel(){
+  // legacy — kept for compatibility
 }
 
 </script>
