@@ -819,7 +819,7 @@ function renderPapeis(D){
           <td style="white-space:normal;max-width:200px;font-size:.78rem"><b>${p.ativo.replace(' (Isento)','')}</b></td>
           <td style="font-size:.72rem;color:var(--muted)">${p.classe.replace('FIIs — FUNDOS LISTADOS','FIIs').replace('RENDA VARIÁVEL — AÇÕES','Ações').replace('INFLAÇÃO (IPCA+)','IPCA+')}</td>
           <td style="font-size:.78rem;color:var(--orange)">${p.taxa||'—'}</td>
-          <td style="font-size:.78rem;color:var(--muted);white-space:nowrap">${p.venc?new Date(p.venc).toLocaleDateString('pt-BR'):'—'}</td>
+          <td style="font-size:.78rem;color:var(--muted);white-space:nowrap">${p.venc?(p.venc==='TODAY'?'Liquidez Diária':new Date(p.venc).toLocaleDateString('pt-BR')):'—'}</td>
           ${vals.map(v=>`<td>${v!=null?fC(v):'—'}</td>`).join('')}
           <td class="${varpct!=null?(varpct>=0?'pos':'neg'):''}">${varpct!=null?fPct(varpct,1):'—'}</td>
         </tr>`;}).join('')}
@@ -831,7 +831,9 @@ function renderPapeis(D){
   setTimeout(()=>selecionarCategoria('todas'), 100);
 
   // ── Vencimentos chart ────────────────────────────────────────────────────
-  const papeisComVenc = papeis.filter(p=>p.venc&&p.historico);
+  const hoje = new Date();
+  const hojeStr = hoje.toISOString().split('T')[0];
+  const papeisComVenc = papeis.filter(p=>p.venc&&p.historico).map(p=>({...p, vencResolved: p.venc==='TODAY'?hojeStr:p.venc}));
   if(papeisComVenc.length>0){
     // Get latest saldo for each
     const mmap2={'Jan':1,'Fev':2,'Mar':3,'Abr':4,'Mai':5,'Jun':6,'Jul':7,'Ago':8,'Set':9,'Out':10,'Nov':11,'Dez':12};
@@ -841,7 +843,7 @@ function renderPapeis(D){
         return (parseInt(ya)*100+mmap2[ma])-(parseInt(yb)*100+mmap2[mb]);
       });
       const saldo=p.historico[meses[meses.length-1]]||0;
-      return {x:p.venc, y:saldo, label:p.ativo.replace(' (Isento)',''), taxa:p.taxa||'—', saldo};
+      return {x:p.vencResolved||p.venc, y:saldo, label:p.ativo.replace(' (Isento)',''), taxa:p.taxa||'—', saldo, isToday:p.venc==='TODAY'};
     }).sort((a,b)=>a.x.localeCompare(b.x));
 
     new Chart(document.getElementById('cVencimentos'),{
@@ -866,7 +868,7 @@ function renderPapeis(D){
           tooltip:{callbacks:{
             label:ctx=>{
               const d=ctx.raw;
-              return [`${d.label}`,`Taxa: ${d.taxa}`,`Saldo: ${fBRL(d.y)}`,`Venc: ${new Date(d.x).toLocaleDateString('pt-BR')}`];
+              return [`${d.label}`,`Taxa: ${d.taxa}`,`Saldo: ${fBRL(d.y)}`,`Venc: ${d.isToday?'Liquidez Diária':new Date(d.x).toLocaleDateString('pt-BR')}`];
             }
           }}
         },
