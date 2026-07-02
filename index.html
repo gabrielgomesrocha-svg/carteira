@@ -169,10 +169,24 @@ new Chart(cPatr,{type:'line',data:{labels:D.evolucaoMensal.map(m=>m.mes),dataset
   {label:'Meta (linear)',data:metaVals,borderColor:'#3f8a58',backgroundColor:'transparent',borderDash:[6,3],tension:0,pointRadius:0,borderWidth:1.5}
 ]},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}},scales:{y:{ticks:{callback:v=>v>=1000000?'R$ '+(v/1000000).toFixed(0)+'M':v>=1000?'R$ '+(v/1000).toFixed(0)+'k':'R$ '+v},stepSize:1000000}}}});
   new Chart(cAloc,{type:'doughnut',data:{labels:D.alocacao.classes.map(c=>c.classe),datasets:[{data:D.alocacao.classes.map(c=>c.saldo),backgroundColor:COLORS,borderColor:'#ffffff',borderWidth:2}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:12,font:{size:11}}},tooltip:{callbacks:{label:c=>` ${c.label}: ${fBRL0(c.raw)} (${(c.raw/ult.patrimonio*100).toFixed(2)}%)`}}}}});
-  document.getElementById('alocMeta').innerHTML=D.alocacao.classes.map(c=>`
-    <div class="barmeta"><div class="nm">${c.classe}</div>
-    <div class="bar"><div class="fill" style="width:${Math.min(c.pct/Math.max(c.metaPct*1.4,10)*100,100)}%"></div>${c.metaPct?`<div class="marker" style="left:${Math.min(c.metaPct/Math.max(c.metaPct*1.4,10)*100,100)}%"></div>`:''}</div>
-    <div class="pc">${fBRL0(c.saldo)}<br><span style="color:var(--muted);font-size:.72rem">${fPct(c.pct)} / meta ${c.metaPct}%</span></div></div>`).join('');
+  document.getElementById('alocMeta').innerHTML=D.alocacao.classes.map(c=>{
+    const metaValor = D.meta.metaPatrimonio * c.metaPct / 100;
+    const atingido = metaValor > 0 ? Math.min(c.saldo / metaValor * 100, 100) : 0;
+    const faltaValor = Math.max(metaValor - c.saldo, 0);
+    return `<div class="barmeta">
+      <div class="nm">${c.classe}</div>
+      <div class="bar">
+        <div class="fill" style="width:${atingido}%"></div>
+        <div class="marker" style="left:100%"></div>
+      </div>
+      <div class="pc">
+        ${fBRL0(c.saldo)} <span style="color:var(--muted);font-size:.7rem">/ ${fBRL0(metaValor)}</span><br>
+        <span style="font-size:.7rem;color:${atingido>=100?'var(--green)':'var(--muted)'}">
+          ${fPct(atingido,0)} atingido${faltaValor>0?' · falta '+fBRL0(faltaValor):''}
+        </span>
+      </div>
+    </div>`;
+  }).join('');
 
   /* ===== RENTABILIDADE ===== */
   const mesesN=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
