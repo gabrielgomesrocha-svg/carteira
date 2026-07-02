@@ -180,10 +180,9 @@ new Chart(cPatr,{type:'line',data:{labels:D.evolucaoMensal.map(m=>m.mes),dataset
         <div class="marker" style="left:100%"></div>
       </div>
       <div class="pc">
-        ${fBRL0(c.saldo)} <span style="color:var(--muted);font-size:.7rem">/ ${fBRL0(metaValor)}</span><br>
-        <span style="font-size:.7rem;color:${atingido>=100?'var(--green)':'var(--muted)'}">
-          ${fPct(atingido,0)} atingido${faltaValor>0?' · falta '+fBRL0(faltaValor):''}
-        </span>
+        <span style="font-size:1.15rem;font-weight:800;color:${c.pct>c.metaPct?'var(--green)':c.pct>c.metaPct*0.7?'var(--orange)':'var(--red)'}">${fPct(c.pct,1)}</span>
+        <span style="font-size:.72rem;color:var(--muted)"> / meta ${c.metaPct}%</span><br>
+        <span style="font-size:.7rem;color:var(--muted)">${fBRL0(c.saldo)} · falta ${fBRL0(faltaValor)}</span>
       </div>
     </div>`;
   }).join('');
