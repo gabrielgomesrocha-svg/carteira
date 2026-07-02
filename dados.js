@@ -171,33 +171,29 @@ var DADOS = {
         }
       },
       {
-        "classe": "FIIs",
-        "metaPct": 5,
-        "saldo": 44089.53,
-        "pct": 2.78,
+        "classe": "Ações + FIIs",
+        "metaPct": 10,
+        "saldo": 63188.81,
+        "pct": 3.99,
         "historico": {
-          "Jan/2026": 2.49,
-          "Fev/2026": 2.59,
-          "Mar/2026": 2.68,
-          "Abr/2026": 2.61,
-          "Mai/2026": 2.78
-        }
-      },
-      {
-        "classe": "Renda Variável (Ações)",
-        "metaPct": 5,
-        "saldo": 19099.28,
-        "pct": 1.21,
-        "historico": {
-          "Jan/2026": 1.39,
-          "Fev/2026": 1.46,
-          "Mar/2026": 1.57,
-          "Abr/2026": 1.19,
-          "Mai/2026": 1.21
+          "Jan/2026": 3.88,
+          "Fev/2026": 4.05,
+          "Mar/2026": 4.25,
+          "Abr/2026": 3.8,
+          "Mai/2026": 3.99
         }
       },
       {
         "classe": "Mercado Exterior",
+        "metaPct": 5,
+        "saldo": 0.0,
+        "pct": 0.0,
+        "historico": {
+          "Mai/2026": 0.0
+        }
+      },
+      {
+        "classe": "Previdência Privada",
         "metaPct": 5,
         "saldo": 0.0,
         "pct": 0.0,
