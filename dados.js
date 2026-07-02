@@ -186,19 +186,19 @@ var DADOS = {
       {
         "classe": "Mercado Exterior",
         "metaPct": 5,
-        "saldo": 0.0,
-        "pct": 0.0,
+        "saldo": 0,
+        "pct": 0,
         "historico": {
-          "Mai/2026": 0.0
+          "Mai/2026": 0
         }
       },
       {
         "classe": "Previdência Privada",
         "metaPct": 5,
-        "saldo": 0.0,
-        "pct": 0.0,
+        "saldo": 0,
+        "pct": 0,
         "historico": {
-          "Mai/2026": 0.0
+          "Mai/2026": 0
         }
       }
     ]
@@ -1882,17 +1882,17 @@ var DADOS = {
         "ipva": 0
       },
       "pago": {
-        "parcelaAp": false,
-        "cartaoInd": false,
-        "haras": false,
-        "cartaoConj": false,
-        "contaCorrente": false,
-        "condominio": false,
-        "iptu": false,
-        "escola": false,
-        "paty": false,
-        "personal": false,
-        "inglesLis": false,
+        "parcelaAp": true,
+        "cartaoInd": true,
+        "haras": true,
+        "cartaoConj": true,
+        "contaCorrente": true,
+        "condominio": true,
+        "iptu": true,
+        "escola": true,
+        "paty": true,
+        "personal": true,
+        "inglesLis": true,
         "ipva": false
       }
     }
