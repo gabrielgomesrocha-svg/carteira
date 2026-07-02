@@ -132,6 +132,18 @@ function render(D){
     <div class="kpi"><div class="lbl">Rent. 12 meses</div><div class="val pos">${fPct(ult.rent12m)}</div><div class="det">${fPct(ult.pctCdi12m,1)} do CDI</div></div>
     <div class="kpi"><div class="lbl">Ganhos no mês</div><div class="val pos">${fBRL0(ult.ganhos)}</div><div class="det">Acumulado 2026: ${fBRL0(ganhos2026)}</div></div>
     <div class="kpi"><div class="lbl">Desde início (${D.meta.inicioCarteira})</div><div class="val pos">${fPct(D.posicaoDetalhada.total.desdeInicio)}</div><div class="det">Ganho total: ${fBRL0(D.ganhosPorEstrategia.find(g=>g.estrategia==='TOTAL').desdeInicio)}</div></div>
+    ${(()=>{
+      // Aporte necessário para atingir meta
+      const meta=D.meta.metaPatrimonio;
+      const atual=ult.patrimonio;
+      const prazoMeses=(()=>{const[m,a]=D.meta.metaPrazo.split('/');const mmap={'Jan':1,'Fev':2,'Mar':3,'Abr':4,'Mai':5,'Jun':6,'Jul':7,'Ago':8,'Set':9,'Out':10,'Nov':11,'Dez':12};const now=new Date();return Math.max(1,(parseInt(a)-now.getFullYear())*12+(mmap[m]-now.getMonth()-1));})();
+      const rentMensal=(ult.rent12m||14)/100/12;
+      // PMT formula: aporte = (FV - PV*(1+r)^n) * r / ((1+r)^n - 1)
+      const fv=meta, pv=atual, r=rentMensal, n=prazoMeses;
+      const fator=Math.pow(1+r,n);
+      const aporte=(fv-pv*fator)*r/(fator-1);
+      return aporte>0?`<div class="kpi"><div class="lbl">Aporte Necessário/mês</div><div class="val" style="font-size:1.1rem">${fBRL0(aporte)}</div><div class="det">Para atingir meta em ${D.meta.metaPrazo} com rent. ${fPct(ult.rent12m)} a.a.</div></div>`:'';
+    })()}
   </div>
   <div class="panel"><h2>▌ PROGRESSO DA META — ${fBRL0(D.meta.metaPatrimonio)}</h2>
     <div class="progress-goal"><div class="fill" style="width:${Math.min(progresso,100)}%">${fPct(progresso,1)}</div></div>
@@ -143,7 +155,19 @@ function render(D){
   </div>
   <div class="panel"><h2>🎯 ALOCAÇÃO vs META</h2><div id="alocMeta"></div></div>`;
 
-  new Chart(cPatr,{type:'line',data:{labels:D.evolucaoMensal.map(m=>m.mes),datasets:[{label:'Patrimônio',data:D.evolucaoMensal.map(m=>m.patrimonio),borderColor:'#a3556a',backgroundColor:'rgba(163,85,106,.12)',fill:true,tension:.3,pointRadius:4}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
+  // Build meta projection line
+const metaLabels=[...D.evolucaoMensal.map(m=>m.mes)];
+const metaVals=D.evolucaoMensal.map((m,i)=>{
+  // linear interpolation from start to meta
+  const total=D.evolucaoMensal.length;
+  const metaFinal=D.meta.metaPatrimonio;
+  const start=D.evolucaoMensal[0].patrimonio;
+  return Math.round(start+(metaFinal-start)*(i/(total-1||1)));
+});
+new Chart(cPatr,{type:'line',data:{labels:D.evolucaoMensal.map(m=>m.mes),datasets:[
+  {label:'Patrimônio',data:D.evolucaoMensal.map(m=>m.patrimonio),borderColor:'#a3556a',backgroundColor:'rgba(163,85,106,.12)',fill:true,tension:.3,pointRadius:4},
+  {label:'Meta (linear)',data:metaVals,borderColor:'#3f8a58',backgroundColor:'transparent',borderDash:[6,3],tension:0,pointRadius:0,borderWidth:1.5}
+]},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
   new Chart(cAloc,{type:'doughnut',data:{labels:D.alocacao.classes.map(c=>c.classe),datasets:[{data:D.alocacao.classes.map(c=>c.saldo),backgroundColor:COLORS,borderColor:'#ffffff',borderWidth:2}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:12,font:{size:11}}},tooltip:{callbacks:{label:c=>` ${c.label}: ${fBRL0(c.raw)} (${(c.raw/ult.patrimonio*100).toFixed(2)}%)`}}}}});
   document.getElementById('alocMeta').innerHTML=D.alocacao.classes.map(c=>`
     <div class="barmeta"><div class="nm">${c.classe}</div>
@@ -279,15 +303,32 @@ function renderCustos(D){
   const tab=document.getElementById('tab-custos');
   const custos=D.custos||[];
   const labels=custos.map(m=>m.mes);
+
+  // KPIs anuais
+  const custos2026 = custos.filter(m=>m.mes.includes('2026'));
+  const totalAno = custos2026.reduce((s,m)=>s+m.custoPessoal,0);
+  const mediaAno = custos2026.length>0 ? totalAno/custos2026.length : 0;
+  const ultCusto = custos[custos.length-1];
+  const penCusto = custos.length>1 ? custos[custos.length-2] : null;
+  const maiorItem = ultCusto ? Object.entries(ultCusto.detalhe).sort((a,b)=>b[1]-a[1])[0] : null;
+  const maiorItemLabel = maiorItem ? CAMPOS_CUSTOS.find(c=>c.key===maiorItem[0])?.label : null;
+  const maiorItemPct = maiorItem && ultCusto.custoCasa>0 ? (maiorItem[1]/ultCusto.custoCasa*100) : 0;
+
   tab.innerHTML=`
+  ${custos2026.length>0?`
+  <div class="cards" style="margin-bottom:20px">
+    <div class="kpi"><div class="lbl">Custo Total 2026</div><div class="val neg">${fBRL0(totalAno)}</div><div class="det">${custos2026.length} meses registrados</div></div>
+    <div class="kpi"><div class="lbl">Média Mensal 2026</div><div class="val">${fBRL0(mediaAno)}</div><div class="det">Custo pessoal médio</div></div>
+    ${maiorItemLabel?`<div class="kpi"><div class="lbl">Maior gasto (${ultCusto.mes})</div><div class="val" style="font-size:1.1rem">${maiorItemLabel}</div><div class="det">${fBRL0(maiorItem[1]*2)} total · ${fPct(maiorItemPct,1)} do custo casa</div></div>`:''}
+  </div>`:''}
   <div class="grid2">
     <div class="panel"><h2>🏠 CUSTO DA CASA</h2><div class="chartbox"><canvas id="cCasaBar"></canvas></div></div>
     <div class="panel"><h2>👤 CUSTO PESSOAL</h2><div class="chartbox"><canvas id="cPessBar"></canvas></div></div>
   </div>
   <div class="panel"><h2>▌ HISTÓRICO MENSAL DE CUSTOS</h2>
     <div class="tablewrap" style="overflow-x:hidden"><table style="table-layout:fixed;width:100%">
-      <tr><th>Mês</th>${CAMPOS_CUSTOS.map(c=>`<th>${c.label}</th>`).join('')}<th>Custo Casa</th><th>Custo Pessoal</th><th></th></tr>
-      ${custos.map((m,i)=>`<tr><td><b>${m.mes}</b></td>${CAMPOS_CUSTOS.map(c=>`<td>${fC(m.detalhe[c.key])}</td>`).join('')}<td><b>${fC(m.custoCasa)}</b></td><td><b>${fC(m.custoPessoal)}</b></td><td style="white-space:nowrap;display:flex;gap:4px">
+      <tr><th>Mês</th>${CAMPOS_CUSTOS.map(c=>`<th>${c.label}</th>`).join('')}<th>Custo Casa</th><th>Custo Pessoal</th><th>Δ%</th><th></th></tr>
+      ${custos.map((m,i)=>`<tr><td><b>${m.mes}</b></td>${CAMPOS_CUSTOS.map(c=>`<td>${fC(m.detalhe[c.key])}</td>`).join('')}<td><b>${fC(m.custoCasa)}</b></td><td><b>${fC(m.custoPessoal)}</b></td><td>${i>0?(()=>{const prev=custos[i-1].custoPessoal;const delta=(m.custoPessoal-prev)/prev*100;return `<span class="${delta>0?'neg':'pos'}" style="font-size:.8rem">${delta>0?'+':''}${fPct(delta,1)}</span>`;})():'—'}</td><td style="white-space:nowrap;display:flex;gap:4px">
   <button onclick="editarMes(${i})" style="background:none;border:1px solid var(--border);border-radius:6px;padding:3px 8px;cursor:pointer;font-size:.75rem;color:var(--muted)" title="Editar">✏️</button>
   <button onclick="excluirMes(${i})" style="background:none;border:1px solid #f5c6c6;border-radius:6px;padding:3px 8px;cursor:pointer;font-size:.75rem;color:var(--red)" title="Excluir">🗑️</button>
 </td></tr>`).join('')}
@@ -320,7 +361,22 @@ function renderCustos(D){
     CAMPOS_CASA.forEach(c=>{if(d[c.key]>0)linhas.push(`${c.label} (÷2): ${fBRL(d[c.key]/2)}`);});
     return linhas;
   }}};
+  // Gráfico evolução por item
+  const itemsGrid = document.createElement('div');
+  itemsGrid.className='panel';
+  itemsGrid.innerHTML='<h2>📊 EVOLUÇÃO POR ITEM</h2><div style="position:relative;height:300px"><canvas id="cItemEvo"></canvas></div>';
+  tab.insertBefore(itemsGrid, tab.querySelector('.panel'));
+
   new Chart(cCasaBar,{type:'bar',data:{labels,datasets:[{data:custos.map(m=>m.custoCasa),backgroundColor:'#5b7a99',borderRadius:5}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tooltipCasa},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
+  // item evolution rendered after DOM settles
+  setTimeout(()=>{
+    const cvs=document.getElementById('cItemEvo');
+    if(cvs){
+      const itemCores=['#a3556a','#5b7a99','#3f8a58','#c98a2e','#c0564a','#7a5c99','#f7931a','#41d2d8','#9aa3ad','#86b5d9','#e8a87c','#5dade2'];
+      new Chart(cvs,{type:'line',data:{labels,datasets:CAMPOS_CUSTOS.map((c,i)=>({label:c.label,data:custos.map(m=>m.detalhe[c.key]||0),borderColor:itemCores[i%itemCores.length],backgroundColor:'transparent',tension:.3,pointRadius:3}))},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
+    }
+  },200);
+
   new Chart(cPessBar,{type:'bar',data:{labels,datasets:[{data:custos.map(m=>m.custoPessoal),backgroundColor:'#a3556a',borderRadius:5}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tooltipPess},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
 }
 
@@ -534,6 +590,11 @@ function renderResultado(D){
   const mesesComResultado=rows.filter(r=>r.resultado!=null);
   const totalConsolidado=mesesComResultado.reduce((s,r)=>s+r.resultado,0);
   const mediaMenusal=mesesComResultado.length>0?totalConsolidado/mesesComResultado.length:null;
+  // Taxa de poupança
+  const totalEntradas=mesesComResultado.reduce((s,r)=>s+(r.retiradaMensal||0),0);
+  const taxaPoupanca=totalEntradas>0?(totalConsolidado/totalEntradas*100):null;
+  // Projeção anual (12 meses com média atual)
+  const projecaoAnual=mediaMenusal!=null?mediaMenusal*12:null;
   // Media trimestral: group by trimestre
   const porTri={};
   mesesComResultado.forEach(r=>{
@@ -549,6 +610,8 @@ function renderResultado(D){
     <div class="kpi"><div class="lbl">Lucro Médio Mensal</div><div class="val ${mediaMenusal>=0?'pos':'neg'}">${mediaMenusal!=null?fBRL0(mediaMenusal):'—'}</div><div class="det">${mesesComResultado.length} meses com dados</div></div>
     <div class="kpi"><div class="lbl">Lucro Médio Trimestral</div><div class="val ${mediaTrimestral>=0?'pos':'neg'}">${mediaTrimestral!=null?fBRL0(mediaTrimestral):'—'}</div><div class="det">${triValues.length} trimestres com dados</div></div>
     <div class="kpi hl"><div class="lbl">Total Consolidado</div><div class="val pos">${fBRL0(totalConsolidado)}</div><div class="det">Resultado acumulado até ${mesesComResultado[mesesComResultado.length-1].mes}</div></div>
+    ${taxaPoupanca!=null?`<div class="kpi"><div class="lbl">Taxa de Poupança</div><div class="val ${taxaPoupanca>=0?'pos':'neg'}">${fPct(taxaPoupanca,1)}</div><div class="det">Da retirada total</div></div>`:''}
+    ${projecaoAnual!=null?`<div class="kpi"><div class="lbl">Projeção Anual</div><div class="val pos">${fBRL0(projecaoAnual)}</div><div class="det">Se manter média atual de ${fBRL0(mediaMenusal)}/mês</div></div>`:''}
   </div>`:''}
   <div class="panel">
     <h2>▌ RETIRADAS TRIMESTRAIS</h2>
@@ -785,6 +848,10 @@ function renderPapeis(D){
     <div style="font-size:.78rem;color:var(--muted);margin-top:8px">Apenas papéis com data de vencimento definida. Passe o mouse para ver detalhes.</div>
   </div>
   <div class="panel">
+    <h2>📊 CONCENTRAÇÃO POR ANO DE VENCIMENTO</h2>
+    <div style="position:relative;height:260px"><canvas id="cConcentracao"></canvas></div>
+  </div>
+  <div class="panel">
     <h2>📈 EVOLUÇÃO POR PAPEL</h2>
     <div style="margin-bottom:14px">
       <div style="font-size:.75rem;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.6px">Filtrar por categoria</div>
@@ -845,6 +912,24 @@ function renderPapeis(D){
       const saldo=p.historico[meses[meses.length-1]]||0;
       return {x:p.vencResolved||p.venc, y:saldo, label:p.ativo.replace(' (Isento)',''), taxa:p.taxa||'—', saldo, isToday:p.venc==='TODAY'};
     }).sort((a,b)=>a.x.localeCompare(b.x));
+
+    // Concentração por ano
+    const concMap={};
+    papeisComVenc.forEach(p=>{
+      if(!p.vencResolved||p.venc==='TODAY')return;
+      const ano=p.vencResolved.substring(0,4);
+      const meses2=Object.keys(p.historico||{});
+      const mmap3={'Jan':1,'Fev':2,'Mar':3,'Abr':4,'Mai':5,'Jun':6,'Jul':7,'Ago':8,'Set':9,'Out':10,'Nov':11,'Dez':12};
+      const ultM=meses2.sort((a,b)=>{const[ma,ya]=a.split('/');const[mb,yb]=b.split('/');return(parseInt(yb)*100+mmap3[mb])-(parseInt(ya)*100+mmap3[ma]);})[0];
+      const saldo=ultM?p.historico[ultM]:0;
+      concMap[ano]=(concMap[ano]||0)+saldo;
+    });
+    const concAnos=Object.keys(concMap).sort();
+    const concVals=concAnos.map(a=>concMap[a]);
+    const concCanvas=document.getElementById('cConcentracao');
+    if(concCanvas&&concAnos.length>0){
+      new Chart(concCanvas,{type:'bar',data:{labels:concAnos,datasets:[{data:concVals,backgroundColor:concAnos.map(a=>parseInt(a)<2028?'#c0564a':parseInt(a)<2031?'#c98a2e':'#3f8a58'),borderRadius:5}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>`Saldo: ${fBRL(ctx.raw)}`}}},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
+    }
 
     new Chart(document.getElementById('cVencimentos'),{
       type:'bubble',
