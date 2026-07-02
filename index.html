@@ -380,7 +380,7 @@ function renderCustos(D){
   itemsGrid.innerHTML='<h2>📊 EVOLUÇÃO POR ITEM</h2><div style="position:relative;height:300px"><canvas id="cItemEvo"></canvas></div>';
   tab.insertBefore(itemsGrid, tab.querySelector('.panel'));
 
-  new Chart(cCasaBar,{type:'bar',data:{labels,datasets:[{data:custos.map(m=>m.custoCasa),backgroundColor:'#5b7a99',borderRadius:5}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tooltipCasa},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
+  new Chart(document.getElementById('cCasaBar'),{type:'bar',data:{labels,datasets:[{data:custos.map(m=>m.custoCasa),backgroundColor:'#5b7a99',borderRadius:5}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tooltipCasa},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
   // item evolution rendered after DOM settles
   setTimeout(()=>{
     const cvs=document.getElementById('cItemEvo');
@@ -390,7 +390,7 @@ function renderCustos(D){
     }
   },200);
 
-  new Chart(cPessBar,{type:'bar',data:{labels,datasets:[{data:custos.map(m=>m.custoPessoal),backgroundColor:'#a3556a',borderRadius:5}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tooltipPess},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
+  new Chart(document.getElementById('cPessBar'),{type:'bar',data:{labels,datasets:[{data:custos.map(m=>m.custoPessoal),backgroundColor:'#a3556a',borderRadius:5}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tooltipPess},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
 }
 
 let __editIdx=null;
