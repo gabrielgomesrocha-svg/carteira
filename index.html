@@ -338,6 +338,7 @@ function renderCustos(D){
     <div class="panel"><h2>🏠 CUSTO DA CASA</h2><div class="chartbox"><canvas id="cCasaBar"></canvas></div></div>
     <div class="panel"><h2>👤 CUSTO PESSOAL</h2><div class="chartbox"><canvas id="cPessBar"></canvas></div></div>
   </div>
+  <div class="panel"><h2>📊 EVOLUÇÃO POR ITEM</h2><div class="chartbox"><canvas id="cItemEvo"></canvas></div></div>
   <div class="panel"><h2>▌ HISTÓRICO MENSAL DE CUSTOS</h2>
     <div class="tablewrap" style="overflow-x:hidden"><table style="table-layout:fixed;width:100%">
       <tr><th>Mês</th>${CAMPOS_CUSTOS.map(c=>`<th>${c.label}</th>`).join('')}<th>Custo Casa</th><th>Custo Pessoal</th><th>Δ%</th><th></th></tr>
@@ -374,23 +375,16 @@ function renderCustos(D){
     CAMPOS_CASA.forEach(c=>{if(d[c.key]>0)linhas.push(`${c.label} (÷2): ${fBRL(d[c.key]/2)}`);});
     return linhas;
   }}};
-  // Gráfico evolução por item
-  const itemsGrid = document.createElement('div');
-  itemsGrid.className='panel';
-  itemsGrid.innerHTML='<h2>📊 EVOLUÇÃO POR ITEM</h2><div style="position:relative;height:300px"><canvas id="cItemEvo"></canvas></div>';
-  tab.insertBefore(itemsGrid, tab.querySelector('.panel'));
-
-  new Chart(document.getElementById('cCasaBar'),{type:'bar',data:{labels,datasets:[{data:custos.map(m=>m.custoCasa),backgroundColor:'#5b7a99',borderRadius:5}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tooltipCasa},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
-  // item evolution rendered after DOM settles
+  // Init all charts after DOM is ready
   setTimeout(()=>{
-    const cvs=document.getElementById('cItemEvo');
-    if(cvs){
-      const itemCores=['#a3556a','#5b7a99','#3f8a58','#c98a2e','#c0564a','#7a5c99','#f7931a','#41d2d8','#9aa3ad','#86b5d9','#e8a87c','#5dade2'];
-      new Chart(cvs,{type:'line',data:{labels,datasets:CAMPOS_CUSTOS.map((c,i)=>({label:c.label,data:custos.map(m=>m.detalhe[c.key]||0),borderColor:itemCores[i%itemCores.length],backgroundColor:'transparent',tension:.3,pointRadius:3}))},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
-    }
-  },200);
-
-  new Chart(document.getElementById('cPessBar'),{type:'bar',data:{labels,datasets:[{data:custos.map(m=>m.custoPessoal),backgroundColor:'#a3556a',borderRadius:5}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tooltipPess},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
+    const itemCores=['#a3556a','#5b7a99','#3f8a58','#c98a2e','#c0564a','#7a5c99','#f7931a','#41d2d8','#9aa3ad','#86b5d9','#e8a87c','#5dade2'];
+    const cvsCasa=document.getElementById('cCasaBar');
+    const cvsPess=document.getElementById('cPessBar');
+    const cvsItem=document.getElementById('cItemEvo');
+    if(cvsCasa) new Chart(cvsCasa,{type:'bar',data:{labels,datasets:[{data:custos.map(m=>m.custoCasa),backgroundColor:'#5b7a99',borderRadius:5}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tooltipCasa},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
+    if(cvsPess) new Chart(cvsPess,{type:'bar',data:{labels,datasets:[{data:custos.map(m=>m.custoPessoal),backgroundColor:'#a3556a',borderRadius:5}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tooltipPess},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
+    if(cvsItem) new Chart(cvsItem,{type:'line',data:{labels,datasets:CAMPOS_CUSTOS.map((c,i)=>({label:c.label,data:custos.map(m=>m.detalhe[c.key]||0),borderColor:itemCores[i%itemCores.length],backgroundColor:'transparent',tension:.3,pointRadius:3}))},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
+  },100);
 }
 
 let __editIdx=null;
