@@ -1143,16 +1143,7 @@ var DADOS = {
       "desdeInicio": 42310.88
     },
     {
-      "estrategia": "Multimercado",
-      "noMes": 0,
-      "noAno": 0,
-      "m03": 0,
-      "m06": 0,
-      "m12": 256.05,
-      "desdeInicio": 1763.93
-    },
-    {
-      "estrategia": "Renda Variável",
+      "estrategia": "Ações",
       "noMes": 13.46,
       "noAno": 2054.86,
       "m03": -690.37,
@@ -1186,6 +1177,15 @@ var DADOS = {
       "m06": 0.32,
       "m12": 0.32,
       "desdeInicio": -3.46
+    },
+    {
+      "estrategia": "Previdência Privada",
+      "noMes": 0,
+      "noAno": 0,
+      "m03": 0,
+      "m06": 0,
+      "m12": 0,
+      "desdeInicio": 0
     },
     {
       "estrategia": "TOTAL",
@@ -1281,21 +1281,7 @@ var DADOS = {
         ]
       },
       {
-        "estrategia": "Multimercado",
-        "valores": [
-          57.67,
-          6.87,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ]
-      },
-      {
-        "estrategia": "Renda Variável",
+        "estrategia": "Ações",
         "valores": [
           352.54,
           1213.46,
@@ -1345,6 +1331,20 @@ var DADOS = {
           0,
           0,
           0.32,
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "estrategia": "Previdência Privada",
+        "valores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
           0,
           0,
           0
