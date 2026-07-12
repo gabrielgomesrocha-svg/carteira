@@ -244,11 +244,44 @@ new Chart(cPatr,{type:'line',data:{labels:D.evolucaoMensal.map(m=>m.mes),dataset
 
   /* ===== DIVIDENDOS ===== */
   const dv=D.dividendos;
+  // ── Cálculos KPIs dividendos ────────────────────────────────────────────
+  const dvM = dv.resumoMensal;
+  const n = dvM.length;
+  // 12 meses: últimos 12 ou todos disponíveis
+  const ult12 = dvM.slice(-12);
+  const total12m = ult12.reduce((s,m)=>s+(m.fiis||0)+(m.acoes||0),0);
+  // Média 6 meses ações
+  const ult6 = dvM.slice(-6);
+  const media6Acoes = ult6.length>0 ? ult6.reduce((s,m)=>s+(m.acoes||0),0)/ult6.length : 0;
+  // Média 6 meses FIIs
+  const media6Fiis = ult6.length>0 ? ult6.reduce((s,m)=>s+(m.fiis||0),0)/ult6.length : 0;
+  // Último mês FIIs + delta
+  const ultFiis = n>0 ? dvM[n-1].fiis : 0;
+  const penFiis = n>1 ? dvM[n-2].fiis : 0;
+  const deltaFiis = penFiis>0 ? (ultFiis-penFiis)/penFiis*100 : 0;
+  // Último mês Ações + delta
+  const ultAcoes = n>0 ? dvM[n-1].acoes : 0;
+  const penAcoes = n>1 ? dvM[n-2].acoes : 0;
+  const deltaAcoes = penAcoes>0 ? (ultAcoes-penAcoes)/penAcoes*100 : null;
+  // Yield on Cost FIIs: dividendos FIIs 12m / saldo FIIs atual * 100
+  const saldoFiis = D.alocacao.classes.find(c=>c.classe==='Ações + FIIs')?.saldo||0;
+  const fiis12m = ult12.reduce((s,m)=>s+(m.fiis||0),0);
+  const yieldFiis = saldoFiis>0 ? (fiis12m/saldoFiis*100) : 0;
+
+  function deltaTag(v){
+    if(v===null||isNaN(v)||!isFinite(v)) return '';
+    const cl=v>=0?'pos':'neg';
+    return `<div style="font-size:.78rem;margin-top:3px" class="${cl}">${v>=0?'+':''}${v.toFixed(1)}% vs mês ant.</div>`;
+  }
+
   document.getElementById('tab-div').innerHTML=`
   <div class="cards">
-    <div class="kpi hl"><div class="lbl">Total acumulado 2026</div><div class="val">${fBRL(dv.totalAcumulado)}</div></div>
-    <div class="kpi"><div class="lbl">FIIs / mês (estável)</div><div class="val">${fBRL(dv.resumoMensal[0].fiis)}</div></div>
-    <div class="kpi"><div class="lbl">Ações no período</div><div class="val">${fBRL(dv.resumoMensal.reduce((s,m)=>s+m.acoes,0))}</div><div class="det">Dividendos + JCP esporádicos</div></div>
+    <div class="kpi hl"><div class="lbl">Total 12 meses (FIIs + Ações)</div><div class="val">${fBRL(total12m)}</div><div class="det">${ult12.length} meses considerados</div></div>
+    <div class="kpi"><div class="lbl">Média 6 meses — FIIs</div><div class="val">${fBRL(media6Fiis)}</div><div class="det">por mês</div></div>
+    <div class="kpi"><div class="lbl">Média 6 meses — Ações</div><div class="val">${fBRL(media6Acoes)}</div><div class="det">por mês</div></div>
+    <div class="kpi"><div class="lbl">Proventos FIIs — ${n>0?dvM[n-1].mes:'—'}</div><div class="val">${fBRL(ultFiis)}</div>${deltaTag(deltaFiis)}</div>
+    <div class="kpi"><div class="lbl">Proventos Ações — ${n>0?dvM[n-1].mes:'—'}</div><div class="val">${fBRL(ultAcoes)}</div>${deltaTag(deltaAcoes)}</div>
+    <div class="kpi"><div class="lbl">Yield on Cost — FIIs</div><div class="val pos">${fPct(yieldFiis,1)} a.a.</div><div class="det">Dividendos 12m / capital em FIIs</div></div>
   </div>
   <div class="grid2">
     <div class="panel"><h2>💵 PROVENTOS MENSAIS</h2><div class="chartbox"><canvas id="cDiv"></canvas></div></div>
