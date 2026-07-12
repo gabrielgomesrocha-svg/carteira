@@ -263,10 +263,15 @@ new Chart(cPatr,{type:'line',data:{labels:D.evolucaoMensal.map(m=>m.mes),dataset
   const ultAcoes = n>0 ? dvM[n-1].acoes : 0;
   const penAcoes = n>1 ? dvM[n-2].acoes : 0;
   const deltaAcoes = penAcoes>0 ? (ultAcoes-penAcoes)/penAcoes*100 : null;
-  // Yield on Cost FIIs: dividendos FIIs 12m / saldo FIIs atual * 100
-  const saldoFiis = D.alocacao.classes.find(c=>c.classe==='Ações + FIIs')?.saldo||0;
-  const fiis12m = ult12.reduce((s,m)=>s+(m.fiis||0),0);
-  const yieldFiis = saldoFiis>0 ? (fiis12m/saldoFiis*100) : 0;
+  // Yield on Cost FIIs: dividendos FIIs do mês vigente / saldo FIIs atual * 12 * 100
+  // Saldo FIIs = soma dos papéis da classe FIIs na posicaoDetalhada
+  const saldoFiisPos = (D.posicaoDetalhada?.grupos||[])
+    .filter(g=>g.grupo==='FIIs — FUNDOS LISTADOS')
+    .reduce((s,g)=>s+(g.subtotal?.saldo||0),0);
+  const ultFiisDiv = n>0 ? (dvM[n-1].fiis||0) : 0;
+  const penFiisDiv = n>1 ? (dvM[n-2].fiis||0) : 0;
+  const yieldFiis = saldoFiisPos>0 ? (ultFiisDiv/saldoFiisPos*12*100) : 0;
+  const deltaYield = penFiisDiv>0 ? (ultFiisDiv-penFiisDiv)/penFiisDiv*100 : null;
 
   function deltaTag(v){
     if(v===null||isNaN(v)||!isFinite(v)) return '';
@@ -281,7 +286,7 @@ new Chart(cPatr,{type:'line',data:{labels:D.evolucaoMensal.map(m=>m.mes),dataset
     <div class="kpi"><div class="lbl">Média 6 meses — Ações</div><div class="val">${fBRL(media6Acoes)}</div><div class="det">por mês</div></div>
     <div class="kpi"><div class="lbl">Proventos FIIs — ${n>0?dvM[n-1].mes:'—'}</div><div class="val">${fBRL(ultFiis)}</div>${deltaTag(deltaFiis)}</div>
     <div class="kpi"><div class="lbl">Proventos Ações — ${n>0?dvM[n-1].mes:'—'}</div><div class="val">${fBRL(ultAcoes)}</div>${deltaTag(deltaAcoes)}</div>
-    <div class="kpi"><div class="lbl">Yield on Cost — FIIs</div><div class="val pos">${fPct(yieldFiis,1)} a.a.</div><div class="det">Dividendos 12m / capital em FIIs</div></div>
+    <div class="kpi"><div class="lbl">Yield on Cost — FIIs</div><div class="val pos">${fPct(yieldFiis,1)} a.a.</div><div class="det">${fBRL(ultFiisDiv)}/mês sobre R$ ${Math.round(saldoFiisPos/1000)}k</div>${deltaTag(deltaYield)}</div>
   </div>
   <div class="grid2">
     <div class="panel"><h2>💵 PROVENTOS MENSAIS</h2><div class="chartbox"><canvas id="cDiv"></canvas></div></div>
