@@ -783,7 +783,7 @@ function gerarAlertasAuto(D){
   if(D.posicaoDetalhada&&D.posicaoDetalhada.grupos){
     D.posicaoDetalhada.grupos.forEach(g=>{
       g.ativos.forEach(a=>{
-        if(a.saldo>0){
+        if(a.saldo>1){
           if(a.rentMes!=null&&a.rentMes<0){
             alertas.push({ativo:a.ativo,nivel:'atencao',texto:`Rentabilidade negativa no mês: ${fPct(a.rentMes)}. Monitorar.`});
           } else if(a.rent12m!=null&&a.rent12m<0){
