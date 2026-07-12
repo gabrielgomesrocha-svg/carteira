@@ -116,8 +116,8 @@ var DADOS = {
     },
     {
       "mes": "Jun/2026",
-      "patrimonio": 1418318.84,
-      "aplicacoes": 106582.1,
+      "patrimonio": 1508318.84,
+      "aplicacoes": 196582.1,
       "resgates": 278551.49,
       "ganhos": 13918.56,
       "dividendos": 463.04,
@@ -135,70 +135,70 @@ var DADOS = {
         "classe": "Pós-fixado",
         "metaPct": 50,
         "saldo": 951124.61,
-        "pct": 67.06,
+        "pct": 63.06,
         "historico": {
           "Jan/2026": 58.53,
           "Fev/2026": 62.05,
           "Mar/2026": 60.85,
           "Abr/2026": 60.38,
           "Mai/2026": 65.91,
-          "Jun/2026": 67.06
+          "Jun/2026": 63.06
         }
       },
       {
         "classe": "Prefixado",
         "metaPct": 15,
         "saldo": 51201.31,
-        "pct": 3.61,
+        "pct": 3.39,
         "historico": {
           "Jan/2026": 12,
           "Fev/2026": 12.71,
           "Mar/2026": 17.73,
           "Abr/2026": 16.61,
           "Mai/2026": 9.85,
-          "Jun/2026": 3.61
+          "Jun/2026": 3.39
         }
       },
       {
         "classe": "Inflação (IPCA+)",
         "metaPct": 15,
         "saldo": 266643.94,
-        "pct": 18.8,
+        "pct": 17.68,
         "historico": {
           "Jan/2026": 15.96,
           "Fev/2026": 16.93,
           "Mar/2026": 13.35,
           "Abr/2026": 15.99,
           "Mai/2026": 16.62,
-          "Jun/2026": 18.8
+          "Jun/2026": 17.68
         }
       },
       {
         "classe": "Título Público",
         "metaPct": 5,
         "saldo": 84248.14,
-        "pct": 5.94,
+        "pct": 5.59,
         "historico": {
           "Jan/2026": 6.19,
           "Fev/2026": 4.79,
           "Mar/2026": 4.44,
           "Abr/2026": 3.09,
           "Mai/2026": 3.17,
-          "Jun/2026": 5.94
+          "Jun/2026": 5.59
         }
       },
       {
         "classe": "Ações + FIIs",
         "metaPct": 5,
         "saldo": 62122.37,
-        "pct": 4.38,
+        "pct": 4.12,
         "historico": {
           "Jan/2026": 3.88,
           "Fev/2026": 4.05,
           "Mar/2026": 4.25,
           "Abr/2026": 3.8,
           "Mai/2026": 3.99,
-          "Jun/2026": 4.38
+          "Jun/2026": 4.12
         }
       },
       {
@@ -214,11 +214,11 @@ var DADOS = {
       {
         "classe": "Previdência Privada",
         "metaPct": 5,
-        "saldo": 0.0,
-        "pct": 0.0,
+        "saldo": 90000.0,
+        "pct": 5.97,
         "historico": {
           "Mai/2026": 0,
-          "Jun/2026": 0.0
+          "Jun/2026": 5.97
         }
       }
     ]
@@ -1051,13 +1051,46 @@ var DADOS = {
             "part": 0.03
           }
         ]
+      },
+      {
+        "grupo": "PREVIDÊNCIA PRIVADA",
+        "subtotal": {
+          "saldoAnt": 0,
+          "aplicacoes": 90000,
+          "resgates": 0,
+          "saldo": 90000
+        },
+        "ativos": [
+          {
+            "ativo": "Adam XP Seg Prev I Fic Fim RI",
+            "saldoAnt": 0,
+            "aplicacoes": 45000,
+            "resgates": 0,
+            "saldo": 45000,
+            "rentMes": 0,
+            "rent12m": null,
+            "desdeInicio": 0,
+            "part": 2.98
+          },
+          {
+            "ativo": "Kinea Alpes Prev XP Seg MM CP FicFI",
+            "saldoAnt": 0,
+            "aplicacoes": 45000,
+            "resgates": 0,
+            "saldo": 45000,
+            "rentMes": 0,
+            "rent12m": null,
+            "desdeInicio": 0,
+            "part": 2.98
+          }
+        ]
       }
     ],
     "total": {
       "saldoAnt": 1576822.36,
-      "aplicacoes": 106582.1,
+      "aplicacoes": 196582.1,
       "resgates": 278551.49,
-      "saldo": 1418318.84,
+      "saldo": 1508318.84,
       "rentMes": 1.07,
       "rent12m": 15.76,
       "desdeInicio": 73.86
@@ -1456,6 +1489,20 @@ var DADOS = {
           0,
           7500,
           0
+        ]
+      },
+      {
+        "classe": "Previdência Privada",
+        "valores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          90000
         ]
       }
     ]
@@ -2406,6 +2453,24 @@ var DADOS = {
         "Mai/2026": 7500
       },
       "venc": null
+    },
+    {
+      "ativo": "Adam XP Seg Prev I Fic Fim RI",
+      "classe": "PREVIDÊNCIA PRIVADA",
+      "taxa": "Fundo multimercado",
+      "venc": null,
+      "historico": {
+        "Jun/2026": 45000
+      }
+    },
+    {
+      "ativo": "Kinea Alpes Prev XP Seg MM CP FicFI",
+      "classe": "PREVIDÊNCIA PRIVADA",
+      "taxa": "Fundo multimercado",
+      "venc": null,
+      "historico": {
+        "Jun/2026": 45000
+      }
     }
   ]
 };
