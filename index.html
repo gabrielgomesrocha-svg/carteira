@@ -97,7 +97,7 @@ const cls=v=>v==null?'':(v>0?'pos':v<0?'neg':'');
 const COLORS=['#a3556a','#5b7a99','#7a8450','#c98b9b','#9aa3ad','#c0564a','#5f9ea0','#b8bec6'];
 Chart.defaults.color='#878d96';Chart.defaults.borderColor='#e1e4e9';Chart.defaults.font.family="'Segoe UI',sans-serif";
 
-const TABS=[['dash','Dashboard'],['rent','Rentabilidade'],['pos','Posição'],['ganhos','Ganhos'],['evo','Evolução'],['div','Dividendos'],['estr','Estratégia & Alertas'],['custos','Custos'],['resultado','Resultado'],['papeis','Papéis']];
+const TABS=[['dash','Dashboard'],['rent','Rentabilidade'],['pos','Posição'],['ganhos','Ganhos'],['evo','Evolução'],['div','Dividendos'],['estr','Estratégia & Alertas'],['custos','Custos'],['resultado','Resultado'],['papeis','Papéis'],['simulador','Simulador']];
 
 (function(){
   const s=document.createElement('script');
@@ -330,6 +330,8 @@ new Chart(cPatr,{type:'line',data:{labels:D.evolucaoMensal.map(m=>m.mes),dataset
   renderResultado(D);
   /* ===== PAPEIS ===== */
   renderPapeis(D);
+  /* ===== SIMULADOR ===== */
+  renderSimulador(D);
 }
 
 const CAMPOS_CUSTOS = [
@@ -1106,6 +1108,145 @@ function desenharGraficoPapeis(ativos){
 
 function atualizarGraficoPapel(){
   // legacy — kept for compatibility
+}
+
+function renderSimulador(D){
+  const tab = document.getElementById('tab-simulador');
+  const ult = D.evolucaoMensal[D.evolucaoMensal.length-1];
+
+  tab.innerHTML = `
+  <div class="panel">
+    <h2>🎯 SIMULADOR DE META</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:20px">
+      <div>
+        <div style="font-size:.75rem;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.6px">Patrimônio inicial (R$)</div>
+        <input id="simInicial" type="number" step="1000" value="${Math.round(ult.patrimonio)}"
+          oninput="calcSimulador()"
+          style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:1rem;font-weight:700;background:var(--card);color:var(--txt)">
+      </div>
+      <div>
+        <div style="font-size:.75rem;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.6px">Aporte mensal (R$)</div>
+        <input id="simAporte" type="number" step="500" value="50000"
+          oninput="calcSimulador()"
+          style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:1rem;font-weight:700;background:var(--card);color:var(--txt)">
+      </div>
+      <div>
+        <div style="font-size:.75rem;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.6px">Rentabilidade anual (%)</div>
+        <input id="simRent" type="number" step="0.5" value="12"
+          oninput="calcSimulador()"
+          style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:1rem;font-weight:700;background:var(--card);color:var(--txt)">
+      </div>
+      <div>
+        <div style="font-size:.75rem;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.6px">Meta (R$)</div>
+        <input id="simMeta" type="number" step="100000" value="${D.meta.metaPatrimonio}"
+          oninput="calcSimulador()"
+          style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:1rem;font-weight:700;background:var(--card);color:var(--txt)">
+      </div>
+    </div>
+    <div id="simResultados" class="cards" style="margin-bottom:20px"></div>
+  </div>
+  <div class="panel">
+    <h2>📈 PROJEÇÃO PATRIMONIAL</h2>
+    <div style="position:relative;height:380px"><canvas id="cSimulador"></canvas></div>
+  </div>`;
+
+  setTimeout(calcSimulador, 100);
+}
+
+let __chartSim = null;
+
+function calcSimulador(){
+  const inicial = parseFloat(document.getElementById('simInicial')?.value)||0;
+  const aporte  = parseFloat(document.getElementById('simAporte')?.value)||0;
+  const rentAno = parseFloat(document.getElementById('simRent')?.value)||0;
+  const meta    = parseFloat(document.getElementById('simMeta')?.value)||0;
+  if(!meta||!inicial) return;
+
+  const r = rentAno/100/12; // taxa mensal
+  const MAX_MESES = 600; // 50 anos max
+
+  // Projetar mês a mês
+  const projecao = [];
+  let pat = inicial;
+  let mesesParaMeta = null;
+
+  const hoje = new Date();
+  const MESES = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+
+  for(let i=0; i<=MAX_MESES; i++){
+    const d = new Date(hoje.getFullYear(), hoje.getMonth()+i, 1);
+    const label = MESES[d.getMonth()]+'/'+String(d.getFullYear()).slice(2);
+    projecao.push({mes: i, label, pat: Math.round(pat)});
+    if(pat >= meta && mesesParaMeta === null) mesesParaMeta = i;
+    pat = pat*(1+r) + aporte;
+    if(i > 0 && mesesParaMeta !== null && i > mesesParaMeta + 12) break;
+  }
+
+  const anos = mesesParaMeta !== null ? (mesesParaMeta/12).toFixed(1) : null;
+  const dataChegada = mesesParaMeta !== null
+    ? (() => { const d=new Date(hoje.getFullYear(), hoje.getMonth()+mesesParaMeta,1); return MESES[d.getMonth()]+'/'+d.getFullYear(); })()
+    : null;
+
+  // Sem aportes — só juros
+  let patSoJuros = inicial;
+  let mesesSoJuros = null;
+  for(let i=0;i<=MAX_MESES;i++){
+    if(patSoJuros>=meta && mesesSoJuros===null) mesesSoJuros=i;
+    patSoJuros=patSoJuros*(1+r);
+    if(mesesSoJuros!==null&&i>mesesSoJuros+6) break;
+  }
+
+  // Patrimônio em 5 anos
+  let pat5 = inicial;
+  for(let i=0;i<60;i++) pat5=pat5*(1+r)+aporte;
+
+  // Patrimônio em 10 anos
+  let pat10 = inicial;
+  for(let i=0;i<120;i++) pat10=pat10*(1+r)+aporte;
+
+  // Resultados KPIs
+  document.getElementById('simResultados').innerHTML = `
+    ${mesesParaMeta!==null ? `
+    <div class="kpi hl"><div class="lbl">Chega na meta em</div>
+      <div class="val pos">${anos} anos</div>
+      <div class="det">${dataChegada} · ${mesesParaMeta} meses</div></div>` :
+    `<div class="kpi"><div class="lbl">Meta</div><div class="val neg">Não atingida em 50 anos</div><div class="det">Aumente o aporte ou a rentabilidade</div></div>`}
+    <div class="kpi"><div class="lbl">Patrimônio em 5 anos</div>
+      <div class="val">${fBRL0(pat5)}</div>
+      <div class="det">${fPct((pat5-inicial)/inicial*100,1)} de crescimento</div></div>
+    <div class="kpi"><div class="lbl">Patrimônio em 10 anos</div>
+      <div class="val">${fBRL0(pat10)}</div>
+      <div class="det">${fPct((pat10-inicial)/inicial*100,1)} de crescimento</div></div>
+    <div class="kpi"><div class="lbl">Total aportado até a meta</div>
+      <div class="val">${mesesParaMeta!==null?fBRL0(aporte*mesesParaMeta):'—'}</div>
+      <div class="det">Juros: ${mesesParaMeta!==null?fBRL0(meta-inicial-aporte*mesesParaMeta):'—'}</div></div>`;
+
+  // Gráfico
+  const labels = projecao.filter((_,i)=>i%3===0||i===0).map(p=>p.label);
+  const vals   = projecao.filter((_,i)=>i%3===0||i===0).map(p=>p.pat);
+  const metaLine = vals.map(()=>meta);
+
+  if(__chartSim) __chartSim.destroy();
+  const cvs = document.getElementById('cSimulador');
+  if(!cvs) return;
+  __chartSim = new Chart(cvs,{
+    type:'line',
+    data:{labels, datasets:[
+      {label:'Projeção',data:vals,borderColor:'#a3556a',backgroundColor:'rgba(163,85,106,.1)',fill:true,tension:.3,pointRadius:2},
+      {label:`Meta R$ ${Math.round(meta/1000000)}M`,data:metaLine,borderColor:'#3f8a58',backgroundColor:'transparent',borderDash:[6,3],tension:0,pointRadius:0,borderWidth:2}
+    ]},
+    options:{
+      maintainAspectRatio:false,
+      plugins:{
+        legend:{position:'bottom',labels:{boxWidth:12,font:{size:12}}},
+        tooltip:{callbacks:{label:ctx=>`${ctx.dataset.label}: ${fBRL0(ctx.raw)}`}}
+      },
+      scales:{
+        y:{ticks:{callback:v=>v>=1000000?'R$ '+(v/1000000).toFixed(1)+'M':v>=1000?'R$ '+(v/1000).toFixed(0)+'k':'R$ '+v}},
+        x:{ticks:{maxTicksLimit:12}}
+      }
+    }
+  });
 }
 
 </script>
