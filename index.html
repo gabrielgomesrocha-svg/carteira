@@ -1144,13 +1144,25 @@ function renderSimulador(D){
       </div>
     </div>
     <div id="simResultados" class="cards" style="margin-bottom:20px"></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding-top:4px">
+      <span style="font-size:.8rem;color:var(--muted)">Salvar como:</span>
+      <button onclick="salvarCenario('pessimista')" style="padding:7px 16px;border-radius:8px;border:1px solid #c0564a;background:none;color:#c0564a;cursor:pointer;font-weight:700;font-size:.82rem">📉 Pessimista</button>
+      <button onclick="salvarCenario('conservador')" style="padding:7px 16px;border-radius:8px;border:1px solid var(--orange);background:none;color:var(--orange);cursor:pointer;font-weight:700;font-size:.82rem">📊 Conservador</button>
+      <button onclick="salvarCenario('otimista')" style="padding:7px 16px;border-radius:8px;border:1px solid var(--green);background:none;color:var(--green);cursor:pointer;font-weight:700;font-size:.82rem">📈 Otimista</button>
+      <span id="simSaveMsg" style="font-size:.8rem;color:var(--green)"></span>
+    </div>
+  </div>
+  <div id="cenariosPanel" class="panel" style="display:none">
+    <h2>▌ COMPARATIVO DE CENÁRIOS</h2>
+    <div id="cenariosGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px"></div>
+    <div style="position:relative;height:320px"><canvas id="cCenarios"></canvas></div>
   </div>
   <div class="panel">
     <h2>📈 PROJEÇÃO PATRIMONIAL</h2>
     <div style="position:relative;height:380px"><canvas id="cSimulador"></canvas></div>
   </div>`;
 
-  setTimeout(calcSimulador, 100);
+  setTimeout(()=>{ calcSimulador(); renderCenarios(); }, 100);
 }
 
 let __chartSim = null;
@@ -1247,6 +1259,128 @@ function calcSimulador(){
       }
     }
   });
+}
+
+// Cenários storage (localStorage)
+const CENARIO_NOMES = {
+  pessimista: {label:'Pessimista', cor:'#c0564a', emoji:'📉'},
+  conservador: {label:'Conservador', cor:'#c98a2e', emoji:'📊'},
+  otimista: {label:'Otimista', cor:'#3f8a58', emoji:'📈'},
+};
+
+function getCenarios(){
+  try{ return JSON.parse(localStorage.getItem('sim_cenarios')||'{}'); }
+  catch(e){ return {}; }
+}
+
+function salvarCenario(tipo){
+  const inicial = parseFloat(document.getElementById('simInicial')?.value)||0;
+  const aporte  = parseFloat(document.getElementById('simAporte')?.value)||0;
+  const rent    = parseFloat(document.getElementById('simRent')?.value)||0;
+  const meta    = parseFloat(document.getElementById('simMeta')?.value)||0;
+  const c = getCenarios();
+  c[tipo] = {inicial, aporte, rent, meta, savedAt: new Date().toLocaleDateString('pt-BR')};
+  localStorage.setItem('sim_cenarios', JSON.stringify(c));
+  const msg = document.getElementById('simSaveMsg');
+  msg.textContent = `✅ Cenário ${CENARIO_NOMES[tipo].label} salvo!`;
+  setTimeout(()=>{ msg.textContent=''; }, 3000);
+  renderCenarios();
+}
+
+function renderCenarios(){
+  const c = getCenarios();
+  const keys = Object.keys(c);
+  const panel = document.getElementById('cenariosPanel');
+  const grid  = document.getElementById('cenariosGrid');
+  if(!panel||!grid||keys.length===0){ if(panel) panel.style.display='none'; return; }
+  panel.style.display='block';
+
+  const MESES_C = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+
+  function projetarCenario(cfg){
+    const r = cfg.rent/100/12;
+    let pat = cfg.inicial;
+    let meses = null;
+    for(let i=0;i<=600;i++){
+      if(pat>=cfg.meta&&meses===null) meses=i;
+      pat=pat*(1+r)+cfg.aporte;
+      if(meses!==null&&i>meses+6) break;
+    }
+    const hoje = new Date();
+    const data = meses!==null ? (()=>{const d=new Date(hoje.getFullYear(),hoje.getMonth()+meses,1);return MESES_C[d.getMonth()]+'/'+d.getFullYear();})() : null;
+    return {meses, data, anos: meses!==null?(meses/12).toFixed(1):null};
+  }
+
+  // Cards
+  grid.innerHTML = ['pessimista','conservador','otimista'].map(tipo=>{
+    if(!c[tipo]) return `<div style="background:var(--bg2);border:1px dashed var(--border);border-radius:10px;padding:16px;opacity:.5;text-align:center"><div style="font-size:.8rem;color:var(--muted)">${CENARIO_NOMES[tipo].emoji} ${CENARIO_NOMES[tipo].label}</div><div style="font-size:.75rem;color:var(--muted);margin-top:8px">Não salvo</div></div>`;
+    const cfg = c[tipo];
+    const proj = projetarCenario(cfg);
+    const cor = CENARIO_NOMES[tipo].cor;
+    return `<div style="background:var(--card);border:1px solid var(--border);border-left:4px solid ${cor};border-radius:10px;padding:16px">
+      <div style="font-size:.8rem;font-weight:700;color:${cor};margin-bottom:10px">${CENARIO_NOMES[tipo].emoji} ${CENARIO_NOMES[tipo].label}</div>
+      <div style="font-size:.72rem;color:var(--muted);display:grid;grid-template-columns:1fr 1fr;gap:4px">
+        <span>Patrimônio inicial</span><span style="text-align:right;font-weight:600">${fBRL0(cfg.inicial)}</span>
+        <span>Aporte mensal</span><span style="text-align:right;font-weight:600">${fBRL0(cfg.aporte)}</span>
+        <span>Rentabilidade</span><span style="text-align:right;font-weight:600">${cfg.rent}% a.a.</span>
+        <span>Meta</span><span style="text-align:right;font-weight:600">${fBRL0(cfg.meta)}</span>
+      </div>
+      <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border)">
+        <div style="font-size:.72rem;color:var(--muted)">Chega em</div>
+        <div style="font-size:1.1rem;font-weight:800;color:${cor}">${proj.anos?proj.anos+' anos':'> 50 anos'}</div>
+        <div style="font-size:.72rem;color:var(--muted)">${proj.data||'—'} · Salvo em ${cfg.savedAt}</div>
+      </div>
+      <button onclick="carregarCenario('${tipo}')" style="margin-top:8px;width:100%;padding:6px;border-radius:6px;border:1px solid ${cor};background:none;color:${cor};cursor:pointer;font-size:.75rem">↩ Carregar</button>
+    </div>`;
+  }).join('');
+
+  // Comparison chart
+  const hoje = new Date();
+  const horizonte = 360; // 30 anos
+  const labels30 = [];
+  for(let i=0;i<=horizonte;i+=6){
+    const d=new Date(hoje.getFullYear(),hoje.getMonth()+i,1);
+    labels30.push(MESES_C[d.getMonth()]+'/'+d.getFullYear().toString().slice(2));
+  }
+
+  const datasets = ['pessimista','conservador','otimista'].filter(t=>c[t]).map(tipo=>{
+    const cfg = c[tipo];
+    const r = cfg.rent/100/12;
+    let pat = cfg.inicial;
+    const vals = [];
+    for(let i=0;i<=horizonte;i++){
+      if(i%6===0) vals.push(Math.round(pat));
+      pat=pat*(1+r)+cfg.aporte;
+    }
+    return {label:`${CENARIO_NOMES[tipo].emoji} ${CENARIO_NOMES[tipo].label}`,data:vals,borderColor:CENARIO_NOMES[tipo].cor,backgroundColor:'transparent',tension:.3,pointRadius:2};
+  });
+
+  // Meta line from first scenario
+  const metaVal = c[Object.keys(c)[0]]?.meta||5000000;
+  datasets.push({label:'Meta',data:labels30.map(()=>metaVal),borderColor:'#9aa3ad',borderDash:[5,3],pointRadius:0,borderWidth:1.5,backgroundColor:'transparent'});
+
+  if(window.__chartCenarios) window.__chartCenarios.destroy();
+  const cvs2 = document.getElementById('cCenarios');
+  if(cvs2) window.__chartCenarios = new Chart(cvs2,{
+    type:'line',data:{labels:labels30,datasets},
+    options:{maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}},
+        tooltip:{callbacks:{label:ctx=>`${ctx.dataset.label}: ${fBRL0(ctx.raw)}`}}},
+      scales:{y:{ticks:{callback:v=>v>=1000000?'R$ '+(v/1000000).toFixed(1)+'M':'R$ '+(v/1000).toFixed(0)+'k'}},
+        x:{ticks:{maxTicksLimit:10}}}}
+  });
+}
+
+function carregarCenario(tipo){
+  const c = getCenarios();
+  if(!c[tipo]) return;
+  const cfg = c[tipo];
+  document.getElementById('simInicial').value = cfg.inicial;
+  document.getElementById('simAporte').value  = cfg.aporte;
+  document.getElementById('simRent').value    = cfg.rent;
+  document.getElementById('simMeta').value    = cfg.meta;
+  calcSimulador();
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
 </script>
