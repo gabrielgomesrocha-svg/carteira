@@ -46,12 +46,16 @@ tr.group td{background:var(--card2);color:var(--orange2);font-weight:700;font-si
 tr.subtotal td{font-weight:700;border-top:1px solid var(--border)}
 tr.total td{background:#e9ebef;font-weight:800;color:var(--orange2)}
 .tablewrap{overflow-x:auto;width:100%}
-.barmeta{display:flex;align-items:center;gap:10px;margin:8px 0}
-.barmeta .nm{width:190px;font-size:.82rem;flex-shrink:0}
-.barmeta .bar{flex:1;height:18px;background:#e7e9ee;border-radius:9px;overflow:hidden;position:relative}
-.barmeta .fill{height:100%;background:linear-gradient(90deg,#d8c2c9,#a3556a);border-radius:9px}
-.barmeta .marker{position:absolute;top:-2px;bottom:-2px;width:2px;background:#84394e}
-.barmeta .pc{width:160px;font-size:.8rem;text-align:right;flex-shrink:0}
+.alocgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.aloccard{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;position:relative;overflow:hidden}
+.aloccard .ac-name{font-size:.78rem;font-weight:700;color:var(--txt);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.aloccard .ac-bar-bg{height:8px;background:#e1e4e9;border-radius:4px;margin-bottom:10px;position:relative}
+.aloccard .ac-bar-fill{height:100%;border-radius:4px;transition:width .4s ease}
+.aloccard .ac-bar-meta{position:absolute;top:-3px;bottom:-3px;width:2px;background:#84394e;border-radius:2px}
+.aloccard .ac-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
+.aloccard .ac-big{font-size:1.3rem;font-weight:800}
+.aloccard .ac-sub{font-size:.72rem;color:var(--muted)}
+.aloccard .ac-tag{display:inline-block;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:20px;margin-top:6px}
 .alert{display:flex;gap:12px;align-items:flex-start;background:var(--card2);border-left:4px solid var(--yellow);border-radius:8px;padding:12px 14px;margin-bottom:10px}
 .alert.acao{border-left-color:var(--red)}
 .alert.resolvido{border-left-color:var(--green);opacity:.75}
@@ -169,23 +173,49 @@ new Chart(cPatr,{type:'line',data:{labels:D.evolucaoMensal.map(m=>m.mes),dataset
   {label:'Meta (linear)',data:metaVals,borderColor:'#3f8a58',backgroundColor:'transparent',borderDash:[6,3],tension:0,pointRadius:0,borderWidth:1.5}
 ]},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}},scales:{y:{ticks:{callback:v=>v>=1000000?'R$ '+(v/1000000).toFixed(0)+'M':v>=1000?'R$ '+(v/1000).toFixed(0)+'k':'R$ '+v},stepSize:1000000}}}});
   new Chart(cAloc,{type:'doughnut',data:{labels:D.alocacao.classes.map(c=>c.classe),datasets:[{data:D.alocacao.classes.map(c=>c.saldo),backgroundColor:COLORS,borderColor:'#ffffff',borderWidth:2}]},options:{maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:12,font:{size:11}}},tooltip:{callbacks:{label:c=>` ${c.label}: ${fBRL0(c.raw)} (${(c.raw/ult.patrimonio*100).toFixed(2)}%)`}}}}});
-  document.getElementById('alocMeta').innerHTML=D.alocacao.classes.map(c=>{
+  const totalPatr = D.evolucaoMensal[D.evolucaoMensal.length-1].patrimonio;
+  document.getElementById('alocMeta').innerHTML = '<div class="alocgrid">' +
+  D.alocacao.classes.map(c=>{
     const metaValor = D.meta.metaPatrimonio * c.metaPct / 100;
-    const atingido = metaValor > 0 ? Math.min(c.saldo / metaValor * 100, 100) : 0;
+    const atingidoPct = metaValor > 0 ? Math.min(c.saldo / metaValor * 100, 100) : 0;
     const faltaValor = Math.max(metaValor - c.saldo, 0);
-    return `<div class="barmeta">
-      <div class="nm">${c.classe}</div>
-      <div class="bar">
-        <div class="fill" style="width:${atingido}%"></div>
-        <div class="marker" style="left:100%"></div>
+    // Alocação atual vs meta (desvio em p.p.)
+    const alAtual = totalPatr > 0 ? c.saldo / totalPatr * 100 : 0;
+    const desvio = alAtual - c.metaPct;
+    const desvioAbs = Math.abs(desvio);
+    // Cores
+    const barColor = atingidoPct >= 80 ? '#3f8a58' : atingidoPct >= 40 ? '#a3556a' : '#c0564a';
+    const tagBg = desvio > 1 ? 'rgba(192,86,74,.12)' : desvio < -1 ? 'rgba(63,138,88,.12)' : 'rgba(155,163,173,.12)';
+    const tagColor = desvio > 1 ? '#c0564a' : desvio < -1 ? '#3f8a58' : '#878d96';
+    const tagText = desvio > 1 ? `+${desvioAbs.toFixed(1)}p.p. acima` : desvio < -1 ? `-${desvioAbs.toFixed(1)}p.p. abaixo` : 'Na meta';
+    const tagIcon = desvio > 1 ? '↑' : desvio < -1 ? '↓' : '✓';
+    // Meta marker position (100% of bar = metaValor)
+    return `<div class="aloccard">
+      <div class="ac-name">${c.classe}</div>
+      <div class="ac-bar-bg">
+        <div class="ac-bar-fill" style="width:${atingidoPct}%;background:${barColor}"></div>
+        <div class="ac-bar-meta" style="left:100%"></div>
       </div>
-      <div class="pc">
-        <span style="font-size:1.15rem;font-weight:800;color:var(--txt)">${fPct(atingido,1)}</span>
-        <span style="font-size:.72rem;color:var(--muted)"> atingido</span><br>
-        <span style="font-size:.7rem;color:var(--muted)">${fBRL0(c.saldo)} / ${fBRL0(metaValor)}</span>
+      <div class="ac-row">
+        <div>
+          <div class="ac-big" style="color:${barColor}">${fPct(atingidoPct,0)}</div>
+          <div class="ac-sub">da meta atingido</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:.85rem;font-weight:700;color:var(--txt)">${fPct(alAtual,1)}</div>
+          <div class="ac-sub">carteira hoje</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:.85rem;font-weight:700;color:var(--muted)">${c.metaPct}%</div>
+          <div class="ac-sub">meta ideal</div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
+        <span class="ac-tag" style="background:${tagBg};color:${tagColor}">${tagIcon} ${tagText}</span>
+        <span style="font-size:.72rem;color:var(--muted)">${fBRL0(c.saldo)} / ${fBRL0(metaValor)}</span>
       </div>
     </div>`;
-  }).join('');
+  }).join('') + '</div>';
 
   /* ===== RENTABILIDADE ===== */
   const mesesN=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
