@@ -161,7 +161,7 @@ var DADOS = {
       },
       {
         "classe": "Inflação (IPCA+)",
-        "metaPct": 15,
+        "metaPct": 10,
         "saldo": 266643.94,
         "pct": 17.68,
         "historico": {
@@ -175,7 +175,7 @@ var DADOS = {
       },
       {
         "classe": "Título Público",
-        "metaPct": 5,
+        "metaPct": 10,
         "saldo": 84248.14,
         "pct": 5.59,
         "historico": {
