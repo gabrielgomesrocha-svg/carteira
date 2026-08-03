@@ -1965,8 +1965,8 @@ var DADOS = {
     },
     {
       "mes": "Ago/2026",
-      "custoCasa": 36971,
-      "custoPessoal": 45235.5,
+      "custoCasa": 36422,
+      "custoPessoal": 44961,
       "detalhe": {
         "parcelaAp": 19700,
         "cartaoInd": 1850,
@@ -1976,7 +1976,7 @@ var DADOS = {
         "condominio": 2700,
         "iptu": 1449,
         "escola": 4900,
-        "paty": 3399,
+        "paty": 2850,
         "personal": 900,
         "inglesLis": 523,
         "ipva": 0
