@@ -204,17 +204,17 @@ var DADOS = {
       {
         "classe": "Mercado Exterior",
         "metaPct": 5,
-        "saldo": 0.0,
-        "pct": 0.0,
+        "saldo": 0,
+        "pct": 0,
         "historico": {
           "Mai/2026": 0,
-          "Jun/2026": 0.0
+          "Jun/2026": 0
         }
       },
       {
         "classe": "Previdência Privada",
         "metaPct": 5,
-        "saldo": 90000.0,
+        "saldo": 90000,
         "pct": 5.97,
         "historico": {
           "Mai/2026": 0,
@@ -474,7 +474,7 @@ var DADOS = {
       "pctCdi": 103.49,
       "ibov": 63.01,
       "ipca": 24.76,
-      "vol": 1.0
+      "vol": 1
     }
   ],
   "posicaoDetalhada": {
@@ -484,7 +484,7 @@ var DADOS = {
         "grupo": "LIQUIDEZ",
         "subtotal": {
           "saldoAnt": 0,
-          "aplicacoes": 3000.0,
+          "aplicacoes": 3000,
           "resgates": 0,
           "saldo": 3026.03
         },
@@ -506,15 +506,15 @@ var DADOS = {
         "grupo": "TÍTULO PÚBLICO",
         "subtotal": {
           "saldoAnt": 50144.73,
-          "aplicacoes": 35016.0,
+          "aplicacoes": 35016,
           "resgates": 109.62,
-          "saldo": 84292.0
+          "saldo": 84292
         },
         "ativos": [
           {
             "ativo": "Tesouro IPCA+ 2032",
             "saldoAnt": 0,
-            "aplicacoes": 35016.0,
+            "aplicacoes": 35016,
             "resgates": 0,
             "saldo": 35078.77,
             "rentMes": 1.54,
@@ -579,10 +579,10 @@ var DADOS = {
         "ativos": [
           {
             "ativo": "LCI LIQUIDEZ 6 MESES (Isento)",
-            "saldoAnt": 556873.0,
+            "saldoAnt": 556873,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 562736.0,
+            "saldo": 562736,
             "rentMes": 1.24,
             "rent12m": 14.92,
             "desdeInicio": 14.92,
@@ -711,11 +711,11 @@ var DADOS = {
           },
           {
             "ativo": "LIG LIQUIDEZ CDI 24/02/2028 (Isento)",
-            "saldoAnt": 52474.0,
+            "saldoAnt": 52474,
             "aplicacoes": 0,
             "resgates": 52473.95,
             "saldo": 0,
-            "rentMes": -0.0,
+            "rentMes": 0,
             "rent12m": 1.07,
             "desdeInicio": 1.07,
             "part": 0
@@ -777,7 +777,7 @@ var DADOS = {
           },
           {
             "ativo": "LCI PRE 180 DIAS (Isento)",
-            "saldoAnt": 105385.0,
+            "saldoAnt": 105385,
             "aplicacoes": 0,
             "resgates": 106333.83,
             "saldo": 0,
@@ -799,10 +799,10 @@ var DADOS = {
         "ativos": [
           {
             "ativo": "ITUB3",
-            "saldoAnt": 4004.0,
+            "saldoAnt": 4004,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 4425.0,
+            "saldo": 4425,
             "rentMes": 10.55,
             "rent12m": 47.52,
             "desdeInicio": 47.52,
@@ -810,10 +810,10 @@ var DADOS = {
           },
           {
             "ativo": "BBDC4",
-            "saldoAnt": 3540.0,
+            "saldoAnt": 3540,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 3620.0,
+            "saldo": 3620,
             "rentMes": 2.35,
             "rent12m": 14.36,
             "desdeInicio": 59.13,
@@ -821,7 +821,7 @@ var DADOS = {
           },
           {
             "ativo": "PETR4",
-            "saldoAnt": 3402.0,
+            "saldoAnt": 3402,
             "aplicacoes": 0,
             "resgates": 0,
             "saldo": 3061.8,
@@ -887,7 +887,7 @@ var DADOS = {
           },
           {
             "ativo": "CMIG4",
-            "saldoAnt": 538.0,
+            "saldoAnt": 538,
             "aplicacoes": 0,
             "resgates": 0,
             "saldo": 543.5,
@@ -1418,7 +1418,7 @@ var DADOS = {
           44405.56,
           50254.76,
           50144.73,
-          84292.0
+          84292
         ]
       },
       {
@@ -1583,9 +1583,9 @@ var DADOS = {
           34,
           34,
           34,
-          34.0
+          34
         ],
-        "total": 204.0
+        "total": 204
       },
       {
         "ativo": "CPTS11",
@@ -1624,7 +1624,7 @@ var DADOS = {
           22.5,
           22.5
         ],
-        "total": 135.0
+        "total": 135
       },
       {
         "ativo": "HGBS11",
@@ -1962,6 +1962,39 @@ var DADOS = {
         "inglesLis": true,
         "ipva": false
       }
+    },
+    {
+      "mes": "Ago/2026",
+      "custoCasa": 36971,
+      "custoPessoal": 45235.5,
+      "detalhe": {
+        "parcelaAp": 19700,
+        "cartaoInd": 1850,
+        "haras": 5200,
+        "cartaoConj": 19100,
+        "contaCorrente": 4000,
+        "condominio": 2700,
+        "iptu": 1449,
+        "escola": 4900,
+        "paty": 3399,
+        "personal": 900,
+        "inglesLis": 523,
+        "ipva": 0
+      },
+      "pago": {
+        "parcelaAp": false,
+        "cartaoInd": false,
+        "haras": false,
+        "cartaoConj": false,
+        "contaCorrente": false,
+        "condominio": false,
+        "iptu": false,
+        "escola": false,
+        "paty": false,
+        "personal": false,
+        "inglesLis": false,
+        "ipva": false
+      }
     }
   ],
   "retiradas": [
@@ -2054,7 +2087,7 @@ var DADOS = {
       "historico": {
         "Mai/2026": 556873,
         "Abr/2026": 551312,
-        "Jun/2026": 562736.0
+        "Jun/2026": 562736
       },
       "venc": "TODAY"
     },
@@ -2211,7 +2244,7 @@ var DADOS = {
       "historico": {
         "Mai/2026": 4004,
         "Abr/2026": 3787.11,
-        "Jun/2026": 4425.0
+        "Jun/2026": 4425
       },
       "venc": null
     },
@@ -2222,7 +2255,7 @@ var DADOS = {
       "historico": {
         "Mai/2026": 3540,
         "Abr/2026": 3864,
-        "Jun/2026": 3620.0
+        "Jun/2026": 3620
       },
       "venc": null
     },
