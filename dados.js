@@ -2024,6 +2024,15 @@ var DADOS = {
         "Jun/2026"
       ],
       "valor": 500000
+    },
+    {
+      "trimestre": "T3/2026",
+      "meses": [
+        "Jul/2026",
+        "Ago/2026",
+        "Set/2026"
+      ],
+      "valor": 0
     }
   ],
   "historicoPapeis": [
