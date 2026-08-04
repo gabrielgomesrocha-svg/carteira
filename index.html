@@ -148,16 +148,20 @@ function render(D){
     <div class="kpi"><div class="lbl">Rent. 12 meses</div><div class="val pos">${fPct(ult.rent12m)}</div><div class="det">${fPct(ult.pctCdi12m,1)} do CDI</div></div>
     <div class="kpi"><div class="lbl">Ganhos no mês</div><div class="val pos">${fBRL0(ult.ganhos)}</div><div class="det">Acumulado 2026: ${fBRL0(ganhos2026)}</div></div>
     <div class="kpi"><div class="lbl">Rent. Líquida (est.) 12m</div><div class="val pos">${(()=>{
-      // Weighted average liquid return across all active ativos
-      let sumPeso=0, sumLiq=0;
-      (D.posicaoDetalhada?.grupos||[]).forEach(g=>g.ativos.forEach(a=>{
-        if(a.saldo>1&&a.rent12m!=null){
-          const liq=rentLiquida(a.rent12m,a.aliqIR||15,a.isento||false);
-          sumPeso+=a.saldo; sumLiq+=liq*a.saldo;
-        }
-      }));
+      // Only renda fixa (not RV, FIIs, Previdência) — groups to include
+      const RF_GRUPOS = ['TÍTULO PÚBLICO','PÓS-FIXADO','INFLAÇÃO (IPCA+)','PREFIXADO','LIQUIDEZ'];
+      let sumPeso=0, sumLiq=0, sumIsen=0, pesoIsen=0;
+      (D.posicaoDetalhada?.grupos||[]).forEach(g=>{
+        if(!RF_GRUPOS.includes(g.grupo)) return; // skip RV, FIIs, Prev
+        g.ativos.forEach(a=>{
+          if(a.saldo>1&&a.rent12m!=null){
+            const liq=rentLiquida(a.rent12m,a.aliqIR||15,a.isento||false);
+            sumPeso+=a.saldo; sumLiq+=liq*a.saldo;
+          }
+        });
+      });
       return sumPeso>0?fPct(sumLiq/sumPeso):'—';
-    })()}</div><div class="det">Ponderada por saldo · estimativa</div></div>
+    })()}</div><div class="det">Só renda fixa · não inclui RV/FIIs/Prev.</div></div>
     <div class="kpi"><div class="lbl">Desde início (${D.meta.inicioCarteira})</div><div class="val pos">${fPct(D.posicaoDetalhada.total.desdeInicio)}</div><div class="det">Ganho total: ${fBRL0(D.ganhosPorEstrategia.find(g=>g.estrategia==='TOTAL').desdeInicio)}</div></div>
     ${(()=>{
       // Aporte necessário para atingir meta
