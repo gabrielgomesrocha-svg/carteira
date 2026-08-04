@@ -498,7 +498,9 @@ var DADOS = {
             "rentMes": 0.87,
             "rent12m": 10.62,
             "desdeInicio": 32.83,
-            "part": 0.21
+            "part": 0.21,
+            "isento": false,
+            "aliqIR": 22.5
           }
         ]
       },
@@ -520,7 +522,9 @@ var DADOS = {
             "rentMes": 1.54,
             "rent12m": 1.54,
             "desdeInicio": 1.54,
-            "part": 2.47
+            "part": 2.47,
+            "isento": false,
+            "aliqIR": 15
           },
           {
             "ativo": "Tesouro Educa+ 2031",
@@ -531,7 +535,9 @@ var DADOS = {
             "rentMes": -1.77,
             "rent12m": 5.91,
             "desdeInicio": 13.47,
-            "part": 1.63
+            "part": 1.63,
+            "isento": false,
+            "aliqIR": 15
           },
           {
             "ativo": "Tesouro IPCA+ 2035",
@@ -542,7 +548,9 @@ var DADOS = {
             "rentMes": -2.31,
             "rent12m": 4.17,
             "desdeInicio": 9.5,
-            "part": 1.15
+            "part": 1.15,
+            "isento": false,
+            "aliqIR": 15
           },
           {
             "ativo": "Tesouro Educa+ 2026",
@@ -553,7 +561,9 @@ var DADOS = {
             "rentMes": -0.21,
             "rent12m": 9.11,
             "desdeInicio": 9.11,
-            "part": 0.35
+            "part": 0.35,
+            "isento": false,
+            "aliqIR": 15
           },
           {
             "ativo": "Tesouro Educa+ 2027",
@@ -564,7 +574,9 @@ var DADOS = {
             "rentMes": -0.39,
             "rent12m": 7.61,
             "desdeInicio": 7.61,
-            "part": 0.34
+            "part": 0.34,
+            "isento": false,
+            "aliqIR": 15
           }
         ]
       },
@@ -586,7 +598,9 @@ var DADOS = {
             "rentMes": 1.24,
             "rent12m": 14.92,
             "desdeInicio": 14.92,
-            "part": 39.68
+            "part": 39.68,
+            "isento": true,
+            "aliqIR": 0
           },
           {
             "ativo": "LCI LIQUIDEZ 12 MESES (Isento)",
@@ -597,7 +611,9 @@ var DADOS = {
             "rentMes": 1.25,
             "rent12m": 3.28,
             "desdeInicio": 3.28,
-            "part": 7.25
+            "part": 7.25,
+            "isento": true,
+            "aliqIR": 0
           },
           {
             "ativo": "CDB QISTA CDI 08/05/2028",
@@ -608,7 +624,9 @@ var DADOS = {
             "rentMes": 1.3,
             "rent12m": 2.31,
             "desdeInicio": 2.31,
-            "part": 4.33
+            "part": 4.33,
+            "isento": false,
+            "aliqIR": 15
           },
           {
             "ativo": "LIG LIQUIDEZ CDI 19/01/2028 (Isento)",
@@ -619,7 +637,9 @@ var DADOS = {
             "rentMes": 1.12,
             "rent12m": 2.37,
             "desdeInicio": 2.37,
-            "part": 3.67
+            "part": 3.67,
+            "isento": true,
+            "aliqIR": 0
           },
           {
             "ativo": "CRA BRF E447 E1 CDI 15/10/2030 (Isento)",
@@ -630,7 +650,9 @@ var DADOS = {
             "rentMes": 1.34,
             "rent12m": 2.38,
             "desdeInicio": 2.38,
-            "part": 3.6
+            "part": 3.6,
+            "isento": true,
+            "aliqIR": 0
           },
           {
             "ativo": "CRI MRV FLEX E561 S1 CDI 20/12/2030 (Isento)",
@@ -641,7 +663,9 @@ var DADOS = {
             "rentMes": 1.49,
             "rent12m": 3.24,
             "desdeInicio": 3.24,
-            "part": 3.26
+            "part": 3.26,
+            "isento": true,
+            "aliqIR": 0
           },
           {
             "ativo": "CDB CARUANA CDI 26/04/2030",
@@ -652,7 +676,9 @@ var DADOS = {
             "rentMes": 1.27,
             "rent12m": 2.68,
             "desdeInicio": 2.68,
-            "part": 2.9
+            "part": 2.9,
+            "isento": false,
+            "aliqIR": 15
           },
           {
             "ativo": "LIG LIQUIDEZ CDI 22/09/2027 (Isento)",
@@ -663,7 +689,9 @@ var DADOS = {
             "rentMes": 0.85,
             "rent12m": 3.94,
             "desdeInicio": 3.94,
-            "part": 2.13
+            "part": 2.13,
+            "isento": true,
+            "aliqIR": 0
           },
           {
             "ativo": "CDB PORQUINHO OBJETIVO",
@@ -674,7 +702,9 @@ var DADOS = {
             "rentMes": 1.05,
             "rent12m": 2.31,
             "desdeInicio": 2.31,
-            "part": 0.26
+            "part": 0.26,
+            "isento": false,
+            "aliqIR": 22.5
           },
           {
             "ativo": "LIG LIQUIDEZ CDI 21/08/2028 (Isento)",
@@ -685,7 +715,9 @@ var DADOS = {
             "rentMes": null,
             "rent12m": -56.25,
             "desdeInicio": -56.25,
-            "part": 0
+            "part": 0,
+            "isento": true,
+            "aliqIR": 0
           },
           {
             "ativo": "CDB OMNI CDI 12/06/2026",
@@ -696,7 +728,9 @@ var DADOS = {
             "rentMes": 0.54,
             "rent12m": 15.88,
             "desdeInicio": 18.58,
-            "part": 0
+            "part": 0,
+            "isento": false,
+            "aliqIR": 20
           },
           {
             "ativo": "LIG LIQUIDEZ CDI 08/09/2027 (Isento)",
@@ -707,7 +741,9 @@ var DADOS = {
             "rentMes": 0.16,
             "rent12m": 1.32,
             "desdeInicio": 1.32,
-            "part": 0
+            "part": 0,
+            "isento": true,
+            "aliqIR": 0
           },
           {
             "ativo": "LIG LIQUIDEZ CDI 24/02/2028 (Isento)",
@@ -718,7 +754,9 @@ var DADOS = {
             "rentMes": 0,
             "rent12m": 1.07,
             "desdeInicio": 1.07,
-            "part": 0
+            "part": 0,
+            "isento": true,
+            "aliqIR": 0
           }
         ]
       },
@@ -740,7 +778,9 @@ var DADOS = {
             "rentMes": 1.25,
             "rent12m": 2.85,
             "desdeInicio": 2.85,
-            "part": 10.88
+            "part": 10.88,
+            "isento": false,
+            "aliqIR": 15
           },
           {
             "ativo": "LCA ABC IPCA 29/07/2026 (Isento)",
@@ -751,7 +791,9 @@ var DADOS = {
             "rentMes": 1.48,
             "rent12m": 14.59,
             "desdeInicio": 14.59,
-            "part": 7.92
+            "part": 7.92,
+            "isento": true,
+            "aliqIR": 0
           }
         ]
       },
@@ -773,7 +815,9 @@ var DADOS = {
             "rentMes": 1.15,
             "rent12m": 2.47,
             "desdeInicio": 2.47,
-            "part": 3.61
+            "part": 3.61,
+            "isento": false,
+            "aliqIR": 15
           },
           {
             "ativo": "LCI PRE 180 DIAS (Isento)",
@@ -784,7 +828,9 @@ var DADOS = {
             "rentMes": 1.06,
             "rent12m": 7.49,
             "desdeInicio": 7.49,
-            "part": 0
+            "part": 0,
+            "isento": true,
+            "aliqIR": 0
           }
         ]
       },
@@ -806,7 +852,9 @@ var DADOS = {
             "rentMes": 10.55,
             "rent12m": 47.52,
             "desdeInicio": 47.52,
-            "part": 0.31
+            "part": 0.31,
+            "isento": false,
+            "aliqIR": 15
           },
           {
             "ativo": "BBDC4",
@@ -817,7 +865,9 @@ var DADOS = {
             "rentMes": 2.35,
             "rent12m": 14.36,
             "desdeInicio": 59.13,
-            "part": 0.26
+            "part": 0.26,
+            "isento": false,
+            "aliqIR": 15
           },
           {
             "ativo": "PETR4",
@@ -828,7 +878,9 @@ var DADOS = {
             "rentMes": -9.37,
             "rent12m": 26.56,
             "desdeInicio": 26.95,
-            "part": 0.22
+            "part": 0.22,
+            "isento": false,
+            "aliqIR": 15
           },
           {
             "ativo": "TAEE11",
@@ -839,7 +891,9 @@ var DADOS = {
             "rentMes": 1.58,
             "rent12m": 23.22,
             "desdeInicio": 32.61,
-            "part": 0.17
+            "part": 0.17,
+            "isento": false,
+            "aliqIR": 15
           },
           {
             "ativo": "VALE3",
@@ -850,7 +904,9 @@ var DADOS = {
             "rentMes": -5.96,
             "rent12m": 58.55,
             "desdeInicio": 58.29,
-            "part": 0.17
+            "part": 0.17,
+            "isento": false,
+            "aliqIR": 15
           },
           {
             "ativo": "BBAS3",
@@ -861,7 +917,9 @@ var DADOS = {
             "rentMes": -1.33,
             "rent12m": -6.19,
             "desdeInicio": -11.49,
-            "part": 0.09
+            "part": 0.09,
+            "isento": false,
+            "aliqIR": 15
           },
           {
             "ativo": "B3SA3",
@@ -872,7 +930,9 @@ var DADOS = {
             "rentMes": -11.94,
             "rent12m": 2.21,
             "desdeInicio": 41.69,
-            "part": 0.05
+            "part": 0.05,
+            "isento": false,
+            "aliqIR": 15
           },
           {
             "ativo": "EGIE3",
@@ -883,7 +943,9 @@ var DADOS = {
             "rentMes": 5.23,
             "rent12m": -16.67,
             "desdeInicio": -6.86,
-            "part": 0.04
+            "part": 0.04,
+            "isento": false,
+            "aliqIR": 15
           },
           {
             "ativo": "CMIG4",
@@ -894,7 +956,9 @@ var DADOS = {
             "rentMes": 4.71,
             "rent12m": 8.75,
             "desdeInicio": 20.91,
-            "part": 0.04
+            "part": 0.04,
+            "isento": false,
+            "aliqIR": 15
           }
         ]
       },
@@ -916,7 +980,9 @@ var DADOS = {
             "rentMes": -1.49,
             "rent12m": 11.36,
             "desdeInicio": 34.64,
-            "part": 0.47
+            "part": 0.47,
+            "isento": true,
+            "aliqIR": 0
           },
           {
             "ativo": "CPTS11",
@@ -927,7 +993,9 @@ var DADOS = {
             "rentMes": -0.48,
             "rent12m": 8.84,
             "desdeInicio": 8.84,
-            "part": 0.39
+            "part": 0.39,
+            "isento": true,
+            "aliqIR": 0
           },
           {
             "ativo": "VISC11",
@@ -938,7 +1006,9 @@ var DADOS = {
             "rentMes": -0.59,
             "rent12m": 11.44,
             "desdeInicio": 11.57,
-            "part": 0.39
+            "part": 0.39,
+            "isento": true,
+            "aliqIR": 0
           },
           {
             "ativo": "XPCI11",
@@ -949,7 +1019,9 @@ var DADOS = {
             "rentMes": 0.24,
             "rent12m": 6.87,
             "desdeInicio": 6.87,
-            "part": 0.35
+            "part": 0.35,
+            "isento": true,
+            "aliqIR": 0
           },
           {
             "ativo": "LVBI11",
@@ -960,7 +1032,9 @@ var DADOS = {
             "rentMes": -2.98,
             "rent12m": 10.58,
             "desdeInicio": 10.58,
-            "part": 0.22
+            "part": 0.22,
+            "isento": true,
+            "aliqIR": 0
           },
           {
             "ativo": "RZTR11",
@@ -971,7 +1045,9 @@ var DADOS = {
             "rentMes": -0.39,
             "rent12m": 7.28,
             "desdeInicio": 29.13,
-            "part": 0.21
+            "part": 0.21,
+            "isento": true,
+            "aliqIR": 0
           },
           {
             "ativo": "KNRI11",
@@ -982,7 +1058,9 @@ var DADOS = {
             "rentMes": -4.91,
             "rent12m": 15.11,
             "desdeInicio": 17.14,
-            "part": 0.2
+            "part": 0.2,
+            "isento": true,
+            "aliqIR": 0
           },
           {
             "ativo": "HGLG11",
@@ -993,7 +1071,9 @@ var DADOS = {
             "rentMes": -2.61,
             "rent12m": 2.77,
             "desdeInicio": 15.07,
-            "part": 0.2
+            "part": 0.2,
+            "isento": true,
+            "aliqIR": 0
           },
           {
             "ativo": "HGBS11",
@@ -1004,7 +1084,9 @@ var DADOS = {
             "rentMes": -1.93,
             "rent12m": 7.69,
             "desdeInicio": 11.2,
-            "part": 0.18
+            "part": 0.18,
+            "isento": true,
+            "aliqIR": 0
           },
           {
             "ativo": "RBRX11",
@@ -1015,7 +1097,9 @@ var DADOS = {
             "rentMes": -3.32,
             "rent12m": -5.47,
             "desdeInicio": -5.47,
-            "part": 0.17
+            "part": 0.17,
+            "isento": true,
+            "aliqIR": 0
           },
           {
             "ativo": "TRXF11",
@@ -1026,7 +1110,9 @@ var DADOS = {
             "rentMes": 0.38,
             "rent12m": 0.45,
             "desdeInicio": 0.45,
-            "part": 0.14
+            "part": 0.14,
+            "isento": true,
+            "aliqIR": 0
           },
           {
             "ativo": "MCRE11",
@@ -1037,7 +1123,9 @@ var DADOS = {
             "rentMes": 0.04,
             "rent12m": -1.35,
             "desdeInicio": -1.35,
-            "part": 0.07
+            "part": 0.07,
+            "isento": true,
+            "aliqIR": 0
           },
           {
             "ativo": "XPLG11",
@@ -1048,7 +1136,9 @@ var DADOS = {
             "rentMes": -2.48,
             "rent12m": 3.91,
             "desdeInicio": 10.09,
-            "part": 0.03
+            "part": 0.03,
+            "isento": true,
+            "aliqIR": 0
           }
         ]
       },
@@ -1070,7 +1160,9 @@ var DADOS = {
             "rentMes": 0,
             "rent12m": null,
             "desdeInicio": 0,
-            "part": 2.98
+            "part": 2.98,
+            "isento": false,
+            "aliqIR": 15
           },
           {
             "ativo": "Kinea Alpes Prev XP Seg MM CP FicFI",
@@ -1081,7 +1173,9 @@ var DADOS = {
             "rentMes": 0,
             "rent12m": null,
             "desdeInicio": 0,
-            "part": 2.98
+            "part": 2.98,
+            "isento": false,
+            "aliqIR": 15
           }
         ]
       }
@@ -2045,7 +2139,9 @@ var DADOS = {
         "Abr/2026": 23518.29,
         "Jun/2026": 23100.19
       },
-      "venc": "2035-12-15"
+      "venc": "2035-12-15",
+      "isento": false,
+      "aliqIR": 15
     },
     {
       "ativo": "Tesouro IPCA+ 2035",
@@ -2056,7 +2152,9 @@ var DADOS = {
         "Abr/2026": 16797.56,
         "Jun/2026": 16324.76
       },
-      "venc": "2035-05-15"
+      "venc": "2035-05-15",
+      "isento": false,
+      "aliqIR": 15
     },
     {
       "ativo": "Tesouro Educa+ 2026",
@@ -2067,7 +2165,9 @@ var DADOS = {
         "Abr/2026": 5116.38,
         "Jun/2026": 4945.05
       },
-      "venc": "2030-12-15"
+      "venc": "2030-12-15",
+      "isento": false,
+      "aliqIR": 15
     },
     {
       "ativo": "Tesouro Educa+ 2027",
@@ -2078,7 +2178,9 @@ var DADOS = {
         "Abr/2026": 4822.53,
         "Jun/2026": 4843.23
       },
-      "venc": "2031-12-15"
+      "venc": "2031-12-15",
+      "isento": false,
+      "aliqIR": 15
     },
     {
       "ativo": "LCI LIQUIDEZ 6 MESES (Isento)",
@@ -2089,7 +2191,9 @@ var DADOS = {
         "Abr/2026": 551312,
         "Jun/2026": 562736
       },
-      "venc": "TODAY"
+      "venc": "TODAY",
+      "isento": true,
+      "aliqIR": 0
     },
     {
       "ativo": "LCI LIQUIDEZ 12 MESES (Isento)",
@@ -2100,7 +2204,9 @@ var DADOS = {
         "Abr/2026": 100672.2,
         "Jun/2026": 102780.7
       },
-      "venc": "TODAY"
+      "venc": "TODAY",
+      "isento": true,
+      "aliqIR": 0
     },
     {
       "ativo": "CDB QISTA CDI 08/05/2028",
@@ -2110,7 +2216,9 @@ var DADOS = {
         "Mai/2026": 60597.43,
         "Jun/2026": 61385.65
       },
-      "venc": "2028-05-08"
+      "venc": "2028-05-08",
+      "isento": false,
+      "aliqIR": 15
     },
     {
       "ativo": "LIG LIQUIDEZ CDI 24/02/2028 (Isento)",
@@ -2120,7 +2228,9 @@ var DADOS = {
         "Mai/2026": 52474,
         "Abr/2026": 51999.98
       },
-      "venc": "2028-02-24"
+      "venc": "2028-02-24",
+      "isento": true,
+      "aliqIR": 0
     },
     {
       "ativo": "LIG LIQUIDEZ CDI 19/01/2028 (Isento)",
@@ -2131,7 +2241,9 @@ var DADOS = {
         "Abr/2026": 51070.35,
         "Jun/2026": 52026.37
       },
-      "venc": "2028-01-19"
+      "venc": "2028-01-19",
+      "isento": true,
+      "aliqIR": 0
     },
     {
       "ativo": "CRA BRF E447 E1 CDI 15/10/2030 (Isento)",
@@ -2141,7 +2253,9 @@ var DADOS = {
         "Mai/2026": 50435.37,
         "Jun/2026": 51009.41
       },
-      "venc": "2030-10-15"
+      "venc": "2030-10-15",
+      "isento": true,
+      "aliqIR": 0
     },
     {
       "ativo": "CRI MRV FLEX E561 S1 CDI 20/12/2030 (Isento)",
@@ -2152,7 +2266,9 @@ var DADOS = {
         "Abr/2026": 50776.86,
         "Jun/2026": 46204.86
       },
-      "venc": "2030-12-20"
+      "venc": "2030-12-20",
+      "isento": true,
+      "aliqIR": 0
     },
     {
       "ativo": "LIG LIQUIDEZ CDI 08/09/2027 (Isento)",
@@ -2162,7 +2278,9 @@ var DADOS = {
         "Mai/2026": 45452.69,
         "Abr/2026": 90583.68
       },
-      "venc": "2027-09-08"
+      "venc": "2027-09-08",
+      "isento": true,
+      "aliqIR": 0
     },
     {
       "ativo": "CDB CARUANA CDI 26/04/2030",
@@ -2173,7 +2291,9 @@ var DADOS = {
         "Abr/2026": 40073.62,
         "Jun/2026": 41073.89
       },
-      "venc": "2030-04-26"
+      "venc": "2030-04-26",
+      "isento": false,
+      "aliqIR": 15
     },
     {
       "ativo": "CDB OMNI CDI 12/06/2026",
@@ -2182,7 +2302,9 @@ var DADOS = {
       "historico": {
         "Mai/2026": 35648.15,
         "Abr/2026": 35224.4
-      }
+      },
+      "isento": false,
+      "aliqIR": 20
     },
     {
       "ativo": "CDB PORQUINHO OBJETIVO",
@@ -2192,7 +2314,9 @@ var DADOS = {
         "Mai/2026": 39.57,
         "Abr/2026": 110.52,
         "Jun/2026": 3621.49
-      }
+      },
+      "isento": false,
+      "aliqIR": 22.5
     },
     {
       "ativo": "CDB BMG IPCA 24/04/2028",
@@ -2203,7 +2327,9 @@ var DADOS = {
         "Abr/2026": 150401.23,
         "Jun/2026": 154273.08
       },
-      "venc": "2028-04-24"
+      "venc": "2028-04-24",
+      "isento": false,
+      "aliqIR": 15
     },
     {
       "ativo": "LCA ABC IPCA 29/07/2026 (Isento)",
@@ -2214,7 +2340,9 @@ var DADOS = {
         "Abr/2026": 109536.55,
         "Jun/2026": 112322.52
       },
-      "venc": "2026-07-29"
+      "venc": "2026-07-29",
+      "isento": true,
+      "aliqIR": 0
     },
     {
       "ativo": "LCI PRE 180 DIAS (Isento)",
@@ -2224,7 +2352,9 @@ var DADOS = {
         "Mai/2026": 105385,
         "Abr/2026": 104375.3
       },
-      "venc": "2031-04-10"
+      "venc": "2031-04-10",
+      "isento": true,
+      "aliqIR": 0
     },
     {
       "ativo": "CDB BMG PRE 24/04/2028",
@@ -2235,7 +2365,9 @@ var DADOS = {
         "Abr/2026": 50108.55,
         "Jun/2026": 51234.88
       },
-      "venc": "2028-04-24"
+      "venc": "2028-04-24",
+      "isento": false,
+      "aliqIR": 15
     },
     {
       "ativo": "ITUB3",
@@ -2246,7 +2378,9 @@ var DADOS = {
         "Abr/2026": 3787.11,
         "Jun/2026": 4425
       },
-      "venc": null
+      "venc": null,
+      "isento": false,
+      "aliqIR": 15
     },
     {
       "ativo": "BBDC4",
@@ -2257,7 +2391,9 @@ var DADOS = {
         "Abr/2026": 3864,
         "Jun/2026": 3620
       },
-      "venc": null
+      "venc": null,
+      "isento": false,
+      "aliqIR": 15
     },
     {
       "ativo": "PETR4",
@@ -2268,7 +2404,9 @@ var DADOS = {
         "Abr/2026": 3975.48,
         "Jun/2026": 3061.8
       },
-      "venc": null
+      "venc": null,
+      "isento": false,
+      "aliqIR": 15
     },
     {
       "ativo": "VALE3",
@@ -2279,7 +2417,9 @@ var DADOS = {
         "Abr/2026": 2516.58,
         "Jun/2026": 2414.28
       },
-      "venc": null
+      "venc": null,
+      "isento": false,
+      "aliqIR": 15
     },
     {
       "ativo": "TAEE11",
@@ -2290,7 +2430,9 @@ var DADOS = {
         "Abr/2026": 2168.52,
         "Jun/2026": 2426.58
       },
-      "venc": null
+      "venc": null,
+      "isento": false,
+      "aliqIR": 15
     },
     {
       "ativo": "BBAS3",
@@ -2301,7 +2443,9 @@ var DADOS = {
         "Abr/2026": 244.31,
         "Jun/2026": 1214.51
       },
-      "venc": null
+      "venc": null,
+      "isento": false,
+      "aliqIR": 15
     },
     {
       "ativo": "B3SA3",
@@ -2312,7 +2456,9 @@ var DADOS = {
         "Abr/2026": 901.5,
         "Jun/2026": 726.5
       },
-      "venc": null
+      "venc": null,
+      "isento": false,
+      "aliqIR": 15
     },
     {
       "ativo": "EGIE3",
@@ -2323,7 +2469,9 @@ var DADOS = {
         "Abr/2026": 635.58,
         "Jun/2026": 626.94
       },
-      "venc": null
+      "venc": null,
+      "isento": false,
+      "aliqIR": 15
     },
     {
       "ativo": "CMIG4",
@@ -2334,7 +2482,9 @@ var DADOS = {
         "Abr/2026": 615,
         "Jun/2026": 543.5
       },
-      "venc": null
+      "venc": null,
+      "isento": false,
+      "aliqIR": 15
     },
     {
       "ativo": "XPML11",
@@ -2345,7 +2495,9 @@ var DADOS = {
         "Abr/2026": 7120.64,
         "Jun/2026": 6686.08
       },
-      "venc": null
+      "venc": null,
+      "isento": true,
+      "aliqIR": 0
     },
     {
       "ativo": "CPTS11",
@@ -2356,7 +2508,9 @@ var DADOS = {
         "Abr/2026": 5352.75,
         "Jun/2026": 5594.95
       },
-      "venc": null
+      "venc": null,
+      "isento": true,
+      "aliqIR": 0
     },
     {
       "ativo": "VISC11",
@@ -2367,7 +2521,9 @@ var DADOS = {
         "Abr/2026": 5359.13,
         "Jun/2026": 5553.34
       },
-      "venc": null
+      "venc": null,
+      "isento": true,
+      "aliqIR": 0
     },
     {
       "ativo": "XPCI11",
@@ -2378,7 +2534,9 @@ var DADOS = {
         "Abr/2026": 5029.2,
         "Jun/2026": 5032.2
       },
-      "venc": null
+      "venc": null,
+      "isento": true,
+      "aliqIR": 0
     },
     {
       "ativo": "LVBI11",
@@ -2389,7 +2547,9 @@ var DADOS = {
         "Abr/2026": 3238.5,
         "Jun/2026": 3118.5
       },
-      "venc": null
+      "venc": null,
+      "isento": true,
+      "aliqIR": 0
     },
     {
       "ativo": "KNRI11",
@@ -2400,7 +2560,9 @@ var DADOS = {
         "Abr/2026": 3168.82,
         "Jun/2026": 2896.17
       },
-      "venc": null
+      "venc": null,
+      "isento": true,
+      "aliqIR": 0
     },
     {
       "ativo": "RZTR11",
@@ -2411,7 +2573,9 @@ var DADOS = {
         "Abr/2026": 3028.72,
         "Jun/2026": 3018.86
       },
-      "venc": null
+      "venc": null,
+      "isento": true,
+      "aliqIR": 0
     },
     {
       "ativo": "HGLG11",
@@ -2422,7 +2586,9 @@ var DADOS = {
         "Abr/2026": 2950.7,
         "Jun/2026": 2848.1
       },
-      "venc": null
+      "venc": null,
+      "isento": true,
+      "aliqIR": 0
     },
     {
       "ativo": "HGBS11",
@@ -2433,7 +2599,9 @@ var DADOS = {
         "Abr/2026": 2679.3,
         "Jun/2026": 2512.9
       },
-      "venc": null
+      "venc": null,
+      "isento": true,
+      "aliqIR": 0
     },
     {
       "ativo": "RBRX11",
@@ -2444,7 +2612,9 @@ var DADOS = {
         "Abr/2026": 2021.7,
         "Jun/2026": 2340.3
       },
-      "venc": null
+      "venc": null,
+      "isento": true,
+      "aliqIR": 0
     },
     {
       "ativo": "TRXF11",
@@ -2455,7 +2625,9 @@ var DADOS = {
         "Abr/2026": 1996.72,
         "Jun/2026": 1986.6
       },
-      "venc": null
+      "venc": null,
+      "isento": true,
+      "aliqIR": 0
     },
     {
       "ativo": "MCRE11",
@@ -2465,7 +2637,9 @@ var DADOS = {
         "Mai/2026": 1015.3,
         "Jun/2026": 1003.2
       },
-      "venc": null
+      "venc": null,
+      "isento": true,
+      "aliqIR": 0
     },
     {
       "ativo": "XPLG11",
@@ -2476,7 +2650,9 @@ var DADOS = {
         "Abr/2026": 499.65,
         "Jun/2026": 464.85
       },
-      "venc": null
+      "venc": null,
+      "isento": true,
+      "aliqIR": 0
     },
     {
       "ativo": "Bitcoin (BTC) — USD 1.500 × R$ 5,00",
@@ -2485,7 +2661,9 @@ var DADOS = {
       "historico": {
         "Mai/2026": 7500
       },
-      "venc": null
+      "venc": null,
+      "isento": false,
+      "aliqIR": 15
     },
     {
       "ativo": "Adam XP Seg Prev I Fic Fim RI",
@@ -2494,7 +2672,9 @@ var DADOS = {
       "venc": null,
       "historico": {
         "Jun/2026": 45000
-      }
+      },
+      "isento": false,
+      "aliqIR": 15
     },
     {
       "ativo": "Kinea Alpes Prev XP Seg MM CP FicFI",
@@ -2503,7 +2683,9 @@ var DADOS = {
       "venc": null,
       "historico": {
         "Jun/2026": 45000
-      }
+      },
+      "isento": false,
+      "aliqIR": 15
     }
   ]
 };
