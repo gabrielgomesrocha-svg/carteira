@@ -112,6 +112,18 @@ const TABS=[['dash','Dashboard'],['rent','Rentabilidade'],['pos','Posição'],['
   function showErr(msg){ const e=document.getElementById('err'); e.style.display='block'; e.textContent='Erro: '+msg; document.getElementById('headsub').textContent='Falha ao carregar dados'; }
 })();
 
+// IR calculation helpers
+function rentLiquida(rentBruta, aliqIR, isento){
+  if(rentBruta==null) return null;
+  if(isento || aliqIR===0) return rentBruta;
+  return rentBruta * (1 - aliqIR/100);
+}
+
+function aliqLabel(isento, aliq){
+  if(isento) return '<span style="font-size:.68rem;background:#e8f5ee;color:#3f8a58;border-radius:4px;padding:1px 5px;font-weight:700">Isento</span>';
+  return '<span style="font-size:.68rem;background:#fef0e6;color:#c0564a;border-radius:4px;padding:1px 5px;font-weight:700">IR '+aliq+'%</span>';
+}
+
 function render(D){
   const ult=D.evolucaoMensal[D.evolucaoMensal.length-1];
   document.getElementById('headsub').textContent=`Fonte: ${D.meta.fonte} · Referência: ${D.meta.mesReferencia} · Atualizado em ${D.meta.atualizadoEm} · Meta: ${fBRL0(D.meta.metaPatrimonio)} até ${D.meta.metaPrazo}`;
@@ -135,6 +147,17 @@ function render(D){
     <div class="kpi"><div class="lbl">Rent. no mês</div><div class="val ${cls(ult.rentMes)}">${fPct(ult.rentMes)}</div><div class="det">CDI ${fPct((Math.pow(1+ult.selic/100,1/12)-1)*100)} no mês</div></div>
     <div class="kpi"><div class="lbl">Rent. 12 meses</div><div class="val pos">${fPct(ult.rent12m)}</div><div class="det">${fPct(ult.pctCdi12m,1)} do CDI</div></div>
     <div class="kpi"><div class="lbl">Ganhos no mês</div><div class="val pos">${fBRL0(ult.ganhos)}</div><div class="det">Acumulado 2026: ${fBRL0(ganhos2026)}</div></div>
+    <div class="kpi"><div class="lbl">Rent. Líquida (est.) 12m</div><div class="val pos">${(()=>{
+      // Weighted average liquid return across all active ativos
+      let sumPeso=0, sumLiq=0;
+      (D.posicaoDetalhada?.grupos||[]).forEach(g=>g.ativos.forEach(a=>{
+        if(a.saldo>1&&a.rent12m!=null){
+          const liq=rentLiquida(a.rent12m,a.aliqIR||15,a.isento||false);
+          sumPeso+=a.saldo; sumLiq+=liq*a.saldo;
+        }
+      }));
+      return sumPeso>0?fPct(sumLiq/sumPeso):'—';
+    })()}</div><div class="det">Ponderada por saldo · estimativa</div></div>
     <div class="kpi"><div class="lbl">Desde início (${D.meta.inicioCarteira})</div><div class="val pos">${fPct(D.posicaoDetalhada.total.desdeInicio)}</div><div class="det">Ganho total: ${fBRL0(D.ganhosPorEstrategia.find(g=>g.estrategia==='TOTAL').desdeInicio)}</div></div>
     ${(()=>{
       // Aporte necessário para atingir meta
@@ -237,10 +260,10 @@ new Chart(cPatr,{type:'line',data:{labels:D.evolucaoMensal.map(m=>m.mes),dataset
   document.getElementById('tab-pos').innerHTML=`
   <div class="panel"><h2>▌ POSIÇÃO DETALHADA POR ATIVO — ${P.mesReferencia}</h2>
   <div class="tablewrap"><table>
-  <tr><th>Ativo</th><th>Saldo Anterior</th><th>Aplicações</th><th>Resgates</th><th>Saldo Atual</th><th>Rent. Mês</th><th>Rent. 12m</th><th>Desde Início</th><th>Part.</th></tr>
+  <tr><th>Ativo</th><th>Saldo Anterior</th><th>Aplicações</th><th>Resgates</th><th>Saldo Atual</th><th>IR</th><th>Rent. Bruta Mês</th><th>Rent. Líq. Mês</th><th>Rent. Bruta 12m</th><th>Rent. Líq. 12m</th><th>Desde Início</th><th>Part.</th></tr>
   ${P.grupos.map(g=>`
     <tr class="group"><td colspan="9">${g.grupo}</td></tr>
-    ${g.ativos.map(a=>`<tr><td>${a.ativo}</td><td>${fBRL(a.saldoAnt)}</td><td>${a.aplicacoes?fBRL(a.aplicacoes):'—'}</td><td>${a.resgates?fBRL(a.resgates):'—'}</td><td><b>${fBRL(a.saldo)}</b></td><td class="${cls(a.rentMes)}">${fPct(a.rentMes)}</td><td class="${cls(a.rent12m)}">${fPct(a.rent12m)}</td><td class="${cls(a.desdeInicio)}">${fPct(a.desdeInicio)}</td><td>${fPct(a.part)}</td></tr>`).join('')}
+    ${g.ativos.map(a=>`<tr><td>${a.ativo}</td><td>${fBRL(a.saldoAnt)}</td><td>${a.aplicacoes?fBRL(a.aplicacoes):'—'}</td><td>${a.resgates?fBRL(a.resgates):'—'}</td><td><b>${fBRL(a.saldo)}</b></td><td>${aliqLabel(a.isento,a.aliqIR)}</td><td class="${cls(a.rentMes)}">${fPct(a.rentMes)}</td><td class="${cls(rentLiquida(a.rentMes,a.aliqIR,a.isento))}" style="font-size:.78rem">${fPct(rentLiquida(a.rentMes,a.aliqIR||15,a.isento||false))}</td><td class="${cls(a.rent12m)}">${fPct(a.rent12m)}</td><td class="${cls(rentLiquida(a.rent12m,a.aliqIR,a.isento))}" style="font-size:.78rem">${fPct(rentLiquida(a.rent12m,a.aliqIR||15,a.isento||false))}</td><td class="${cls(a.desdeInicio)}">${fPct(a.desdeInicio)}</td><td>${fPct(a.part)}</td></tr>`).join('')}
     <tr class="subtotal"><td>Sub-total</td><td>${fBRL(g.subtotal.saldoAnt)}</td><td>${g.subtotal.aplicacoes?fBRL(g.subtotal.aplicacoes):'—'}</td><td>${g.subtotal.resgates?fBRL(g.subtotal.resgates):'—'}</td><td>${fBRL(g.subtotal.saldo)}</td><td colspan="4"></td></tr>`).join('')}
   <tr class="total"><td>TOTAL CARTEIRA</td><td>${fBRL(P.total.saldoAnt)}</td><td>${fBRL(P.total.aplicacoes)}</td><td>${fBRL(P.total.resgates)}</td><td>${fBRL(P.total.saldo)}</td><td>${fPct(P.total.rentMes)}</td><td>${fPct(P.total.rent12m)}</td><td>${fPct(P.total.desdeInicio)}</td><td>100%</td></tr>
   </table></div></div>`;
