@@ -1987,12 +1987,12 @@ var DADOS = {
         "haras": false,
         "cartaoConj": false,
         "contaCorrente": false,
-        "condominio": false,
-        "iptu": false,
-        "escola": false,
-        "paty": false,
-        "personal": false,
-        "inglesLis": false,
+        "condominio": true,
+        "iptu": true,
+        "escola": true,
+        "paty": true,
+        "personal": true,
+        "inglesLis": true,
         "ipva": false
       }
     }
