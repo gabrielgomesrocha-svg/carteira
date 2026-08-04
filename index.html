@@ -142,27 +142,60 @@ function render(D){
   const progresso=ult.patrimonio/D.meta.metaPatrimonio*100;
   const ganhos2026=D.evolucaoMensal.filter(m=>m.mes.includes('2026')).reduce((s,m)=>s+(m.ganhos||0),0);
   document.getElementById('tab-dash').innerHTML=`
+  ${(()=>{
+    // Pre-calc RF-only weighted returns (excluding RV, FIIs)
+    const RF_GRUPOS = ['TÍTULO PÚBLICO','PÓS-FIXADO','INFLAÇÃO (IPCA+)','PREFIXADO','LIQUIDEZ','PREVIDÊNCIA PRIVADA'];
+    let rfBrutaMes=0, rfBruta12=0, rfLiqMes=0, rfLiq12=0, rfPeso=0;
+    (D.posicaoDetalhada?.grupos||[]).forEach(g=>{
+      if(!RF_GRUPOS.includes(g.grupo)) return;
+      g.ativos.forEach(a=>{
+        if(a.saldo>1){
+          if(a.rentMes!=null){ rfBrutaMes+=a.rentMes*a.saldo; rfLiqMes+=rentLiquida(a.rentMes,a.aliqIR||15,a.isento||false)*a.saldo; }
+          if(a.rent12m!=null){ rfBruta12+=a.rent12m*a.saldo; rfLiq12+=rentLiquida(a.rent12m,a.aliqIR||15,a.isento||false)*a.saldo; rfPeso+=a.saldo; }
+        }
+      });
+    });
+    let rfPesoMes=0;
+    (D.posicaoDetalhada?.grupos||[]).forEach(g=>{
+      if(!RF_GRUPOS.includes(g.grupo)) return;
+      g.ativos.forEach(a=>{ if(a.saldo>1&&a.rentMes!=null) rfPesoMes+=a.saldo; });
+    });
+    window.__rfBrutaMes = rfPesoMes>0?rfBrutaMes/rfPesoMes:null;
+    window.__rfBruta12  = rfPeso>0?rfBruta12/rfPeso:null;
+    window.__rfLiqMes   = rfPesoMes>0?rfLiqMes/rfPesoMes:null;
+    window.__rfLiq12    = rfPeso>0?rfLiq12/rfPeso:null;
+    return '';
+  })()}
   <div class="cards">
     <div class="kpi hl"><div class="lbl">Patrimônio (${ult.mes})</div><div class="val">${fBRL0(ult.patrimonio)}</div><div class="det">Meta: ${fBRL0(D.meta.metaPatrimonio)} (${D.meta.metaPrazo})</div></div>
-    <div class="kpi"><div class="lbl">Rent. no mês</div><div class="val ${cls(ult.rentMes)}">${fPct(ult.rentMes)}</div><div class="det">CDI ${fPct((Math.pow(1+ult.selic/100,1/12)-1)*100)} no mês</div></div>
-    <div class="kpi"><div class="lbl">Rent. 12 meses</div><div class="val pos">${fPct(ult.rent12m)}</div><div class="det">${fPct(ult.pctCdi12m,1)} do CDI</div></div>
     <div class="kpi"><div class="lbl">Ganhos no mês</div><div class="val pos">${fBRL0(ult.ganhos)}</div><div class="det">Acumulado 2026: ${fBRL0(ganhos2026)}</div></div>
-    <div class="kpi"><div class="lbl">Rent. Líquida (est.) 12m</div><div class="val pos">${(()=>{
-      // Only renda fixa (not RV, FIIs, Previdência) — groups to include
-      const RF_GRUPOS = ['TÍTULO PÚBLICO','PÓS-FIXADO','INFLAÇÃO (IPCA+)','PREFIXADO','LIQUIDEZ'];
-      let sumPeso=0, sumLiq=0, sumIsen=0, pesoIsen=0;
-      (D.posicaoDetalhada?.grupos||[]).forEach(g=>{
-        if(!RF_GRUPOS.includes(g.grupo)) return; // skip RV, FIIs, Prev
-        g.ativos.forEach(a=>{
-          if(a.saldo>1&&a.rent12m!=null){
-            const liq=rentLiquida(a.rent12m,a.aliqIR||15,a.isento||false);
-            sumPeso+=a.saldo; sumLiq+=liq*a.saldo;
-          }
-        });
-      });
-      return sumPeso>0?fPct(sumLiq/sumPeso):'—';
-    })()}</div><div class="det">Só renda fixa · não inclui RV/FIIs/Prev.</div></div>
     <div class="kpi"><div class="lbl">Desde início (${D.meta.inicioCarteira})</div><div class="val pos">${fPct(D.posicaoDetalhada.total.desdeInicio)}</div><div class="det">Ganho total: ${fBRL0(D.ganhosPorEstrategia.find(g=>g.estrategia==='TOTAL').desdeInicio)}</div></div>
+  </div>
+  <div class="panel"><h2>▌ RENTABILIDADE</h2>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:0">
+    <div style="background:var(--bg2);border-radius:10px;padding:12px 14px;border:1px solid var(--border)">
+      <div style="font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px">Com RV · Bruta</div>
+      <div style="display:flex;gap:16px;align-items:baseline;margin-top:6px">
+        <div><div style="font-size:.72rem;color:var(--muted)">Mês</div><div style="font-size:1.2rem;font-weight:800;color:var(--green)">${fPct(ult.rentMes)}</div></div>
+        <div><div style="font-size:.72rem;color:var(--muted)">12 meses</div><div style="font-size:1.2rem;font-weight:800;color:var(--green)">${fPct(ult.rent12m)}</div></div>
+        <div><div style="font-size:.72rem;color:var(--muted)">CDI</div><div style="font-size:.9rem;font-weight:700;color:var(--muted)">${fPct(ult.pctCdi12m,1)}</div></div>
+      </div>
+    </div>
+    <div style="background:var(--bg2);border-radius:10px;padding:12px 14px;border:1px solid var(--border)">
+      <div style="font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px">Só RF · Bruta</div>
+      <div style="display:flex;gap:16px;align-items:baseline;margin-top:6px">
+        <div><div style="font-size:.72rem;color:var(--muted)">Mês</div><div style="font-size:1.2rem;font-weight:800;color:var(--green)">${window.__rfBrutaMes!=null?fPct(window.__rfBrutaMes):'—'}</div></div>
+        <div><div style="font-size:.72rem;color:var(--muted)">12 meses</div><div style="font-size:1.2rem;font-weight:800;color:var(--green)">${window.__rfBruta12!=null?fPct(window.__rfBruta12):'—'}</div></div>
+      </div>
+    </div>
+    <div style="background:var(--bg2);border-radius:10px;padding:12px 14px;border:1px solid var(--border)">
+      <div style="font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px">Só RF · Líquida (após IR)</div>
+      <div style="display:flex;gap:16px;align-items:baseline;margin-top:6px">
+        <div><div style="font-size:.72rem;color:var(--muted)">Mês</div><div style="font-size:1.2rem;font-weight:800;color:var(--blue)">${window.__rfLiqMes!=null?fPct(window.__rfLiqMes):'—'}</div></div>
+        <div><div style="font-size:.72rem;color:var(--muted)">12 meses</div><div style="font-size:1.2rem;font-weight:800;color:var(--blue)">${window.__rfLiq12!=null?fPct(window.__rfLiq12):'—'}</div></div>
+      </div>
+    </div>
+  </div></div>
     ${(()=>{
       // Aporte necessário para atingir meta
       const meta=D.meta.metaPatrimonio;
