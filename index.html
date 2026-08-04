@@ -393,16 +393,22 @@ function renderCustos(D){
   const mediaAno = custos2026.length>0 ? totalAno/custos2026.length : 0;
   const ultCusto = custos[custos.length-1];
   const penCusto = custos.length>1 ? custos[custos.length-2] : null;
-  const maiorItem = ultCusto ? Object.entries(ultCusto.detalhe).sort((a,b)=>b[1]-a[1])[0] : null;
+  // Maior gasto pelo valor pessoal (individual=total, conjunto=÷2)
+  const maiorItem = ultCusto ? Object.entries(ultCusto.detalhe).map(([k,v])=>{
+    const campo = CAMPOS_CUSTOS.find(c=>c.key===k);
+    const valPessoal = campo?.tipo==='individual' ? v : v/2;
+    return [k, v, valPessoal];
+  }).sort((a,b)=>b[2]-a[2])[0] : null;
   const maiorItemLabel = maiorItem ? CAMPOS_CUSTOS.find(c=>c.key===maiorItem[0])?.label : null;
-  const maiorItemPct = maiorItem && ultCusto.custoCasa>0 ? (maiorItem[1]/ultCusto.custoCasa*100) : 0;
+  const maiorItemValPessoal = maiorItem ? maiorItem[2] : 0;
+  const maiorItemPct = maiorItem && ultCusto.custoPessoal>0 ? (maiorItemValPessoal/ultCusto.custoPessoal*100) : 0;
 
   tab.innerHTML=`
   ${custos2026.length>0?`
   <div class="cards" style="margin-bottom:20px">
     <div class="kpi"><div class="lbl">Custo Total 2026</div><div class="val neg">${fBRL0(totalAno)}</div><div class="det">${custos2026.length} meses registrados</div></div>
     <div class="kpi"><div class="lbl">Média Mensal 2026</div><div class="val">${fBRL0(mediaAno)}</div><div class="det">Custo pessoal médio</div></div>
-    ${maiorItemLabel?`<div class="kpi"><div class="lbl">Maior gasto (${ultCusto.mes})</div><div class="val" style="font-size:1.1rem">${maiorItemLabel}</div><div class="det">${fBRL0(maiorItem[1]*2)} total · ${fPct(maiorItemPct,1)} do custo casa</div></div>`:''}
+    ${maiorItemLabel?`<div class="kpi"><div class="lbl">Maior gasto (${ultCusto.mes})</div><div class="val" style="font-size:1.1rem">${maiorItemLabel}</div><div class="det">${fBRL0(maiorItemValPessoal)} seu · ${fPct(maiorItemPct,1)} do custo pessoal</div></div>`:''}
   </div>`:''}
   <div class="grid2">
     <div class="panel"><h2>🏠 CUSTO DA CASA</h2><div class="chartbox"><canvas id="cCasaBar"></canvas></div></div>
