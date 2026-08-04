@@ -506,7 +506,7 @@ function renderFormFields(detalhe,pago){
 function atualizarSubtotalPago(){
   const bar = document.getElementById('subtotalPago');
   if(!bar) return;
-  let pago=0, total=0, totalCasa=0;
+  let pago=0, total=0, totalCasa=0, pagoCasaVal=0, faltaCasa=0;
   CAMPOS_CUSTOS.forEach(c=>{
     const inp = document.getElementById('f_'+c.key);
     const chk = document.getElementById('p_'+c.key);
@@ -514,22 +514,16 @@ function atualizarSubtotalPago(){
     const val = parseFloat(inp.value)||0;
     const meuVal = c.tipo==='individual' ? val : val/2;
     total += meuVal;
-    totalCasa += val;
     if(chk.checked) pago += meuVal;
+    // Casa: só itens compartilhados (valor total do casal)
+    if(c.tipo==='conjunto'){
+      totalCasa += val;
+      if(chk.checked) pagoCasaVal += val; else faltaCasa += val;
+    }
   });
   const falta = total - pago;
   const pct = total>0 ? Math.round(pago/total*100) : 0;
-  const pagoCasa=0; // calculated below
-  // recalc for casa: pago casa = items marked as pago at full value
-  let pagoCasaVal=0, faltaCasa=0;
-  CAMPOS_CUSTOS.forEach(c=>{
-    const inp2=document.getElementById('f_'+c.key);
-    const chk2=document.getElementById('p_'+c.key);
-    if(!inp2||!chk2)return;
-    const v2=parseFloat(inp2.value)||0;
-    if(chk2.checked)pagoCasaVal+=v2; else faltaCasa+=v2;
-  });
-  const pctCasa=totalCasa>0?Math.round(pagoCasaVal/totalCasa*100):0;
+  const pctCasa = totalCasa>0 ? Math.round(pagoCasaVal/totalCasa*100) : 0;
 
   function linhaSubtotal(lbl,pagoV,faltaV,totalV,pctV){
     return `<div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap;padding:10px 14px;background:var(--card);border-radius:8px;margin-bottom:8px">
