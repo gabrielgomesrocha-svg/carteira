@@ -1995,6 +1995,39 @@ var DADOS = {
         "inglesLis": false,
         "ipva": false
       }
+    },
+    {
+      "mes": "Set/2026",
+      "custoCasa": 36422,
+      "custoPessoal": 44961,
+      "detalhe": {
+        "parcelaAp": 19700,
+        "cartaoInd": 1850,
+        "haras": 5200,
+        "cartaoConj": 19100,
+        "contaCorrente": 4000,
+        "condominio": 2700,
+        "iptu": 1449,
+        "escola": 4900,
+        "paty": 2850,
+        "personal": 900,
+        "inglesLis": 523,
+        "ipva": 0
+      },
+      "pago": {
+        "parcelaAp": false,
+        "cartaoInd": false,
+        "haras": false,
+        "cartaoConj": false,
+        "contaCorrente": false,
+        "condominio": false,
+        "iptu": false,
+        "escola": false,
+        "paty": false,
+        "personal": false,
+        "inglesLis": false,
+        "ipva": false
+      }
     }
   ],
   "retiradas": [
