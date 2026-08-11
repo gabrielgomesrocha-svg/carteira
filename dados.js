@@ -21,7 +21,8 @@ var DADOS = {
       "rentAno": 12.57,
       "rent12m": 11.11,
       "pctCdi12m": 143.45,
-      "selic": 11.25
+      "selic": 11.25,
+      "rentMesConsolidada": 1.35
     },
     {
       "mes": "Nov/2025",
@@ -34,7 +35,8 @@ var DADOS = {
       "rentAno": 13.97,
       "rent12m": 14.08,
       "pctCdi12m": 118.26,
-      "selic": 11.75
+      "selic": 11.75,
+      "rentMesConsolidada": 1.24
     },
     {
       "mes": "Dez/2025",
@@ -47,7 +49,8 @@ var DADOS = {
       "rentAno": 15.3,
       "rent12m": 15.3,
       "pctCdi12m": 99.67,
-      "selic": 12.25
+      "selic": 12.25,
+      "rentMesConsolidada": 1.16
     },
     {
       "mes": "Jan/2026",
@@ -60,7 +63,8 @@ var DADOS = {
       "rentAno": 1.43,
       "rent12m": null,
       "pctCdi12m": 123.09,
-      "selic": 13.25
+      "selic": 13.25,
+      "rentMesConsolidada": 1.43
     },
     {
       "mes": "Fev/2026",
@@ -73,7 +77,8 @@ var DADOS = {
       "rentAno": 2.64,
       "rent12m": null,
       "pctCdi12m": 118.86,
-      "selic": 13.25
+      "selic": 13.25,
+      "rentMesConsolidada": 1.19
     },
     {
       "mes": "Mar/2026",
@@ -86,7 +91,8 @@ var DADOS = {
       "rentAno": 3.85,
       "rent12m": 16.11,
       "pctCdi12m": 97.83,
-      "selic": 13.75
+      "selic": 13.75,
+      "rentMesConsolidada": 1.19
     },
     {
       "mes": "Abr/2026",
@@ -99,7 +105,8 @@ var DADOS = {
       "rentAno": 5.2,
       "rent12m": 16.13,
       "pctCdi12m": 119.11,
-      "selic": 14.5
+      "selic": 14.5,
+      "rentMesConsolidada": 1.3
     },
     {
       "mes": "Mai/2026",
@@ -112,7 +119,8 @@ var DADOS = {
       "rentAno": 6.26,
       "rent12m": 15.78,
       "pctCdi12m": 106.93,
-      "selic": 14.5
+      "selic": 14.5,
+      "rentMesConsolidada": 1.01
     },
     {
       "mes": "Jun/2026",
@@ -125,7 +133,8 @@ var DADOS = {
       "rentAno": 7.39,
       "rent12m": 15.76,
       "pctCdi12m": 106.61,
-      "selic": 14.75
+      "selic": 14.75,
+      "rentMesConsolidada": 1.07
     },
     {
       "mes": "Jul/2026",
@@ -136,9 +145,10 @@ var DADOS = {
       "dividendos": 507.66,
       "rentMes": 1.17,
       "rentAno": 8.65,
-      "rent12m": 15.71,
+      "rent12m": 15.76,
       "pctCdi12m": 107.11,
-      "selic": 14.75
+      "selic": 14.75,
+      "rentMesConsolidada": 1.17
     }
   ],
   "alocacao": {
