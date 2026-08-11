@@ -143,27 +143,39 @@ function render(D){
   const ganhos2026=D.evolucaoMensal.filter(m=>m.mes.includes('2026')).reduce((s,m)=>s+(m.ganhos||0),0);
   document.getElementById('tab-dash').innerHTML=`
   ${(()=>{
-    // Pre-calc RF-only weighted returns (excluding RV, FIIs)
-    const RF_GRUPOS = ['TÍTULO PÚBLICO','PÓS-FIXADO','INFLAÇÃO (IPCA+)','PREFIXADO','LIQUIDEZ','PREVIDÊNCIA PRIVADA'];
-    let rfBrutaMes=0, rfBruta12=0, rfLiqMes=0, rfLiq12=0, rfPeso=0;
+    // Pre-calc RF-only weighted returns (excluding RV, FIIs) — inclui Safra e Previdência (XP)
+    const RF_GRUPOS = ['TÍTULO PÚBLICO','PÓS-FIXADO','INFLAÇÃO (IPCA+)','PREFIXADO','LIQUIDEZ','PREVIDÊNCIA PRIVADA','SAFRA','XP PREVIDÊNCIA'];
+    let rfBrutaMes=0, rfBruta12=0, rfLiqMes=0, rfLiq12=0, rfPeso=0, rfPesoMes=0;
     (D.posicaoDetalhada?.grupos||[]).forEach(g=>{
       if(!RF_GRUPOS.includes(g.grupo)) return;
       g.ativos.forEach(a=>{
         if(a.saldo>1){
-          if(a.rentMes!=null){ rfBrutaMes+=a.rentMes*a.saldo; rfLiqMes+=rentLiquida(a.rentMes,a.aliqIR||15,a.isento||false)*a.saldo; }
+          if(a.rentMes!=null){ rfBrutaMes+=a.rentMes*a.saldo; rfLiqMes+=rentLiquida(a.rentMes,a.aliqIR||15,a.isento||false)*a.saldo; rfPesoMes+=a.saldo; }
           if(a.rent12m!=null){ rfBruta12+=a.rent12m*a.saldo; rfLiq12+=rentLiquida(a.rent12m,a.aliqIR||15,a.isento||false)*a.saldo; rfPeso+=a.saldo; }
         }
       });
-    });
-    let rfPesoMes=0;
-    (D.posicaoDetalhada?.grupos||[]).forEach(g=>{
-      if(!RF_GRUPOS.includes(g.grupo)) return;
-      g.ativos.forEach(a=>{ if(a.saldo>1&&a.rentMes!=null) rfPesoMes+=a.saldo; });
     });
     window.__rfBrutaMes = rfPesoMes>0?rfBrutaMes/rfPesoMes:null;
     window.__rfBruta12  = rfPeso>0?rfBruta12/rfPeso:null;
     window.__rfLiqMes   = rfPesoMes>0?rfLiqMes/rfPesoMes:null;
     window.__rfLiq12    = rfPeso>0?rfLiq12/rfPeso:null;
+
+    // Pre-calc rentabilidade CONSOLIDADA (todos os grupos — Inter + Safra + XP, com RV) ponderada por saldo, só para o MÊS atual
+    let consBrutaMes=0, consPesoMes=0;
+    (D.posicaoDetalhada?.grupos||[]).forEach(g=>{
+      g.ativos.forEach(a=>{
+        if(a.saldo>1 && a.rentMes!=null){ consBrutaMes+=a.rentMes*a.saldo; consPesoMes+=a.saldo; }
+      });
+    });
+    window.__consBrutaMes = consPesoMes>0?consBrutaMes/consPesoMes:ult.rentMes;
+
+    // "12 meses" consolidado: composição dos retornos mensais já registrados em rentMesConsolidada
+    // (nos meses em que Safra/XP não existiam ou não tinham retorno, esse valor = retorno só do Inter Win — reflete a história real)
+    const serieRent = D.evolucaoMensal.map(m=>m.rentMesConsolidada ?? m.rentMes).filter(v=>v!=null).slice(-12);
+    window.__consBruta12 = serieRent.length ? (serieRent.reduce((acc,r)=>acc*(1+r/100),1)-1)*100 : null;
+    window.__consBruta12Meses = serieRent.length;
+    const cdi12 = D.comparativoPeriodos.find(p=>p.periodo==='12 meses')?.cdi ?? null;
+    window.__consPctCdi12 = (window.__consBruta12!=null && cdi12) ? window.__consBruta12/cdi12*100 : null;
     return '';
   })()}
   <div class="cards">
@@ -176,10 +188,11 @@ function render(D){
     <div style="background:var(--bg2);border-radius:10px;padding:12px 14px;border:1px solid var(--border)">
       <div style="font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px">Com RV · Bruta</div>
       <div style="display:flex;gap:16px;align-items:baseline;margin-top:6px">
-        <div><div style="font-size:.72rem;color:var(--muted)">Mês</div><div style="font-size:1.2rem;font-weight:800;color:var(--green)">${fPct(ult.rentMes)}</div></div>
-        <div><div style="font-size:.72rem;color:var(--muted)">12 meses</div><div style="font-size:1.2rem;font-weight:800;color:var(--green)">${fPct(ult.rent12m)}</div></div>
-        <div><div style="font-size:.72rem;color:var(--muted)">CDI</div><div style="font-size:.9rem;font-weight:700;color:var(--muted)">${fPct(ult.pctCdi12m,1)}</div></div>
+        <div><div style="font-size:.72rem;color:var(--muted)">Mês</div><div style="font-size:1.2rem;font-weight:800;color:var(--green)">${fPct(window.__consBrutaMes)}</div></div>
+        <div><div style="font-size:.72rem;color:var(--muted)">12 meses</div><div style="font-size:1.2rem;font-weight:800;color:var(--green)">${fPct(window.__consBruta12)}</div></div>
+        <div><div style="font-size:.72rem;color:var(--muted)">CDI</div><div style="font-size:.9rem;font-weight:700;color:var(--muted)">${window.__consPctCdi12!=null?fPct(window.__consPctCdi12,1):'—'}</div></div>
       </div>
+      ${window.__consBruta12Meses<12?`<div style="font-size:.65rem;color:var(--muted);margin-top:4px">*baseado nos últimos ${window.__consBruta12Meses} meses (histórico ainda incompleto)</div>`:''}
     </div>
     <div style="background:var(--bg2);border-radius:10px;padding:12px 14px;border:1px solid var(--border)">
       <div style="font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px">Só RF · Bruta</div>
