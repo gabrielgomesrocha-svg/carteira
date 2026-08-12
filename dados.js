@@ -1718,21 +1718,21 @@ var DADOS = {
     "resumoMensal": [
       {
         "mes": "Jan/26",
-        "fiis": 277.04,
-        "acoes": 0,
-        "total": 277.04
+        "fiis": 231.69,
+        "acoes": 151.02,
+        "total": 382.71
       },
       {
         "mes": "Fev/26",
-        "fiis": 277.04,
-        "acoes": 0,
-        "total": 277.04
+        "fiis": 272.46,
+        "acoes": 37.48,
+        "total": 309.94
       },
       {
         "mes": "Mar/26",
         "fiis": 277.04,
-        "acoes": 157.47,
-        "total": 434.51
+        "acoes": 160.6,
+        "total": 437.64
       },
       {
         "mes": "Abr/26",
@@ -1748,9 +1748,9 @@ var DADOS = {
       },
       {
         "mes": "Jun/26",
-        "fiis": 440.83,
-        "acoes": 42.07,
-        "total": 482.9
+        "fiis": 409.41,
+        "acoes": 53.63,
+        "total": 463.04
       },
       {
         "mes": "Jul/26",
@@ -1759,7 +1759,7 @@ var DADOS = {
         "total": 507.66
       }
     ],
-    "totalAcumulado": 2780.73,
+    "totalAcumulado": 2902.57,
     "porAtivo": [
       {
         "ativo": "XPML11",
@@ -1776,41 +1776,13 @@ var DADOS = {
         "total": 412.16
       },
       {
-        "ativo": "VISC11",
-        "tipo": "FII",
-        "valores": [
-          41.16,
-          41.16,
-          41.16,
-          41.16,
-          41.16,
-          44.52,
-          44.52
-        ],
-        "total": 294.84
-      },
-      {
-        "ativo": "RZTR11",
-        "tipo": "FII",
-        "valores": [
-          34,
-          34,
-          34,
-          34,
-          34,
-          34,
-          30.6
-        ],
-        "total": 234.6
-      },
-      {
         "ativo": "CPTS11",
         "tipo": "FII",
         "valores": [
-          27,
-          27,
-          27,
-          27,
+          27.0,
+          27.0,
+          27.0,
+          27.0,
           60.75,
           67.05,
           67.05
@@ -1818,18 +1790,60 @@ var DADOS = {
         "total": 302.85
       },
       {
+        "ativo": "VISC11",
+        "tipo": "FII",
+        "valores": [
+          21.06,
+          41.16,
+          41.16,
+          41.16,
+          41.16,
+          44.52,
+          44.52
+        ],
+        "total": 274.74
+      },
+      {
         "ativo": "XPCI11",
         "tipo": "FII",
         "valores": [
+          0,
+          26.4,
           25.5,
           25.5,
-          25.5,
-          25.5,
-          54,
+          54.0,
           55.8,
           57.0
         ],
-        "total": 268.8
+        "total": 244.2
+      },
+      {
+        "ativo": "RZTR11",
+        "tipo": "FII",
+        "valores": [
+          34.0,
+          34.0,
+          34.0,
+          34.0,
+          34.0,
+          34.0,
+          30.6
+        ],
+        "total": 234.6
+      },
+      {
+        "ativo": "BBDC4",
+        "tipo": "Ação",
+        "valores": [
+          53.75,
+          3.13,
+          3.13,
+          53.65,
+          3.13,
+          3.13,
+          68.81
+        ],
+        "total": 188.73
       },
       {
         "ativo": "LVBI11",
@@ -1849,29 +1863,29 @@ var DADOS = {
         "ativo": "HGBS11",
         "tipo": "FII",
         "valores": [
-          22.1,
-          22.1,
+          19.5,
+          20.8,
           22.1,
           22.1,
           22.1,
           22.1,
           22.1
         ],
-        "total": 154.7
+        "total": 150.8
       },
       {
         "ativo": "KNRI11",
         "tipo": "FII",
         "valores": [
-          20.9,
-          20.9,
+          23.75,
+          16.72,
           20.9,
           20.9,
           20.9,
           20.9,
           26.22
         ],
-        "total": 151.62
+        "total": 150.29
       },
       {
         "ativo": "HGLG11",
@@ -1888,18 +1902,46 @@ var DADOS = {
         "total": 146.3
       },
       {
-        "ativo": "XPLG11",
-        "tipo": "FII",
+        "ativo": "PETR4",
+        "tipo": "Ação",
         "valores": [
-          4.1,
-          4.1,
-          4.1,
-          4.1,
-          4.1,
           0,
-          4.1
+          33.03,
+          36.96,
+          0,
+          21.97,
+          22.21,
+          0
         ],
-        "total": 24.6
+        "total": 114.17
+      },
+      {
+        "ativo": "VALE3",
+        "tipo": "Ação",
+        "valores": [
+          38.56,
+          0,
+          65.17,
+          0,
+          0,
+          0,
+          0
+        ],
+        "total": 103.73
+      },
+      {
+        "ativo": "TAEE11",
+        "tipo": "Ação",
+        "valores": [
+          44.64,
+          0,
+          0,
+          0,
+          46.34,
+          0,
+          0
+        ],
+        "total": 90.98
       },
       {
         "ativo": "TRXF11",
@@ -1916,20 +1958,6 @@ var DADOS = {
         "total": 73.92
       },
       {
-        "ativo": "Ações (Div./JCP) — histórico Jan-Jun/2026 (agregado)",
-        "tipo": "Ações",
-        "valores": [
-          0,
-          0,
-          157.47,
-          61.2,
-          82.89,
-          42.07,
-          0
-        ],
-        "total": 343.63
-      },
-      {
         "ativo": "RBRX11",
         "tipo": "FII",
         "valores": [
@@ -1937,11 +1965,53 @@ var DADOS = {
           0,
           0,
           0,
-          0,
-          0,
+          20.7,
+          26.1,
           26.1
         ],
-        "total": 26.1
+        "total": 72.9
+      },
+      {
+        "ativo": "ITUB3",
+        "tipo": "Ação",
+        "valores": [
+          1.28,
+          1.32,
+          52.7,
+          1.31,
+          1.31,
+          1.31,
+          1.5
+        ],
+        "total": 60.73
+      },
+      {
+        "ativo": "XPLG11",
+        "tipo": "FII",
+        "valores": [
+          4.1,
+          4.1,
+          4.1,
+          4.1,
+          4.1,
+          4.1,
+          4.1
+        ],
+        "total": 28.7
+      },
+      {
+        "ativo": "B3SA3",
+        "tipo": "Ação",
+        "valores": [
+          6.68,
+          0,
+          0,
+          6.24,
+          0,
+          0,
+          12.28
+        ],
+        "total": 25.2
       },
       {
         "ativo": "MCRE11",
@@ -1952,13 +2022,13 @@ var DADOS = {
           0,
           0,
           0,
-          0,
+          12.1,
           12.1
         ],
-        "total": 12.1
+        "total": 24.2
       },
       {
-        "ativo": "ITUB3",
+        "ativo": "CMIG4",
         "tipo": "Ação",
         "valores": [
           0,
@@ -1966,52 +2036,38 @@ var DADOS = {
           0,
           0,
           0,
-          0,
-          1.5
+          19.86,
+          0
         ],
-        "total": 1.5
+        "total": 19.86
       },
       {
-        "ativo": "BBDC4",
+        "ativo": "EGIE3",
+        "tipo": "Ação",
+        "valores": [
+          6.11,
+          0,
+          0,
+          0,
+          10.14,
+          0,
+          0
+        ],
+        "total": 16.25
+      },
+      {
+        "ativo": "BBAS3",
         "tipo": "Ação",
         "valores": [
           0,
           0,
+          2.64,
           0,
           0,
-          0,
-          0,
-          68.81
+          7.12,
+          0
         ],
-        "total": 68.81
-      },
-      {
-        "ativo": "B3SA3",
-        "tipo": "Ação",
-        "valores": [
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          10.09
-        ],
-        "total": 10.09
-      },
-      {
-        "ativo": "Outras ações (resíduo Jul/26)",
-        "tipo": "Ação",
-        "valores": [
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          2.19
-        ],
-        "total": 2.19
+        "total": 9.76
       }
     ]
   },
