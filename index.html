@@ -143,24 +143,45 @@ function render(D){
   const ganhos2026=D.evolucaoMensal.filter(m=>m.mes.includes('2026')).reduce((s,m)=>s+(m.ganhos||0),0);
   document.getElementById('tab-dash').innerHTML=`
   ${(()=>{
-    // Pre-calc RF-only weighted returns (excluding RV, FIIs) — inclui Safra e Previdência (XP)
+    // ---------- RF: composição de retornos mensais REAIS (ganho R$ do mês / saldo RF do mês anterior) ----------
+    // Evita o erro de usar o campo rent12m por ativo, que mistura "desde a compra" com "12 meses" para ativos recentes.
+    const RF_HP = ['Liquidez (CDB Diária)','Título Público','Pós-fixado','Inflação','Prefixado','Previdência Privada'];
+    const RF_GM = ['Liquidez','Título Público','Pós-fixado','Inflação','Prefixado','Previdência Privada'];
+    const hp = D.historicoPosicoes, gm = D.ganhosMensaisPorEstrategia;
+    const hpMap = {}; (hp?.classes||[]).forEach(c=>hpMap[c.classe]=c.valores);
+    const gmMap = {}; (gm?.linhas||[]).forEach(l=>gmMap[l.estrategia]=l.valores);
+    const rfSerieMensal = [];
+    if(hp && gm){
+      for(let i=1;i<hp.meses.length;i++){
+        const saldoPrev = RF_HP.reduce((s,c)=>s+((hpMap[c]?.[i-1])||0),0);
+        const ganhoMes  = RF_GM.reduce((s,c)=>s+((gmMap[c]?.[i])||0),0);
+        if(saldoPrev>0) rfSerieMensal.push(ganhoMes/saldoPrev*100);
+      }
+    }
+    const rfSerie12 = rfSerieMensal.slice(-12);
+    window.__rfBruta12 = rfSerie12.length ? (rfSerie12.reduce((acc,r)=>acc*(1+r/100),1)-1)*100 : null;
+    window.__rfBruta12Meses = rfSerie12.length;
+
+    // RF — mês atual (bruta e líquida) ponderado por saldo, já incluindo Safra/XP no grupo (quando tiverem rentMes preenchido)
     const RF_GRUPOS = ['TÍTULO PÚBLICO','PÓS-FIXADO','INFLAÇÃO (IPCA+)','PREFIXADO','LIQUIDEZ','PREVIDÊNCIA PRIVADA','SAFRA','XP PREVIDÊNCIA'];
-    let rfBrutaMes=0, rfBruta12=0, rfLiqMes=0, rfLiq12=0, rfPeso=0, rfPesoMes=0;
+    let rfBrutaMes=0, rfLiqMes=0, rfPesoMes=0;
     (D.posicaoDetalhada?.grupos||[]).forEach(g=>{
       if(!RF_GRUPOS.includes(g.grupo)) return;
       g.ativos.forEach(a=>{
-        if(a.saldo>1){
-          if(a.rentMes!=null){ rfBrutaMes+=a.rentMes*a.saldo; rfLiqMes+=rentLiquida(a.rentMes,a.aliqIR||15,a.isento||false)*a.saldo; rfPesoMes+=a.saldo; }
-          if(a.rent12m!=null){ rfBruta12+=a.rent12m*a.saldo; rfLiq12+=rentLiquida(a.rent12m,a.aliqIR||15,a.isento||false)*a.saldo; rfPeso+=a.saldo; }
+        if(a.saldo>1 && a.rentMes!=null){
+          rfBrutaMes+=a.rentMes*a.saldo;
+          rfLiqMes+=rentLiquida(a.rentMes,a.aliqIR||15,a.isento||false)*a.saldo;
+          rfPesoMes+=a.saldo;
         }
       });
     });
     window.__rfBrutaMes = rfPesoMes>0?rfBrutaMes/rfPesoMes:null;
-    window.__rfBruta12  = rfPeso>0?rfBruta12/rfPeso:null;
     window.__rfLiqMes   = rfPesoMes>0?rfLiqMes/rfPesoMes:null;
-    window.__rfLiq12    = rfPeso>0?rfLiq12/rfPeso:null;
+    // Líquida 12m: aplica a relação líquida/bruta observada no mês atual sobre o composto de 12m (aproximação — sem granularidade de IR mês a mês)
+    const liqRatio = (window.__rfBrutaMes && window.__rfLiqMes!=null) ? window.__rfLiqMes/window.__rfBrutaMes : null;
+    window.__rfLiq12 = (window.__rfBruta12!=null && liqRatio!=null) ? window.__rfBruta12*liqRatio : null;
 
-    // Pre-calc rentabilidade CONSOLIDADA (todos os grupos — Inter + Safra + XP, com RV) ponderada por saldo, só para o MÊS atual
+    // ---------- Com RV · Bruta: mês já consolidado (Inter+Safra+XP quando houver dado); 12 meses = número oficial do Inter Win até a série consolidada ter 12 meses reais com Safra/XP ----------
     let consBrutaMes=0, consPesoMes=0;
     (D.posicaoDetalhada?.grupos||[]).forEach(g=>{
       g.ativos.forEach(a=>{
@@ -168,14 +189,8 @@ function render(D){
       });
     });
     window.__consBrutaMes = consPesoMes>0?consBrutaMes/consPesoMes:ult.rentMes;
-
-    // "12 meses" consolidado: composição dos retornos mensais já registrados em rentMesConsolidada
-    // (nos meses em que Safra/XP não existiam ou não tinham retorno, esse valor = retorno só do Inter Win — reflete a história real)
-    const serieRent = D.evolucaoMensal.map(m=>m.rentMesConsolidada ?? m.rentMes).filter(v=>v!=null).slice(-12);
-    window.__consBruta12 = serieRent.length ? (serieRent.reduce((acc,r)=>acc*(1+r/100),1)-1)*100 : null;
-    window.__consBruta12Meses = serieRent.length;
-    const cdi12 = D.comparativoPeriodos.find(p=>p.periodo==='12 meses')?.cdi ?? null;
-    window.__consPctCdi12 = (window.__consBruta12!=null && cdi12) ? window.__consBruta12/cdi12*100 : null;
+    window.__consBruta12 = ult.rent12m;      // número oficial do Inter Win (mantido até Safra/XP acumularem histórico próprio)
+    window.__consPctCdi12 = ult.pctCdi12m;
     return '';
   })()}
   <div class="cards">
@@ -192,7 +207,6 @@ function render(D){
         <div><div style="font-size:.72rem;color:var(--muted)">12 meses</div><div style="font-size:1.2rem;font-weight:800;color:var(--green)">${fPct(window.__consBruta12)}</div></div>
         <div><div style="font-size:.72rem;color:var(--muted)">CDI</div><div style="font-size:.9rem;font-weight:700;color:var(--muted)">${window.__consPctCdi12!=null?fPct(window.__consPctCdi12,1):'—'}</div></div>
       </div>
-      ${window.__consBruta12Meses<12?`<div style="font-size:.65rem;color:var(--muted);margin-top:4px">*baseado nos últimos ${window.__consBruta12Meses} meses (histórico ainda incompleto)</div>`:''}
     </div>
     <div style="background:var(--bg2);border-radius:10px;padding:12px 14px;border:1px solid var(--border)">
       <div style="font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px">Só RF · Bruta</div>
@@ -200,6 +214,7 @@ function render(D){
         <div><div style="font-size:.72rem;color:var(--muted)">Mês</div><div style="font-size:1.2rem;font-weight:800;color:var(--green)">${window.__rfBrutaMes!=null?fPct(window.__rfBrutaMes):'—'}</div></div>
         <div><div style="font-size:.72rem;color:var(--muted)">12 meses</div><div style="font-size:1.2rem;font-weight:800;color:var(--green)">${window.__rfBruta12!=null?fPct(window.__rfBruta12):'—'}</div></div>
       </div>
+      ${window.__rfBruta12Meses<12?`<div style="font-size:.65rem;color:var(--muted);margin-top:4px">*baseado nos últimos ${window.__rfBruta12Meses} meses (histórico ainda incompleto)</div>`:''}
     </div>
     <div style="background:var(--bg2);border-radius:10px;padding:12px 14px;border:1px solid var(--border)">
       <div style="font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px">Só RF · Líquida (após IR)</div>
