@@ -1916,7 +1916,7 @@ var DADOS = {
         "total": 73.92
       },
       {
-        "ativo": "Ações (Div./JCP)",
+        "ativo": "Ações (Div./JCP) — histórico Jan-Jun/2026 (agregado)",
         "tipo": "Ações",
         "valores": [
           0,
@@ -1925,9 +1925,9 @@ var DADOS = {
           61.2,
           82.89,
           42.07,
-          82.59
+          0
         ],
-        "total": 426.22
+        "total": 343.63
       },
       {
         "ativo": "RBRX11",
@@ -1956,6 +1956,62 @@ var DADOS = {
           12.1
         ],
         "total": 12.1
+      },
+      {
+        "ativo": "ITUB3",
+        "tipo": "Ação",
+        "valores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1.5
+        ],
+        "total": 1.5
+      },
+      {
+        "ativo": "BBDC4",
+        "tipo": "Ação",
+        "valores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          68.81
+        ],
+        "total": 68.81
+      },
+      {
+        "ativo": "B3SA3",
+        "tipo": "Ação",
+        "valores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          10.09
+        ],
+        "total": 10.09
+      },
+      {
+        "ativo": "Outras ações (resíduo Jul/26)",
+        "tipo": "Ação",
+        "valores": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2.19
+        ],
+        "total": 2.19
       }
     ]
   },
