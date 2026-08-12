@@ -222,6 +222,7 @@ function render(D){
         <div><div style="font-size:.72rem;color:var(--muted)">Mês</div><div style="font-size:1.2rem;font-weight:800;color:var(--blue)">${window.__rfLiqMes!=null?fPct(window.__rfLiqMes):'—'}</div></div>
         <div><div style="font-size:.72rem;color:var(--muted)">12 meses</div><div style="font-size:1.2rem;font-weight:800;color:var(--blue)">${window.__rfLiq12!=null?fPct(window.__rfLiq12):'—'}</div></div>
       </div>
+      ${window.__rfBruta12Meses<12?`<div style="font-size:.65rem;color:var(--muted);margin-top:4px">*baseado nos últimos ${window.__rfBruta12Meses} meses (histórico ainda incompleto)</div>`:''}
     </div>
   </div></div>
     ${(()=>{
