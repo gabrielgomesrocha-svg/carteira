@@ -191,6 +191,11 @@ function render(D){
     window.__consBrutaMes = consPesoMes>0?consBrutaMes/consPesoMes:ult.rentMes;
     window.__consBruta12 = ult.rent12m;      // número oficial do Inter Win (mantido até Safra/XP acumularem histórico próprio)
     window.__consPctCdi12 = ult.pctCdi12m;
+
+    // %CDI (12m) para as linhas de RF, usando a mesma referência de CDI do período
+    const cdi12ref = D.comparativoPeriodos.find(p=>p.periodo==='12 meses')?.cdi ?? null;
+    window.__rfPctCdi12 = (window.__rfBruta12!=null && cdi12ref) ? window.__rfBruta12/cdi12ref*100 : null;
+    window.__rfLiqPctCdi12 = (window.__rfLiq12!=null && cdi12ref) ? window.__rfLiq12/cdi12ref*100 : null;
     return '';
   })()}
   <div class="cards">
@@ -199,32 +204,38 @@ function render(D){
     <div class="kpi"><div class="lbl">Desde início (${D.meta.inicioCarteira})</div><div class="val pos">${fPct(D.posicaoDetalhada.total.desdeInicio)}</div><div class="det">Ganho total: ${fBRL0(D.ganhosPorEstrategia.find(g=>g.estrategia==='TOTAL').desdeInicio)}</div></div>
   </div>
   <div class="panel"><h2>▌ RENTABILIDADE</h2>
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:0">
-    <div style="background:var(--bg2);border-radius:10px;padding:12px 14px;border:1px solid var(--border)">
-      <div style="font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px">Com RV · Bruta</div>
-      <div style="display:flex;gap:16px;align-items:baseline;margin-top:6px">
-        <div><div style="font-size:.72rem;color:var(--muted)">Mês</div><div style="font-size:1.2rem;font-weight:800;color:var(--green)">${fPct(window.__consBrutaMes)}</div></div>
-        <div><div style="font-size:.72rem;color:var(--muted)">12 meses</div><div style="font-size:1.2rem;font-weight:800;color:var(--green)">${fPct(window.__consBruta12)}</div></div>
-        <div><div style="font-size:.72rem;color:var(--muted)">CDI</div><div style="font-size:.9rem;font-weight:700;color:var(--muted)">${window.__consPctCdi12!=null?fPct(window.__consPctCdi12,1):'—'}</div></div>
-      </div>
-    </div>
-    <div style="background:var(--bg2);border-radius:10px;padding:12px 14px;border:1px solid var(--border)">
-      <div style="font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px">Só RF · Bruta</div>
-      <div style="display:flex;gap:16px;align-items:baseline;margin-top:6px">
-        <div><div style="font-size:.72rem;color:var(--muted)">Mês</div><div style="font-size:1.2rem;font-weight:800;color:var(--green)">${window.__rfBrutaMes!=null?fPct(window.__rfBrutaMes):'—'}</div></div>
-        <div><div style="font-size:.72rem;color:var(--muted)">12 meses</div><div style="font-size:1.2rem;font-weight:800;color:var(--green)">${window.__rfBruta12!=null?fPct(window.__rfBruta12):'—'}</div></div>
-      </div>
-      ${window.__rfBruta12Meses<12?`<div style="font-size:.65rem;color:var(--muted);margin-top:4px">*baseado nos últimos ${window.__rfBruta12Meses} meses (histórico ainda incompleto)</div>`:''}
-    </div>
-    <div style="background:var(--bg2);border-radius:10px;padding:12px 14px;border:1px solid var(--border)">
-      <div style="font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:2px">Só RF · Líquida (após IR)</div>
-      <div style="display:flex;gap:16px;align-items:baseline;margin-top:6px">
-        <div><div style="font-size:.72rem;color:var(--muted)">Mês</div><div style="font-size:1.2rem;font-weight:800;color:var(--blue)">${window.__rfLiqMes!=null?fPct(window.__rfLiqMes):'—'}</div></div>
-        <div><div style="font-size:.72rem;color:var(--muted)">12 meses</div><div style="font-size:1.2rem;font-weight:800;color:var(--blue)">${window.__rfLiq12!=null?fPct(window.__rfLiq12):'—'}</div></div>
-      </div>
-      ${window.__rfBruta12Meses<12?`<div style="font-size:.65rem;color:var(--muted);margin-top:4px">*baseado nos últimos ${window.__rfBruta12Meses} meses (histórico ainda incompleto)</div>`:''}
-    </div>
-  </div></div>
+  <table style="width:100%;border-collapse:collapse;font-size:.85rem">
+    <thead>
+      <tr style="border-bottom:1px solid var(--border)">
+        <th style="text-align:left;padding:8px 6px;color:var(--muted);font-weight:600;font-size:.68rem;text-transform:uppercase;letter-spacing:.4px">Rentabilidade</th>
+        <th style="text-align:right;padding:8px 6px;color:var(--muted);font-weight:600;font-size:.68rem;text-transform:uppercase">Mês</th>
+        <th style="text-align:right;padding:8px 6px;color:var(--muted);font-weight:600;font-size:.68rem;text-transform:uppercase">12 meses</th>
+        <th style="text-align:right;padding:8px 6px;color:var(--muted);font-weight:600;font-size:.68rem;text-transform:uppercase">% CDI (12m)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:10px 6px">Com RV · Bruta</td>
+        <td style="text-align:right;padding:10px 6px;font-weight:800;color:var(--green)">${fPct(window.__consBrutaMes)}</td>
+        <td style="text-align:right;padding:10px 6px;font-weight:800;color:var(--green)">${fPct(window.__consBruta12)}</td>
+        <td style="text-align:right;padding:10px 6px;color:var(--muted)">${window.__consPctCdi12!=null?fPct(window.__consPctCdi12,1):'—'}</td>
+      </tr>
+      <tr style="border-bottom:1px solid var(--border)">
+        <td style="padding:10px 6px">Só RF · Bruta</td>
+        <td style="text-align:right;padding:10px 6px;font-weight:800;color:var(--green)">${window.__rfBrutaMes!=null?fPct(window.__rfBrutaMes):'—'}</td>
+        <td style="text-align:right;padding:10px 6px;font-weight:800;color:var(--green)">${window.__rfBruta12!=null?fPct(window.__rfBruta12):'—'}<span style="color:var(--muted);font-weight:400">*</span></td>
+        <td style="text-align:right;padding:10px 6px;color:var(--muted)">${window.__rfPctCdi12!=null?fPct(window.__rfPctCdi12,1):'—'}<span style="color:var(--muted)">*</span></td>
+      </tr>
+      <tr>
+        <td style="padding:10px 6px">Só RF · Líquida (após IR)</td>
+        <td style="text-align:right;padding:10px 6px;font-weight:800;color:var(--blue)">${window.__rfLiqMes!=null?fPct(window.__rfLiqMes):'—'}</td>
+        <td style="text-align:right;padding:10px 6px;font-weight:800;color:var(--blue)">${window.__rfLiq12!=null?fPct(window.__rfLiq12):'—'}<span style="color:var(--muted);font-weight:400">*</span></td>
+        <td style="text-align:right;padding:10px 6px;color:var(--muted)">${window.__rfLiqPctCdi12!=null?fPct(window.__rfLiqPctCdi12,1):'—'}<span style="color:var(--muted)">*</span></td>
+      </tr>
+    </tbody>
+  </table>
+  ${window.__rfBruta12Meses<12?`<div style="font-size:.68rem;color:var(--muted);margin-top:10px;padding-top:8px;border-top:1px solid var(--border)">*Só RF baseado nos últimos ${window.__rfBruta12Meses} meses (histórico ainda incompleto)</div>`:''}
+  </div>
     ${(()=>{
       // Aporte necessário para atingir meta
       const meta=D.meta.metaPatrimonio;
