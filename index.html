@@ -354,9 +354,9 @@ new Chart(cPatr,{type:'line',data:{labels:D.evolucaoMensal.map(m=>m.mes),dataset
   <div class="panel"><h2>▌ POSIÇÃO — RENDA VARIÁVEL (Preço Médio × Cotação Atual)</h2>
   <div style="font-size:.72rem;color:var(--muted);margin-bottom:10px">Cotações de ${new Date(pa.atualizadoEm+'T00:00:00').toLocaleDateString('pt-BR')} · Resultado = (Cotação atual − Preço médio) × Qtd. + Dividendos recebidos acumulados</div>
   <div class="tablewrap"><table>
-  <tr><th>Ativo</th><th>Tipo</th><th>Qtd.</th><th>Preço Médio</th><th>Custo Total</th><th>Cotação Atual</th><th>Valor Atual</th><th>Dividendos</th><th>Resultado (R$)</th><th>Resultado (%)</th></tr>
-  ${pa.ativos.map(a=>`<tr><td><b>${a.ativo}</b></td><td>${a.tipo}</td><td>${a.qtd}</td><td>${fBRL(a.precoMedio)}</td><td>${fBRL(a.custoTotal)}</td><td>${fBRL(a.cotacaoAtual)}</td><td>${fBRL(a.valorAtual)}</td><td>${a.dividendosRecebidos?fBRL(a.dividendosRecebidos):'—'}</td><td class="${cls(a.resultado)}">${fBRL(a.resultado)}</td><td class="${cls(a.resultadoPct)}">${a.resultadoPct!=null?fPct(a.resultadoPct,1):'—'}</td></tr>`).join('')}
-  <tr class="total"><td colspan="4">TOTAL</td><td>${fBRL(totCusto)}</td><td></td><td>${fBRL(totAtual)}</td><td>${fBRL(pa.ativos.reduce((s,a)=>s+a.dividendosRecebidos,0))}</td><td class="${cls(totResultado)}">${fBRL(totResultado)}</td><td class="${cls(totResultadoPct)}">${totResultadoPct!=null?fPct(totResultadoPct,1):'—'}</td></tr>
+  <tr><th>Ativo</th><th>Tipo</th><th>Qtd.</th><th>Preço Médio</th><th>Cotação Atual</th><th>Custo Total</th><th>Valor Atual</th><th>Dividendos</th><th>Resultado (R$)</th><th>Resultado (%)</th></tr>
+  ${pa.ativos.map(a=>`<tr><td><b>${a.ativo}</b></td><td>${a.tipo}</td><td>${a.qtd}</td><td>${fBRL(a.precoMedio)}</td><td>${fBRL(a.cotacaoAtual)}</td><td>${fBRL(a.custoTotal)}</td><td>${fBRL(a.valorAtual)}</td><td>${a.dividendosRecebidos?fBRL(a.dividendosRecebidos):'—'}</td><td class="${cls(a.resultado)}">${fBRL(a.resultado)}</td><td class="${cls(a.resultadoPct)}">${a.resultadoPct!=null?fPct(a.resultadoPct,1):'—'}</td></tr>`).join('')}
+  <tr class="total"><td colspan="3">TOTAL</td><td></td><td></td><td>${fBRL(totCusto)}</td><td>${fBRL(totAtual)}</td><td>${fBRL(pa.ativos.reduce((s,a)=>s+a.dividendosRecebidos,0))}</td><td class="${cls(totResultado)}">${fBRL(totResultado)}</td><td class="${cls(totResultadoPct)}">${totResultadoPct!=null?fPct(totResultadoPct,1):'—'}</td></tr>
   </table></div></div>`;
   })() : ''}`;
 
