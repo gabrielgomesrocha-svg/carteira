@@ -236,6 +236,11 @@ function render(D){
   </table>
   ${window.__rfBruta12Meses<12?`<div style="font-size:.68rem;color:var(--muted);margin-top:10px;padding-top:8px;border-top:1px solid var(--border)">*Só RF baseado nos últimos ${window.__rfBruta12Meses} meses (histórico ainda incompleto)</div>`:''}
   </div>
+  <div class="grid2" style="margin-top:20px">
+    <div class="panel"><h2>📈 EVOLUÇÃO DO PATRIMÔNIO</h2><div class="chartbox"><canvas id="cPatr"></canvas></div></div>
+    <div class="panel"><h2>📊 ALOCAÇÃO ATUAL — ${D.alocacao.mesAtual}</h2><div class="chartbox"><canvas id="cAloc"></canvas></div></div>
+  </div>
+  <div style="margin-top:24px">
     ${(()=>{
       // Aporte necessário para atingir meta
       const meta=D.meta.metaPatrimonio;
@@ -246,18 +251,14 @@ function render(D){
       const fv=meta, pv=atual, r=rentMensal, n=prazoMeses;
       const fator=Math.pow(1+r,n);
       const aporte=(fv-pv*fator)*r/(fator-1);
-      return aporte>0?`<div class="kpi"><div class="lbl">Aporte Necessário/mês</div><div class="val" style="font-size:1.1rem">${fBRL0(aporte)}</div><div class="det">Para atingir meta em ${D.meta.metaPrazo} com rent. 12% a.a.</div></div>`:'';
+      return aporte>0?`<div class="cards" style="margin-bottom:20px"><div class="kpi"><div class="lbl">Aporte Necessário/mês</div><div class="val" style="font-size:1.1rem">${fBRL0(aporte)}</div><div class="det">Para atingir meta em ${D.meta.metaPrazo} com rent. 12% a.a.</div></div></div>`:'';
     })()}
-  </div>
   <div class="panel"><h2>▌ PROGRESSO DA META — ${fBRL0(D.meta.metaPatrimonio)}</h2>
     <div class="progress-goal"><div class="fill" style="width:${Math.min(progresso,100)}%">${fPct(progresso,1)}</div></div>
     <div style="margin-top:8px;font-size:.8rem;color:var(--muted)">Faltam ${fBRL0(D.meta.metaPatrimonio-ult.patrimonio)} até ${D.meta.metaPrazo}</div>
   </div>
-  <div class="grid2">
-    <div class="panel"><h2>📈 EVOLUÇÃO DO PATRIMÔNIO</h2><div class="chartbox"><canvas id="cPatr"></canvas></div></div>
-    <div class="panel"><h2>📊 ALOCAÇÃO ATUAL — ${D.alocacao.mesAtual}</h2><div class="chartbox"><canvas id="cAloc"></canvas></div></div>
   </div>
-  <div class="panel"><h2>🎯 ALOCAÇÃO vs META</h2><div id="alocMeta"></div></div>`;
+  <div class="panel" style="margin-top:20px"><h2>🎯 ALOCAÇÃO vs META</h2><div id="alocMeta"></div></div>`;
 
   // Build meta projection line
 const metaLabels=[...D.evolucaoMensal.map(m=>m.mes)];
