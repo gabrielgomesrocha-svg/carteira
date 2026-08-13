@@ -343,7 +343,22 @@ new Chart(cPatr,{type:'line',data:{labels:D.evolucaoMensal.map(m=>m.mes),dataset
     ${g.ativos.map(a=>`<tr><td>${a.ativo}</td><td>${fBRL(a.saldoAnt)}</td><td>${a.aplicacoes?fBRL(a.aplicacoes):'—'}</td><td>${a.resgates?fBRL(a.resgates):'—'}</td><td><b>${fBRL(a.saldo)}</b></td><td>${aliqLabel(a.isento,a.aliqIR)}</td><td class="${cls(a.rentMes)}">${fPct(a.rentMes)}</td><td class="${cls(rentLiquida(a.rentMes,a.aliqIR,a.isento))}" style="font-size:.78rem">${fPct(rentLiquida(a.rentMes,a.aliqIR||15,a.isento||false))}</td><td class="${cls(a.rent12m)}">${fPct(a.rent12m)}</td><td class="${cls(rentLiquida(a.rent12m,a.aliqIR,a.isento))}" style="font-size:.78rem">${fPct(rentLiquida(a.rent12m,a.aliqIR||15,a.isento||false))}</td><td class="${cls(a.desdeInicio)}">${fPct(a.desdeInicio)}</td><td>${fPct(a.part)}</td></tr>`).join('')}
     <tr class="subtotal"><td>Sub-total</td><td>${fBRL(g.subtotal.saldoAnt)}</td><td>${g.subtotal.aplicacoes?fBRL(g.subtotal.aplicacoes):'—'}</td><td>${g.subtotal.resgates?fBRL(g.subtotal.resgates):'—'}</td><td>${fBRL(g.subtotal.saldo)}</td><td colspan="4"></td></tr>`).join('')}
   <tr class="total"><td>TOTAL CARTEIRA</td><td>${fBRL(P.total.saldoAnt)}</td><td>${fBRL(P.total.aplicacoes)}</td><td>${fBRL(P.total.resgates)}</td><td>${fBRL(P.total.saldo)}</td><td>${fPct(P.total.rentMes)}</td><td>${fPct(P.total.rent12m)}</td><td>${fPct(P.total.desdeInicio)}</td><td>100%</td></tr>
+  </table></div></div>
+  ${D.posicaoAtivos ? (()=>{
+    const pa = D.posicaoAtivos;
+    const totCusto = pa.ativos.reduce((s,a)=>s+a.custoTotal,0);
+    const totAtual = pa.ativos.reduce((s,a)=>s+a.valorAtual,0);
+    const totResultado = pa.ativos.reduce((s,a)=>s+a.resultado,0);
+    const totResultadoPct = totCusto ? (totResultado/totCusto*100) : null;
+    return `
+  <div class="panel"><h2>▌ POSIÇÃO — RENDA VARIÁVEL (Preço Médio × Cotação Atual)</h2>
+  <div style="font-size:.72rem;color:var(--muted);margin-bottom:10px">Cotações de ${new Date(pa.atualizadoEm+'T00:00:00').toLocaleDateString('pt-BR')} · Resultado = (Cotação atual − Preço médio) × Qtd. + Dividendos recebidos acumulados</div>
+  <div class="tablewrap"><table>
+  <tr><th>Ativo</th><th>Tipo</th><th>Qtd.</th><th>Preço Médio</th><th>Custo Total</th><th>Cotação Atual</th><th>Valor Atual</th><th>Dividendos</th><th>Resultado (R$)</th><th>Resultado (%)</th></tr>
+  ${pa.ativos.map(a=>`<tr><td><b>${a.ativo}</b></td><td>${a.tipo}</td><td>${a.qtd}</td><td>${fBRL(a.precoMedio)}</td><td>${fBRL(a.custoTotal)}</td><td>${fBRL(a.cotacaoAtual)}</td><td>${fBRL(a.valorAtual)}</td><td>${a.dividendosRecebidos?fBRL(a.dividendosRecebidos):'—'}</td><td class="${cls(a.resultado)}">${fBRL(a.resultado)}</td><td class="${cls(a.resultadoPct)}">${a.resultadoPct!=null?fPct(a.resultadoPct,1):'—'}</td></tr>`).join('')}
+  <tr class="total"><td colspan="4">TOTAL</td><td>${fBRL(totCusto)}</td><td></td><td>${fBRL(totAtual)}</td><td>${fBRL(pa.ativos.reduce((s,a)=>s+a.dividendosRecebidos,0))}</td><td class="${cls(totResultado)}">${fBRL(totResultado)}</td><td class="${cls(totResultadoPct)}">${totResultadoPct!=null?fPct(totResultadoPct,1):'—'}</td></tr>
   </table></div></div>`;
+  })() : ''}`;
 
   /* ===== GANHOS ===== */
   document.getElementById('tab-ganhos').innerHTML=`
