@@ -346,19 +346,75 @@ new Chart(cPatr,{type:'line',data:{labels:D.evolucaoMensal.map(m=>m.mes),dataset
   </table></div></div>
   ${D.posicaoAtivos ? (()=>{
     const pa = D.posicaoAtivos;
-    const totCusto = pa.ativos.reduce((s,a)=>s+a.custoTotal,0);
-    const totAtual = pa.ativos.reduce((s,a)=>s+a.valorAtual,0);
-    const totResultado = pa.ativos.reduce((s,a)=>s+a.resultado,0);
-    const totResultadoPct = totCusto ? (totResultado/totCusto*100) : null;
     return `
   <div class="panel"><h2>▌ POSIÇÃO — RENDA VARIÁVEL (Preço Médio × Cotação Atual)</h2>
   <div style="font-size:.72rem;color:var(--muted);margin-bottom:10px">Cotações de ${new Date(pa.atualizadoEm+'T00:00:00').toLocaleDateString('pt-BR')} · Resultado = (Cotação atual − Preço médio) × Qtd. + Dividendos recebidos acumulados</div>
-  <div class="tablewrap"><table>
-  <tr><th>Ativo</th><th>Tipo</th><th>Qtd.</th><th>Preço Médio</th><th>Cotação Atual</th><th>Custo Total</th><th>Valor Atual</th><th>Dividendos</th><th>Resultado (R$)</th><th>Resultado (%)</th></tr>
-  ${pa.ativos.map(a=>`<tr><td><b>${a.ativo}</b></td><td>${a.tipo}</td><td>${a.qtd}</td><td>${fBRL(a.precoMedio)}</td><td>${fBRL(a.cotacaoAtual)}</td><td>${fBRL(a.custoTotal)}</td><td>${fBRL(a.valorAtual)}</td><td>${a.dividendosRecebidos?fBRL(a.dividendosRecebidos):'—'}</td><td class="${cls(a.resultado)}">${fBRL(a.resultado)}</td><td class="${cls(a.resultadoPct)}">${a.resultadoPct!=null?fPct(a.resultadoPct,1):'—'}</td></tr>`).join('')}
-  <tr class="total"><td colspan="3">TOTAL</td><td></td><td></td><td>${fBRL(totCusto)}</td><td>${fBRL(totAtual)}</td><td>${fBRL(pa.ativos.reduce((s,a)=>s+a.dividendosRecebidos,0))}</td><td class="${cls(totResultado)}">${fBRL(totResultado)}</td><td class="${cls(totResultadoPct)}">${totResultadoPct!=null?fPct(totResultadoPct,1):'—'}</td></tr>
-  </table></div></div>`;
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+    <button class="posFiltroBtn" data-f="todos" onclick="window.__renderPosAtivos('todos')" style="padding:5px 12px;border-radius:6px;border:1px solid var(--border);background:var(--bg2);cursor:pointer;font-size:.78rem">Todos</button>
+    <button class="posFiltroBtn" data-f="Ação" onclick="window.__renderPosAtivos('Ação')" style="padding:5px 12px;border-radius:6px;border:1px solid var(--border);background:var(--bg2);cursor:pointer;font-size:.78rem">Só Ações</button>
+    <button class="posFiltroBtn" data-f="FII" onclick="window.__renderPosAtivos('FII')" style="padding:5px 12px;border-radius:6px;border:1px solid var(--border);background:var(--bg2);cursor:pointer;font-size:.78rem">Só FIIs</button>
+    <button class="posFiltroBtn" data-f="ETF (Exterior)" onclick="window.__renderPosAtivos('ETF (Exterior)')" style="padding:5px 12px;border-radius:6px;border:1px solid var(--border);background:var(--bg2);cursor:pointer;font-size:.78rem">Só Exterior</button>
+    <span style="font-size:.72rem;color:var(--muted);align-self:center;margin-left:8px">Clique num cabeçalho da tabela para ordenar</span>
+  </div>
+  <div class="tablewrap" id="posAtivosTableWrap"></div></div>`;
   })() : ''}`;
+  if(D.posicaoAtivos){
+    const pa = D.posicaoAtivos;
+    const cols = [
+      {key:'ativo',label:'Ativo',type:'str'},
+      {key:'tipo',label:'Tipo',type:'str'},
+      {key:'qtd',label:'Qtd.',type:'num'},
+      {key:'precoMedio',label:'Preço Médio',type:'num',fmt:fBRL},
+      {key:'cotacaoAtual',label:'Cotação Atual',type:'num',fmt:fBRL},
+      {key:'custoTotal',label:'Custo Total',type:'num',fmt:fBRL},
+      {key:'valorAtual',label:'Valor Atual',type:'num',fmt:fBRL},
+      {key:'dividendosRecebidos',label:'Dividendos',type:'num',fmt:v=>v?fBRL(v):'—'},
+      {key:'resultado',label:'Resultado (R$)',type:'num',fmt:fBRL,cls:true},
+      {key:'resultadoPct',label:'Resultado (%)',type:'num',fmt:v=>v!=null?fPct(v,1):'—',cls:true},
+    ];
+    window.__posAtivosSort = window.__posAtivosSort || {key:'valorAtual', dir:'desc'};
+    window.__posAtivosFiltro = window.__posAtivosFiltro || 'todos';
+    window.__renderPosAtivos = function(novoFiltro){
+      if(novoFiltro) window.__posAtivosFiltro = novoFiltro;
+      const filtro = window.__posAtivosFiltro;
+      const sort = window.__posAtivosSort;
+      let lista = pa.ativos.filter(a=> filtro==='todos' ? true : a.tipo===filtro);
+      lista = lista.slice().sort((a,b)=>{
+        let va=a[sort.key], vb=b[sort.key];
+        if(typeof va==='string') return sort.dir==='asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+        va = va==null?-Infinity:va; vb = vb==null?-Infinity:vb;
+        return sort.dir==='asc' ? va-vb : vb-va;
+      });
+      document.querySelectorAll('.posFiltroBtn').forEach(b=>{
+        b.style.background = (b.dataset.f===filtro) ? 'var(--accent,#a3556a)' : 'var(--bg2)';
+        b.style.color = (b.dataset.f===filtro) ? '#fff' : 'inherit';
+      });
+      const totCusto = lista.reduce((s,a)=>s+a.custoTotal,0);
+      const totAtual = lista.reduce((s,a)=>s+a.valorAtual,0);
+      const totDiv = lista.reduce((s,a)=>s+a.dividendosRecebidos,0);
+      const totResultado = lista.reduce((s,a)=>s+a.resultado,0);
+      const totResultadoPct = totCusto ? (totResultado/totCusto*100) : null;
+      const arrow = k => sort.key===k ? (sort.dir==='asc'?' ▲':' ▼') : '';
+      document.getElementById('posAtivosTableWrap').innerHTML = `<table><tr>
+        ${cols.map(c=>`<th style="cursor:pointer" onclick="window.__sortPosAtivos('${c.key}')">${c.label}${arrow(c.key)}</th>`).join('')}
+        </tr>
+        ${lista.map(a=>`<tr>${cols.map(c=>{
+          const v=a[c.key];
+          const disp = c.fmt ? c.fmt(v) : v;
+          const cl = c.cls ? cls(v) : '';
+          return `<td class="${cl}">${c.key==='ativo'?`<b>${disp}</b>`:disp}</td>`;
+        }).join('')}</tr>`).join('')}
+        <tr class="total"><td colspan="3">TOTAL</td><td></td><td></td><td>${fBRL(totCusto)}</td><td>${fBRL(totAtual)}</td><td>${fBRL(totDiv)}</td><td class="${cls(totResultado)}">${fBRL(totResultado)}</td><td class="${cls(totResultadoPct)}">${totResultadoPct!=null?fPct(totResultadoPct,1):'—'}</td></tr>
+        </table>`;
+    };
+    window.__sortPosAtivos = function(key){
+      const s = window.__posAtivosSort;
+      s.dir = (s.key===key && s.dir==='desc') ? 'asc' : 'desc';
+      s.key = key;
+      window.__renderPosAtivos();
+    };
+    window.__renderPosAtivos();
+  }
 
   /* ===== GANHOS ===== */
   document.getElementById('tab-ganhos').innerHTML=`
