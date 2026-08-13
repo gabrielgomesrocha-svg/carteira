@@ -217,8 +217,8 @@ var DADOS = {
       {
         "classe": "Ações + FIIs",
         "metaPct": 5,
-        "saldo": 89153.6,
-        "pct": 4.32,
+        "saldo": 76730.29,
+        "pct": 3.72,
         "historico": {
           "Jan/2026": 3.88,
           "Fev/2026": 4.05,
@@ -226,18 +226,18 @@ var DADOS = {
           "Abr/2026": 3.8,
           "Mai/2026": 3.99,
           "Jun/2026": 4.12,
-          "Jul/2026": 4.32
+          "Jul/2026": 3.72
         }
       },
       {
         "classe": "Mercado Exterior",
         "metaPct": 5,
-        "saldo": 0,
-        "pct": 0.0,
+        "saldo": 12423.31,
+        "pct": 0.6,
         "historico": {
           "Mai/2026": 0,
           "Jun/2026": 0,
-          "Jul/2026": 0.0
+          "Jul/2026": 0.6
         }
       },
       {
