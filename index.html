@@ -285,33 +285,26 @@ new Chart(cPatr,{type:'line',data:{labels:D.evolucaoMensal.map(m=>m.mes),dataset
     const desvioAbs = Math.abs(desvio);
     // Cores
     const barColor = atingidoPct >= 80 ? '#3f8a58' : atingidoPct >= 40 ? '#a3556a' : '#c0564a';
-    const tagBg = desvio > 1 ? 'rgba(192,86,74,.12)' : desvio < -1 ? 'rgba(63,138,88,.12)' : 'rgba(155,163,173,.12)';
-    const tagColor = desvio > 1 ? '#c0564a' : desvio < -1 ? '#3f8a58' : '#878d96';
-    const tagText = desvio > 1 ? `+${desvioAbs.toFixed(1)}p.p. acima` : desvio < -1 ? `-${desvioAbs.toFixed(1)}p.p. abaixo` : 'Na meta';
-    const tagIcon = desvio > 1 ? '↑' : desvio < -1 ? '↓' : '✓';
-    // Meta marker position (100% of bar = metaValor)
     return `<div class="aloccard">
-      <div class="ac-name">${c.classe}</div>
+      <div class="ac-name" style="display:flex;justify-content:space-between;align-items:baseline">
+        <span>${c.classe}</span>
+        <span style="font-size:.72rem;font-weight:700;color:${barColor}">${fPct(atingidoPct,0)} da meta</span>
+      </div>
       <div class="ac-bar-bg">
         <div class="ac-bar-fill" style="width:${atingidoPct}%;background:${barColor}"></div>
         <div class="ac-bar-meta" style="left:100%"></div>
       </div>
       <div class="ac-row">
         <div>
-          <div class="ac-big" style="color:${barColor}">${fPct(atingidoPct,0)}</div>
-          <div class="ac-sub">da meta atingido</div>
-        </div>
-        <div style="text-align:right">
           <div style="font-size:.85rem;font-weight:700;color:var(--txt)">${fPct(alAtual,1)}</div>
           <div class="ac-sub">carteira hoje</div>
         </div>
         <div style="text-align:right">
           <div style="font-size:.85rem;font-weight:700;color:var(--muted)">${c.metaPct}%</div>
-          <div class="ac-sub">meta ideal</div>
+          <div class="ac-sub">meta</div>
         </div>
       </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
-        <span class="ac-tag" style="background:${tagBg};color:${tagColor}">${tagIcon} ${tagText}</span>
+      <div style="text-align:right;margin-top:6px">
         <span style="font-size:.72rem;color:var(--muted)">${fBRL0(c.saldo)} / ${fBRL0(metaValor)}</span>
       </div>
     </div>`;
