@@ -425,8 +425,46 @@ new Chart(cPatr,{type:'line',data:{labels:D.evolucaoMensal.map(m=>m.mes),dataset
     ${dv.resumoMensal.map(m=>`<tr><td>${m.mes}</td><td>${fBRL(m.fiis)}</td><td>${m.acoes?fBRL(m.acoes):'—'}</td><td><b>${fBRL(m.total)}</b></td></tr>`).join('')}</table></div>
   </div>
   <div class="panel"><h2>▌ PROVENTOS POR ATIVO (R$)</h2>
-  <div class="tablewrap"><table><tr><th>Ativo</th><th>Tipo</th>${dv.resumoMensal.map(m=>`<th>${m.mes}</th>`).join('')}<th>Total</th></tr>
-  ${dv.porAtivo.map(a=>`<tr><td><b>${a.ativo}</b></td><td>${a.tipo}</td>${a.valores.map(v=>`<td>${v?fBRL(v):'—'}</td>`).join('')}<td><b>${fBRL(a.total)}</b></td></tr>`).join('')}</table></div></div>`;
+  <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+    <button class="divFiltroBtn" data-f="todos" onclick="window.__renderPorAtivo('todos')" style="padding:5px 12px;border-radius:6px;border:1px solid var(--border);background:var(--bg2);cursor:pointer;font-size:.78rem">Todos</button>
+    <button class="divFiltroBtn" data-f="FII" onclick="window.__renderPorAtivo('FII')" style="padding:5px 12px;border-radius:6px;border:1px solid var(--border);background:var(--bg2);cursor:pointer;font-size:.78rem">Só FIIs</button>
+    <button class="divFiltroBtn" data-f="Ação" onclick="window.__renderPorAtivo('Ação')" style="padding:5px 12px;border-radius:6px;border:1px solid var(--border);background:var(--bg2);cursor:pointer;font-size:.78rem">Só Ações</button>
+    <span style="font-size:.72rem;color:var(--muted);align-self:center;margin-left:8px">Clique em "Ativo", "Tipo" ou "Total" na tabela para ordenar</span>
+  </div>
+  <div class="tablewrap" id="porAtivoTableWrap"></div></div>`;
+  window.__divPorAtivoSort = window.__divPorAtivoSort || {key:'total', dir:'desc'};
+  window.__divPorAtivoFiltro = window.__divPorAtivoFiltro || 'todos';
+  window.__renderPorAtivo = function(novoFiltro){
+    if(novoFiltro) window.__divPorAtivoFiltro = novoFiltro;
+    const filtro = window.__divPorAtivoFiltro;
+    const sort = window.__divPorAtivoSort;
+    let lista = dv.porAtivo.filter(a=> filtro==='todos' ? true : a.tipo===filtro);
+    lista = lista.slice().sort((a,b)=>{
+      let va = sort.key==='ativo'?a.ativo:(sort.key==='tipo'?a.tipo:a.total);
+      let vb = sort.key==='ativo'?b.ativo:(sort.key==='tipo'?b.tipo:b.total);
+      if(typeof va==='string') return sort.dir==='asc' ? va.localeCompare(vb) : vb.localeCompare(va);
+      return sort.dir==='asc' ? va-vb : vb-va;
+    });
+    document.querySelectorAll('.divFiltroBtn').forEach(b=>{
+      b.style.background = (b.dataset.f===filtro) ? 'var(--accent,#a3556a)' : 'var(--bg2)';
+      b.style.color = (b.dataset.f===filtro) ? '#fff' : 'inherit';
+    });
+    const arrow = k => sort.key===k ? (sort.dir==='asc'?' ▲':' ▼') : '';
+    document.getElementById('porAtivoTableWrap').innerHTML = `<table><tr>
+      <th style="cursor:pointer" onclick="window.__sortPorAtivo('ativo')">Ativo${arrow('ativo')}</th>
+      <th style="cursor:pointer" onclick="window.__sortPorAtivo('tipo')">Tipo${arrow('tipo')}</th>
+      ${dv.resumoMensal.map(m=>`<th>${m.mes}</th>`).join('')}
+      <th style="cursor:pointer" onclick="window.__sortPorAtivo('total')">Total${arrow('total')}</th>
+      </tr>
+      ${lista.map(a=>`<tr><td><b>${a.ativo}</b></td><td>${a.tipo}</td>${a.valores.map(v=>`<td>${v?fBRL(v):'—'}</td>`).join('')}<td><b>${fBRL(a.total)}</b></td></tr>`).join('')}</table>`;
+  };
+  window.__sortPorAtivo = function(key){
+    const s = window.__divPorAtivoSort;
+    s.dir = (s.key===key && s.dir==='desc') ? 'asc' : 'desc';
+    s.key = key;
+    window.__renderPorAtivo();
+  };
+  window.__renderPorAtivo();
   new Chart(cDiv,{type:'bar',data:{labels:dv.resumoMensal.map(m=>m.mes),datasets:[{label:'FIIs',data:dv.resumoMensal.map(m=>m.fiis),backgroundColor:'#5b7a99',borderRadius:4},{label:'Ações',data:dv.resumoMensal.map(m=>m.acoes),backgroundColor:'#a3556a',borderRadius:4}]},options:{maintainAspectRatio:false,scales:{x:{stacked:true},y:{stacked:true}},plugins:{legend:{position:'bottom'}}}});
 
   /* ===== ESTRATÉGIA & ALERTAS ===== */
