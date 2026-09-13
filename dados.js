@@ -1182,8 +1182,8 @@ var DADOS = {
         "grupo": "SAFRA",
         "subtotal": {
           "saldoAnt": 500525.23,
-          "aplicacoes": 0,
-          "resgates": 47503.270000000004,
+          "aplicacoes": 101546.72,
+          "resgates": 149049.99,
           "saldo": 457161.44999999995
         },
         "ativos": [
@@ -1216,8 +1216,8 @@ var DADOS = {
           {
             "ativo": "BCO BDMG (86% do CDI, Isento) [antes: TCM LCDDI]",
             "saldoAnt": 250525.23,
-            "aplicacoes": 0,
-            "resgates": 47503.27,
+            "aplicacoes": 101546.72,
+            "resgates": 249486.85,
             "saldo": 102585.1,
             "rentMes": null,
             "rent12m": null,
