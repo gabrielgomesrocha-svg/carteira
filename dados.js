@@ -2133,26 +2133,29 @@ var DADOS = {
     {
       "ativo": "HGBS11",
       "nivel": "atencao",
-      "texto": "Queda relevante vs preço médio — verificar vacância antes de novo aporte."
+      "tipo": "decisao",
+      "gerado": "Ago/2026",
+      "texto": "Resultado -9,76% vs preço médio (cotação R$18,74 vs médio R$22,24) — verificar vacância antes de novo aporte."
     },
     {
       "ativo": "EGIE3",
       "nivel": "atencao",
-      "texto": "-21,91% vs preço médio — definir tese de saída ou manutenção."
+      "tipo": "decisao",
+      "gerado": "Ago/2026",
+      "texto": "Resultado -22,68% vs preço médio (cotação R$30,75 vs médio R$40,94) — definir tese de saída ou manutenção."
     },
     {
       "ativo": "LVBI11",
       "nivel": "atencao",
-      "texto": "Vacância subindo (saída Nestlé ago/26, Solistica out/26) — não aumentar posição."
-    },
-    {
-      "ativo": "PETR4",
-      "nivel": "atencao",
-      "texto": "Rent. mês -9,37% — monitorar. Rent. 12m ainda positiva em 26,56%."
+      "tipo": "decisao",
+      "gerado": "Ago/2026",
+      "texto": "Resultado quase zerado (+1,74%). Vacância subindo (saída Nestlé ago/26, Solistica out/26) — não aumentar posição."
     },
     {
       "ativo": "Safra — reestruturação Pós-fixado",
       "nivel": "info",
+      "tipo": "nota",
+      "gerado": "Ago/2026",
       "texto": "Em Ago/2026 o TCM LCDDI (86% CDI) foi parcialmente resgatado: parte financiou o novo título 'Banco Safra Conceito II' (13% a.a., isento, R$100.436,86) e parte foi usada para pagar custos mensais. O saldo remanescente segue rendendo 86% do CDI, agora sob o nome 'BCO BDMG'."
     }
   ],
