@@ -20,6 +20,9 @@ header h1{font-size:1.25rem;letter-spacing:.5px}
 header h1 span{color:var(--orange)}
 header .sub{color:var(--muted);font-size:.8rem;margin-top:4px}
 nav{display:flex;gap:6px;flex-wrap:wrap;padding:12px 16px;background:var(--bg2);border-bottom:1px solid var(--border);position:relative;z-index:49}
+nav.subnav{padding:10px 16px;background:transparent;border-bottom:1px solid var(--border);gap:8px}
+nav.subnav button{font-size:.8rem;padding:6px 14px;opacity:.85}
+nav.subnav button.active{opacity:1}
 nav button{background:transparent;border:1px solid var(--border);color:var(--muted);padding:8px 16px;border-radius:20px;cursor:pointer;font-size:.85rem;transition:.2s}
 nav button:hover{border-color:var(--orange);color:var(--txt)}
 nav button.active{background:var(--orange);border-color:var(--orange);color:#fff;font-weight:700}
@@ -101,7 +104,13 @@ const cls=v=>v==null?'':(v>0?'pos':v<0?'neg':'');
 const COLORS=['#a3556a','#5b7a99','#7a8450','#c98b9b','#9aa3ad','#c0564a','#5f9ea0','#b8bec6'];
 Chart.defaults.color='#878d96';Chart.defaults.borderColor='#e1e4e9';Chart.defaults.font.family="'Segoe UI',sans-serif";
 
-const TABS=[['dash','Dashboard'],['rent','Rentabilidade'],['pos','Posição'],['ganhos','Ganhos'],['evo','Evolução'],['div','Dividendos'],['estr','Estratégia & Alertas'],['custos','Custos'],['resultado','Resultado'],['papeis','Papéis'],['simulador','Simulador']];
+const TABS=[['dash','Dashboard'],['rent','Rentabilidade'],['pos','Posição'],['ganhos','Ganhos'],['evo','Evolução'],['div','Dividendos'],['estr','Estratégia & Alertas'],['financiamento','Financiamento Imobiliário'],['custos','Custos'],['resultado','Resultado'],['papeis','Papéis'],['simulador','Simulador']];
+const GROUPS=[
+  {id:'visao', label:'📊 Visão Geral', tabs:['dash']},
+  {id:'invest', label:'💰 Investimentos', tabs:['pos','rent','ganhos','evo','papeis','div']},
+  {id:'plan', label:'🎯 Planejamento', tabs:['estr','simulador']},
+  {id:'pessoal', label:'🏠 Finanças Pessoais', tabs:['custos','resultado','financiamento']},
+];
 
 (function(){
   const s=document.createElement('script');
@@ -130,13 +139,45 @@ function render(D){
 
   const nav=document.getElementById('nav');
   const main=document.getElementById('main');
-  TABS.forEach(([id,nm],i)=>{
-    const b=document.createElement('button');b.textContent=nm;b.dataset.t=id;if(i===0)b.classList.add('active');
-    b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');
-      document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.getElementById('tab-'+id).classList.add('active');};
-    nav.appendChild(b);
+  const TABMAP={}; TABS.forEach(([id,nm])=>TABMAP[id]=nm);
+
+  // cria os containers de conteúdo de cada aba (uma vez só)
+  TABS.forEach(([id],i)=>{
     const d=document.createElement('div');d.className='tab'+(i===0?' active':'');d.id='tab-'+id;main.appendChild(d);
   });
+
+  // sub-nav (pills das abas dentro do grupo selecionado)
+  let subnav=document.getElementById('subnav');
+  if(!subnav){ subnav=document.createElement('nav'); subnav.id='subnav'; subnav.className='subnav'; nav.parentNode.insertBefore(subnav, nav.nextSibling); }
+
+  function activateTab(id){
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.getElementById('tab-'+id).classList.add('active');
+    subnav.querySelectorAll('button').forEach(x=>x.classList.toggle('active', x.dataset.t===id));
+  }
+
+  function renderSubnav(group){
+    subnav.innerHTML='';
+    subnav.style.display = group.tabs.length>1 ? 'flex' : 'none';
+    group.tabs.forEach((tid,i)=>{
+      const b=document.createElement('button'); b.textContent=TABMAP[tid]; b.dataset.t=tid;
+      if(i===0) b.classList.add('active');
+      b.onclick=()=>activateTab(tid);
+      subnav.appendChild(b);
+    });
+  }
+
+  GROUPS.forEach((g,i)=>{
+    const b=document.createElement('button');b.textContent=g.label;b.dataset.g=g.id;if(i===0)b.classList.add('active');
+    b.onclick=()=>{
+      document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+      renderSubnav(g);
+      activateTab(g.tabs[0]);
+    };
+    nav.appendChild(b);
+  });
+  renderSubnav(GROUPS[0]);
+  activateTab(GROUPS[0].tabs[0]);
 
   /* ===== DASHBOARD ===== */
   const progresso=ult.patrimonio/D.meta.metaPatrimonio*100;
@@ -542,20 +583,20 @@ new Chart(cPatr,{type:'line',data:{labels:D.evolucaoMensal.map(m=>m.mes),dataset
   <div class="panel"><h2>⚠️ ALERTAS ATIVOS</h2>
   ${todosAlertas.length===0?'<div style="color:var(--muted);font-size:.9rem;padding:8px">Nenhum alerta ativo.</div>':''}
   ${todosAlertas.map(a=>`<div class="alert ${a.nivel}"><div class="tk">${a.ativo}</div><div class="tx">${a.texto}</div></div>`).join('')}</div>
-  <div class="grid2">
-    <div class="panel"><h2>🎯 ESTRATÉGIA DE APORTES</h2>
-      <table><tr><th>Destino</th><th>Valor</th></tr>
-      ${E.aportesTrimestrais.map(a=>`<tr><td>${a.destino}</td><td>${fBRL0(a.valor)}</td></tr>`).join('')}</table>
-      <div style="margin-top:12px;font-size:.84rem;color:var(--muted)">Capacidade de aporte: <b style="color:var(--txt)">${fBRL0(E.aporteCapacidade)}/mês</b> · Próximo aporte trimestral: <b style="color:var(--orange)">${E.proximoAporte}</b><br>Meta renda fixa: acumular <b style="color:var(--txt)">${fBRL0(D.meta.metaRendaFixa)}</b> (equivalente à dívida) para garantir o spread.</div></div>
-    <div class="panel"><h2>🏠 FINANCIAMENTO IMOBILIÁRIO</h2>
-      <table>
-      <tr><td>Contrato</td><td>${E.financiamento.banco}</td></tr>
-      <tr><td>Saldo devedor</td><td>${fBRL0(E.financiamento.saldoDevedor)}</td></tr>
-      <tr><td>Parcela (SAC)</td><td>~${fBRL0(E.financiamento.parcela)}/mês</td></tr>
-      <tr><td>CET</td><td>${fPct(E.financiamento.cet)} a.a.</td></tr>
-      </table>
-      <div style="margin-top:12px;font-size:.84rem;color:#84394e">📌 ${E.financiamento.regra}</div></div>
-  </div>`;
+  <div class="panel"><h2>🎯 ESTRATÉGIA DE APORTES</h2>
+    <table><tr><th>Destino</th><th>Valor</th></tr>
+    ${E.aportesTrimestrais.map(a=>`<tr><td>${a.destino}</td><td>${fBRL0(a.valor)}</td></tr>`).join('')}</table>
+    <div style="margin-top:12px;font-size:.84rem;color:var(--muted)">Capacidade de aporte: <b style="color:var(--txt)">${fBRL0(E.aporteCapacidade)}/mês</b> · Próximo aporte trimestral: <b style="color:var(--orange)">${E.proximoAporte}</b><br>Meta renda fixa: acumular <b style="color:var(--txt)">${fBRL0(D.meta.metaRendaFixa)}</b> (equivalente à dívida) para garantir o spread.</div></div>`;
+
+  document.getElementById('tab-financiamento').innerHTML=`
+  <div class="panel"><h2>🏠 FINANCIAMENTO IMOBILIÁRIO</h2>
+    <table>
+    <tr><td>Contrato</td><td>${E.financiamento.banco}</td></tr>
+    <tr><td>Saldo devedor</td><td>${fBRL0(E.financiamento.saldoDevedor)}</td></tr>
+    <tr><td>Parcela (SAC)</td><td>~${fBRL0(E.financiamento.parcela)}/mês</td></tr>
+    <tr><td>CET</td><td>${fPct(E.financiamento.cet)} a.a.</td></tr>
+    </table>
+    <div style="margin-top:12px;font-size:.84rem;color:#84394e">📌 ${E.financiamento.regra}</div></div>`;
 
   /* ===== CUSTOS ===== */
   renderCustos(D);
