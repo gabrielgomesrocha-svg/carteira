@@ -104,7 +104,7 @@ const cls=v=>v==null?'':(v>0?'pos':v<0?'neg':'');
 const COLORS=['#a3556a','#5b7a99','#7a8450','#c98b9b','#9aa3ad','#c0564a','#5f9ea0','#b8bec6'];
 Chart.defaults.color='#878d96';Chart.defaults.borderColor='#e1e4e9';Chart.defaults.font.family="'Segoe UI',sans-serif";
 
-const TABS=[['dash','Dashboard'],['rent','Rentabilidade'],['pos','Posição'],['ganhos','Ganhos'],['evo','Evolução'],['div','Dividendos'],['estr','Estratégia & Alertas'],['financiamento','Financiamento Imobiliário'],['custos','Custos'],['resultado','Resultado'],['papeis','Papéis'],['simulador','Simulador']];
+const TABS=[['dash','Dashboard'],['rent','Rentabilidade'],['pos','Posição'],['ganhos','Ganhos'],['evo','Evolução'],['div','Dividendos'],['estr','Alertas do Mês & Estratégia'],['financiamento','Financiamento Imobiliário'],['custos','Custos'],['resultado','Resultado'],['papeis','Papéis'],['simulador','Simulador']];
 const GROUPS=[
   {id:'visao', label:'📊 Visão Geral', tabs:['dash']},
   {id:'invest', label:'💰 Investimentos', tabs:['pos','rent','ganhos','evo','papeis','div']},
@@ -580,9 +580,15 @@ new Chart(cPatr,{type:'line',data:{labels:D.evolucaoMensal.map(m=>m.mes),dataset
   const todosAlertas = [...alertasAuto, ...(D.alertas||[])];
 
   document.getElementById('tab-estr').innerHTML=`
-  <div class="panel"><h2>⚠️ ALERTAS ATIVOS</h2>
-  ${todosAlertas.length===0?'<div style="color:var(--muted);font-size:.9rem;padding:8px">Nenhum alerta ativo.</div>':''}
-  ${todosAlertas.map(a=>`<div class="alert ${a.nivel}"><div class="tk">${a.ativo}</div><div class="tx">${a.texto}</div></div>`).join('')}</div>
+  <div class="panel"><h2>🔔 ALERTAS — ${D.meta.mesReferencia}</h2>
+  <div style="font-size:.72rem;color:var(--muted);margin-bottom:12px">Os alertas abaixo são recalculados automaticamente a cada atualização — refletem sempre os dados do mês mais recente (${D.meta.mesReferencia}).</div>
+  ${alertasAuto.length===0?'<div style="color:var(--muted);font-size:.9rem;padding:8px 8px 16px">Nenhum alerta automático no momento.</div>':alertasAuto.map(a=>`<div class="alert ${a.nivel}"><div class="tk">${a.ativo}</div><div class="tx">${a.texto}</div></div>`).join('')}
+  ${(D.alertas&&D.alertas.length>0)?`
+  <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--border)">
+    <div style="font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Notas do mês (revisadas manualmente)</div>
+    ${D.alertas.map(a=>`<div class="alert ${a.nivel}"><div class="tk">${a.ativo} <span style="font-weight:400;font-size:.72rem;color:var(--muted);background:var(--bg2);border-radius:4px;padding:1px 6px;margin-left:6px">gerado em ${a.gerado||'—'}</span></div><div class="tx">${a.texto}</div></div>`).join('')}
+  </div>`:''}
+  </div>
   <div class="panel"><h2>🎯 ESTRATÉGIA DE APORTES</h2>
     <table><tr><th>Destino</th><th>Valor</th></tr>
     ${E.aportesTrimestrais.map(a=>`<tr><td>${a.destino}</td><td>${fBRL0(a.valor)}</td></tr>`).join('')}</table>
