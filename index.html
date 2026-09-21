@@ -709,7 +709,7 @@ function renderCustos(D){
     const cvsItem=document.getElementById('cItemEvo');
     if(cvsCasa) new Chart(cvsCasa,{type:'bar',data:{labels,datasets:[{data:custos.map(m=>m.custoCasa),backgroundColor:'#5b7a99',borderRadius:5}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tooltipCasa},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
     if(cvsPess) new Chart(cvsPess,{type:'bar',data:{labels,datasets:[{data:custos.map(m=>m.custoPessoal),backgroundColor:'#a3556a',borderRadius:5}]},options:{maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:tooltipPess},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
-    if(cvsItem) new Chart(cvsItem,{type:'line',data:{labels,datasets:CAMPOS_CUSTOS.map((c,i)=>({label:c.label,data:custos.map(m=>m.detalhe[c.key]||0),borderColor:itemCores[i%itemCores.length],backgroundColor:'transparent',tension:.3,pointRadius:3}))},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}},scales:{y:{ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
+    if(cvsItem) new Chart(cvsItem,{type:'bar',data:{labels,datasets:CAMPOS_CUSTOS.map((c,i)=>({label:c.label,data:custos.map(m=>m.detalhe[c.key]||0),backgroundColor:itemCores[i%itemCores.length],borderRadius:2}))},options:{maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}},scales:{x:{stacked:true},y:{stacked:true,ticks:{callback:v=>'R$ '+(v/1000).toFixed(0)+'k'}}}}});
   },100);
 }
 
