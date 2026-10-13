@@ -2,8 +2,8 @@ var DADOS = {
   "meta": {
     "titular": "Gabriel Gomes Rocha",
     "fonte": "Relatório Inter Win",
-    "mesReferencia": "Ago/2026",
-    "atualizadoEm": "2026-09-13",
+    "mesReferencia": "Set/2026",
+    "atualizadoEm": "2026-10-12",
     "inicioCarteira": "13/01/2022",
     "metaPatrimonio": 5000000,
     "metaPrazo": "Mai/2031",
@@ -163,16 +163,30 @@ var DADOS = {
       "pctCdi12m": 113.34,
       "selic": 14.75,
       "rentMesConsolidada": 1.4157
+    },
+    {
+      "mes": "Set/2026",
+      "patrimonio": 1931566.86,
+      "aplicacoes": 6305.61,
+      "resgates": 92492.53,
+      "ganhos": 19382.44,
+      "dividendos": 790.04,
+      "rentMes": 1.08,
+      "rentAno": 11.19,
+      "rent12m": 15.47,
+      "pctCdi12m": 106.89,
+      "selic": 14.75,
+      "rentMesConsolidada": 1.1176
     }
   ],
   "alocacao": {
-    "mesAtual": "Ago/2026",
+    "mesAtual": "Set/2026",
     "classes": [
       {
         "classe": "Pós-fixado",
         "metaPct": 50,
-        "saldo": 995484.68,
-        "pct": 49.83,
+        "saldo": 916728.76,
+        "pct": 47.46,
         "historico": {
           "Jan/2026": 58.53,
           "Fev/2026": 62.05,
@@ -181,14 +195,15 @@ var DADOS = {
           "Mai/2026": 65.91,
           "Jun/2026": 63.06,
           "Jul/2026": 57.55,
-          "Ago/2026": 49.83
+          "Ago/2026": 49.83,
+          "Set/2026": 47.46
         }
       },
       {
         "classe": "Prefixado",
         "metaPct": 15,
-        "saldo": 457980.37,
-        "pct": 22.93,
+        "saldo": 462960.11,
+        "pct": 23.97,
         "historico": {
           "Jan/2026": 12,
           "Fev/2026": 12.71,
@@ -197,14 +212,15 @@ var DADOS = {
           "Mai/2026": 9.85,
           "Jun/2026": 3.39,
           "Jul/2026": 17.06,
-          "Ago/2026": 22.93
+          "Ago/2026": 22.93,
+          "Set/2026": 23.97
         }
       },
       {
         "classe": "Inflação (IPCA+)",
         "metaPct": 10,
-        "saldo": 156723.09,
-        "pct": 7.85,
+        "saldo": 157636.67,
+        "pct": 8.16,
         "historico": {
           "Jan/2026": 15.96,
           "Fev/2026": 16.93,
@@ -213,14 +229,15 @@ var DADOS = {
           "Mai/2026": 16.62,
           "Jun/2026": 17.68,
           "Jul/2026": 7.54,
-          "Ago/2026": 7.85
+          "Ago/2026": 7.85,
+          "Set/2026": 8.16
         }
       },
       {
         "classe": "Título Público",
         "metaPct": 10,
         "saldo": 198517.59,
-        "pct": 9.94,
+        "pct": 10.28,
         "historico": {
           "Jan/2026": 6.19,
           "Fev/2026": 4.79,
@@ -229,14 +246,15 @@ var DADOS = {
           "Mai/2026": 3.17,
           "Jun/2026": 5.59,
           "Jul/2026": 9.16,
-          "Ago/2026": 9.94
+          "Ago/2026": 9.94,
+          "Set/2026": 10.28
         }
       },
       {
         "classe": "Ações + FIIs",
         "metaPct": 5,
-        "saldo": 85494.67,
-        "pct": 4.28,
+        "saldo": 87449.77,
+        "pct": 4.53,
         "historico": {
           "Jan/2026": 3.88,
           "Fev/2026": 4.05,
@@ -245,31 +263,34 @@ var DADOS = {
           "Mai/2026": 3.99,
           "Jun/2026": 4.12,
           "Jul/2026": 3.72,
-          "Ago/2026": 4.28
+          "Ago/2026": 4.28,
+          "Set/2026": 4.53
         }
       },
       {
         "classe": "Mercado Exterior",
         "metaPct": 5,
-        "saldo": 13031.15,
-        "pct": 0.65,
+        "saldo": 15657.95,
+        "pct": 0.81,
         "historico": {
           "Mai/2026": 0,
           "Jun/2026": 0,
           "Jul/2026": 0.6,
-          "Ago/2026": 0.65
+          "Ago/2026": 0.65,
+          "Set/2026": 0.81
         }
       },
       {
         "classe": "Previdência Privada",
         "metaPct": 5,
-        "saldo": 90349.75,
-        "pct": 4.52,
+        "saldo": 92616.01,
+        "pct": 4.79,
         "historico": {
           "Mai/2026": 0,
           "Jun/2026": 5.97,
           "Jul/2026": 4.36,
-          "Ago/2026": 4.52
+          "Ago/2026": 4.52,
+          "Set/2026": 4.79
         }
       }
     ]
@@ -363,13 +384,13 @@ var DADOS = {
           1.07,
           1.17,
           1.24,
-          null,
+          1.08,
           null,
           null,
           null
         ],
-        "ano_pct": 10,
-        "acum_pct": 78.08
+        "ano_pct": 11.19,
+        "acum_pct": 80
       }
     ]
   },
@@ -462,94 +483,94 @@ var DADOS = {
           95.16,
           96.33,
           113.34,
-          null,
+          99.88,
           null,
           null,
           null
         ],
-        "ano_pct": 107.22,
-        "acum_pct": 103.62
+        "ano_pct": 106.46,
+        "acum_pct": 103.57
       }
     ]
   },
   "comparativoPeriodos": [
     {
       "periodo": "03 meses",
-      "carteira": 3.52,
-      "cdi": 3.47,
-      "pctCdi": 101.39,
+      "carteira": 3.56,
+      "cdi": 3.43,
+      "pctCdi": 103.95,
       "ibov": null,
       "ipca": null,
-      "vol": 0.88
+      "vol": 0.86
     },
     {
       "periodo": "06 meses",
-      "carteira": 7.17,
-      "cdi": 7,
-      "pctCdi": 102.49,
+      "carteira": 7.26,
+      "cdi": 6.92,
+      "pctCdi": 104.97,
       "ibov": null,
       "ipca": null,
       "vol": 0.8
     },
     {
       "periodo": "12 meses",
-      "carteira": 15.7,
-      "cdi": 14.63,
-      "pctCdi": 107.28,
+      "carteira": 15.47,
+      "cdi": 14.47,
+      "pctCdi": 106.89,
       "ibov": null,
       "ipca": null,
-      "vol": 0.74
+      "vol": 0.75
     },
     {
       "periodo": "24 meses",
-      "carteira": 30.59,
-      "cdi": 29.4,
-      "pctCdi": 104.04,
+      "carteira": 31.11,
+      "cdi": 29.72,
+      "pctCdi": 104.69,
       "ibov": null,
       "ipca": null,
-      "vol": 0.69
+      "vol": 0.7
     },
     {
       "periodo": "36 meses",
-      "carteira": 46.51,
-      "cdi": 43.76,
-      "pctCdi": 106.28,
+      "carteira": 46.69,
+      "cdi": 43.92,
+      "pctCdi": 106.32,
       "ibov": null,
       "ipca": null,
       "vol": 0.64
     },
     {
       "periodo": "Desde início",
-      "carteira": 78.08,
-      "cdi": 75.35,
-      "pctCdi": 103.62,
-      "ibov": 63.01,
-      "ipca": 24.76,
-      "vol": 1
+      "carteira": 80,
+      "cdi": 77.24,
+      "pctCdi": 103.57,
+      "ibov": 76.58,
+      "ipca": 25.01,
+      "vol": 0.99
     }
   ],
   "posicaoDetalhada": {
-    "mesReferencia": "Ago/2026",
+    "mesReferencia": "Set/2026",
     "grupos": [
       {
         "grupo": "LIQUIDEZ",
         "subtotal": {
-          "saldoAnt": 63189.64,
-          "aplicacoes": 7000,
-          "resgates": 61680.04,
-          "saldo": 8684.44
+          "saldoAnt": 8684.44,
+          "aplicacoes": 0,
+          "resgates": 8706.29,
+          "saldo": 0
         },
         "ativos": [
           {
             "ativo": "CDB LIQUIDEZ DIÁRIA",
-            "saldoAnt": 63189.64,
-            "aplicacoes": 7000,
-            "resgates": 61680.04,
-            "saldo": 8684.44,
-            "rentMes": 35.32,
-            "rent12m": 10.34,
-            "desdeInicio": 1.12,
-            "part": 0.6,
+            "saldoAnt": 8684.44,
+            "aplicacoes": 0,
+            "resgates": 8706.29,
+            "saldo": 0,
+            "rentMes": 0.26,
+            "rent12m": 10.5,
+            "desdeInicio": 35.68,
+            "part": 0,
             "isento": false,
             "aliqIR": 22.5
           }
@@ -558,87 +579,87 @@ var DADOS = {
       {
         "grupo": "TÍTULO PÚBLICO",
         "subtotal": {
-          "saldoAnt": 189083.33,
-          "aplicacoes": 5002.35,
-          "resgates": 109.87,
+          "saldoAnt": 198517.59,
+          "aplicacoes": 0,
+          "resgates": 109.52,
           "saldo": 198517.59
         },
         "ativos": [
           {
             "ativo": "Tesouro Educa+ 2031",
-            "saldoAnt": 77768.99,
-            "aplicacoes": 5002.35,
+            "saldoAnt": 84944.91,
+            "aplicacoes": 0,
             "resgates": 0,
             "saldo": 84944.91,
-            "rentMes": 2.68,
-            "rent12m": 16.22,
+            "rentMes": null,
+            "rent12m": 9.48,
             "desdeInicio": 16.96,
-            "part": 5.86,
+            "part": 4.4,
             "isento": false,
             "aliqIR": 15
           },
           {
             "ativo": "Tesouro Educa+ 2028",
-            "saldoAnt": 49853.95,
+            "saldoAnt": 50693.64,
             "aplicacoes": 0,
             "resgates": 0,
             "saldo": 50693.64,
-            "rentMes": 1.68,
+            "rentMes": null,
             "rent12m": 1.75,
             "desdeInicio": 1.75,
-            "part": 3.5,
+            "part": 2.62,
             "isento": false,
             "aliqIR": 15
           },
           {
             "ativo": "Tesouro IPCA+ 2032",
-            "saldoAnt": 35467.86,
+            "saldoAnt": 36244.58,
             "aplicacoes": 0,
             "resgates": 0,
             "saldo": 36244.58,
-            "rentMes": 2.19,
+            "rentMes": null,
             "rent12m": 4.92,
             "desdeInicio": 4.92,
-            "part": 2.5,
+            "part": 1.88,
             "isento": false,
             "aliqIR": 15
           },
           {
             "ativo": "Tesouro IPCA+ 2035",
-            "saldoAnt": 16183.52,
+            "saldoAnt": 16797.15,
             "aplicacoes": 0,
             "resgates": 0,
             "saldo": 16797.15,
-            "rentMes": 3.79,
-            "rent12m": 8.69,
+            "rentMes": null,
+            "rent12m": 7.63,
             "desdeInicio": 12.67,
-            "part": 1.16,
+            "part": 0.87,
             "isento": false,
             "aliqIR": 15
           },
           {
             "ativo": "Tesouro Educa+ 2027",
-            "saldoAnt": 4909.8,
+            "saldoAnt": 4983.12,
             "aplicacoes": 0,
             "resgates": 0,
             "saldo": 4983.12,
-            "rentMes": 1.49,
+            "rentMes": null,
             "rent12m": 10.72,
             "desdeInicio": 10.72,
-            "part": 0.34,
+            "part": 0.26,
             "isento": false,
             "aliqIR": 15
           },
           {
             "ativo": "Tesouro Educa+ 2026",
-            "saldoAnt": 4899.21,
+            "saldoAnt": 4854.19,
             "aplicacoes": 0,
-            "resgates": 109.87,
+            "resgates": 109.52,
             "saldo": 4854.19,
-            "rentMes": 1.33,
-            "rent12m": 10.48,
+            "rentMes": null,
+            "rent12m": 9.6,
             "desdeInicio": 11.77,
-            "part": 0.33,
+            "part": 0.25,
             "isento": false,
             "aliqIR": 15
           }
@@ -647,100 +668,100 @@ var DADOS = {
       {
         "grupo": "PÓS-FIXADO",
         "subtotal": {
-          "saldoAnt": 874185.64,
-          "aplicacoes": 4074.35,
-          "resgates": 3419.48,
-          "saldo": 884215.14
+          "saldoAnt": 884215.14,
+          "aplicacoes": 3602.55,
+          "resgates": 2812.86,
+          "saldo": 894386.03
         },
         "ativos": [
           {
             "ativo": "LCI LIQUIDEZ 6 MESES (Isento)",
-            "saldoAnt": 569162,
+            "saldoAnt": 575013,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 575013,
-            "rentMes": 1.21,
-            "rent12m": 16.3,
-            "desdeInicio": 17.87,
-            "part": 39.65,
+            "saldo": 580862.5,
+            "rentMes": 1.2,
+            "rent12m": 16.13,
+            "desdeInicio": 19.29,
+            "part": 30.07,
             "isento": true,
             "aliqIR": 0
           },
           {
             "ativo": "LCI LIQUIDEZ 12 MESES (Isento)",
-            "saldoAnt": 103966.9,
+            "saldoAnt": 105047.2,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 105047.2,
-            "rentMes": 1.22,
-            "rent12m": 5.96,
-            "desdeInicio": 7.24,
-            "part": 7.24,
+            "saldo": 106127.3,
+            "rentMes": 1.21,
+            "rent12m": 7.25,
+            "desdeInicio": 7.25,
+            "part": 5.49,
             "isento": true,
             "aliqIR": 0
           },
           {
             "ativo": "CDB QISTA CDI (08/05/2028)",
-            "saldoAnt": 62251.78,
+            "saldoAnt": 63042.44,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 63042.44,
-            "rentMes": 1.27,
-            "rent12m": 5.07,
-            "desdeInicio": 5.07,
-            "part": 4.35,
+            "saldo": 63834.75,
+            "rentMes": 1.26,
+            "rent12m": 6.39,
+            "desdeInicio": 6.39,
+            "part": 3.3,
             "isento": false,
             "aliqIR": 15
           },
           {
             "ativo": "CRA BRF E447 E1 CDI (15/10/2030) (Isento)",
-            "saldoAnt": 51638.64,
+            "saldoAnt": 52212.55,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 52212.55,
-            "rentMes": 1.31,
-            "rent12m": 5.23,
-            "desdeInicio": 5.23,
-            "part": 3.6,
+            "saldo": 52786.77,
+            "rentMes": 1.3,
+            "rent12m": 6.59,
+            "desdeInicio": 6.59,
+            "part": 2.73,
             "isento": true,
             "aliqIR": 0
           },
           {
             "ativo": "CDB CARUANA CDI (26/04/2030)",
-            "saldoAnt": 41638.34,
+            "saldoAnt": 42153.43,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 42153.43,
-            "rentMes": 1.24,
-            "rent12m": 5.38,
-            "desdeInicio": 5.38,
-            "part": 2.91,
+            "saldo": 42669.43,
+            "rentMes": 1.22,
+            "rent12m": 6.67,
+            "desdeInicio": 6.67,
+            "part": 2.21,
             "isento": false,
             "aliqIR": 15
           },
           {
             "ativo": "CRI MRV FLEX E561 S1 CDI (20/12/2030) (Isento)",
-            "saldoAnt": 43953.54,
+            "saldoAnt": 41065.15,
             "aplicacoes": 0,
-            "resgates": 3419.48,
-            "saldo": 41065.15,
-            "rentMes": 1.46,
-            "rent12m": 6.44,
-            "desdeInicio": 6.44,
-            "part": 2.83,
+            "resgates": 2812.86,
+            "saldo": 38745.51,
+            "rentMes": 1.45,
+            "rent12m": 7.98,
+            "desdeInicio": 7.98,
+            "part": 2.01,
             "isento": true,
             "aliqIR": 0
           },
           {
             "ativo": "CDB PORQUINHO OBJETIVO",
-            "saldoAnt": 1574.43,
-            "aplicacoes": 4074.35,
+            "saldoAnt": 5681.36,
+            "aplicacoes": 3602.55,
             "resgates": 0,
-            "saldo": 5681.36,
-            "rentMes": 1.09,
-            "rent12m": 4.68,
-            "desdeInicio": 4.68,
-            "part": 0.39,
+            "saldo": 9359.76,
+            "rentMes": 1.08,
+            "rent12m": 5.81,
+            "desdeInicio": 5.81,
+            "part": 0.48,
             "isento": false,
             "aliqIR": 22.5
           },
@@ -762,22 +783,22 @@ var DADOS = {
       {
         "grupo": "INFLAÇÃO (IPCA+)",
         "subtotal": {
-          "saldoAnt": 155636.55,
+          "saldoAnt": 156723.09,
           "aplicacoes": 0,
           "resgates": 0,
-          "saldo": 156723.09
+          "saldo": 157636.67
         },
         "ativos": [
           {
             "ativo": "CDB BMG IPCA 24/04/2028",
-            "saldoAnt": 155636.55,
+            "saldoAnt": 156723.09,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 156723.09,
-            "rentMes": 0.7,
-            "rent12m": 4.48,
-            "desdeInicio": 4.48,
-            "part": 10.81,
+            "saldo": 157636.67,
+            "rentMes": 0.58,
+            "rent12m": 5.09,
+            "desdeInicio": 5.09,
+            "part": 8.16,
             "isento": false,
             "aliqIR": 15
           }
@@ -786,35 +807,35 @@ var DADOS = {
       {
         "grupo": "PREFIXADO",
         "subtotal": {
-          "saldoAnt": 102214.77,
+          "saldoAnt": 103404.02,
           "aplicacoes": 0,
           "resgates": 0,
-          "saldo": 103404.02
+          "saldo": 104607.13
         },
         "ativos": [
           {
             "ativo": "CDB BMG PRE (24/04/2028)",
-            "saldoAnt": 51877.77,
+            "saldoAnt": 52471.8,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 52471.8,
+            "saldo": 53072.64,
             "rentMes": 1.15,
-            "rent12m": 4.94,
-            "desdeInicio": 4.94,
-            "part": 3.62,
+            "rent12m": 6.15,
+            "desdeInicio": 6.15,
+            "part": 2.75,
             "isento": false,
             "aliqIR": 15
           },
           {
             "ativo": "CDB BANCO SENFF PRE (14/07/2028)",
-            "saldoAnt": 50337,
+            "saldoAnt": 50932.22,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 50932.22,
+            "saldo": 51534.49,
             "rentMes": 1.18,
-            "rent12m": 1.86,
-            "desdeInicio": 1.86,
-            "part": 3.51,
+            "rent12m": 3.07,
+            "desdeInicio": 3.07,
+            "part": 2.67,
             "isento": false,
             "aliqIR": 15
           }
@@ -823,152 +844,152 @@ var DADOS = {
       {
         "grupo": "RENDA VARIÁVEL — AÇÕES",
         "subtotal": {
-          "saldoAnt": 37582.52,
-          "aplicacoes": 4967.09,
+          "saldoAnt": 42939.34,
+          "aplicacoes": 2703.06,
           "resgates": 0,
-          "saldo": 42939.34
+          "saldo": 47989.39
         },
         "ativos": [
           {
             "ativo": "IVVB11",
-            "saldoAnt": 12423.31,
-            "aplicacoes": 0,
+            "saldoAnt": 13031.15,
+            "aplicacoes": 2703.06,
             "resgates": 0,
-            "saldo": 13031.15,
-            "rentMes": 4.89,
-            "rent12m": 4.69,
-            "desdeInicio": 4.69,
-            "part": 0.9,
+            "saldo": 15657.95,
+            "rentMes": -0.37,
+            "rent12m": 4.3,
+            "desdeInicio": 4.3,
+            "part": 0.81,
             "isento": false,
             "aliqIR": 15
           },
           {
             "ativo": "ALOS3",
-            "saldoAnt": 5418,
+            "saldoAnt": 5338,
             "aplicacoes": 0,
-            "resgates": 58.38,
-            "saldo": 5338,
-            "rentMes": -0.43,
-            "rent12m": -1.27,
-            "desdeInicio": -1.27,
-            "part": 0.37,
+            "resgates": 0,
+            "saldo": 5898,
+            "rentMes": 11.62,
+            "rent12m": 10.2,
+            "desdeInicio": 10.2,
+            "part": 0.31,
             "isento": false,
             "aliqIR": 15
           },
           {
             "ativo": "ITUB3",
-            "saldoAnt": 4562,
-            "aplicacoes": 1005.84,
+            "saldoAnt": 5336.96,
+            "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 5336.96,
-            "rentMes": -3.97,
-            "rent12m": 38.67,
-            "desdeInicio": 46.1,
-            "part": 0.37,
+            "saldo": 6007.8,
+            "rentMes": 12.6,
+            "rent12m": 55.06,
+            "desdeInicio": 64.51,
+            "part": 0.31,
             "isento": false,
             "aliqIR": 15
           },
           {
             "ativo": "PETR4",
-            "saldoAnt": 3517.02,
-            "aplicacoes": 998.88,
+            "saldoAnt": 4727.1,
+            "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 4772.1,
-            "rentMes": 4.55,
-            "rent12m": 54.3,
-            "desdeInicio": 52.46,
-            "part": 0.33,
+            "saldo": 5157.6,
+            "rentMes": 9.61,
+            "rent12m": 66.74,
+            "desdeInicio": 67.12,
+            "part": 0.27,
             "isento": false,
             "aliqIR": 15
           },
           {
             "ativo": "TAEE11",
-            "saldoAnt": 2419.26,
-            "aplicacoes": 1034.37,
+            "saldoAnt": 3440.8,
+            "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 3440.8,
-            "rentMes": -0.58,
-            "rent12m": 20.71,
-            "desdeInicio": 31.44,
-            "part": 0.24,
+            "saldo": 3679.28,
+            "rentMes": 6.93,
+            "rent12m": 22.77,
+            "desdeInicio": 40.55,
+            "part": 0.19,
             "isento": false,
             "aliqIR": 15
           },
           {
             "ativo": "BBDC4",
-            "saldoAnt": 3686,
+            "saldoAnt": 3438,
             "aplicacoes": 0,
-            "resgates": 3.13,
-            "saldo": 3438,
-            "rentMes": -6.65,
-            "rent12m": 8.81,
-            "desdeInicio": 54.08,
-            "part": 0.24,
+            "resgates": 0,
+            "saldo": 3702,
+            "rentMes": 10.92,
+            "rent12m": 14.71,
+            "desdeInicio": 70.91,
+            "part": 0.19,
             "isento": false,
             "aliqIR": 15
           },
           {
             "ativo": "BBAS3",
-            "saldoAnt": 1302.35,
-            "aplicacoes": 1928,
+            "saldoAnt": 3339.14,
+            "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 3339.14,
-            "rentMes": -0.54,
-            "rent12m": 2.45,
-            "desdeInicio": -5.61,
-            "part": 0.23,
+            "saldo": 3714.27,
+            "rentMes": 11.8,
+            "rent12m": 10.91,
+            "desdeInicio": 5.53,
+            "part": 0.19,
             "isento": false,
             "aliqIR": 15
           },
           {
             "ativo": "VALE3",
-            "saldoAnt": 2364.68,
+            "saldoAnt": 2413.35,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 2413.35,
-            "rentMes": 2.06,
-            "rent12m": 50.19,
-            "desdeInicio": 58.23,
-            "part": 0.17,
+            "saldo": 2167.21,
+            "rentMes": -8.25,
+            "rent12m": 29.23,
+            "desdeInicio": 45.18,
+            "part": 0.11,
             "isento": false,
             "aliqIR": 15
           },
           {
             "ativo": "B3SA3",
-            "saldoAnt": 786.5,
+            "saldoAnt": 811,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 811,
-            "rentMes": 3.12,
-            "rent12m": 29.78,
-            "desdeInicio": 60.85,
-            "part": 0.06,
+            "saldo": 917,
+            "rentMes": 13.07,
+            "rent12m": 42.14,
+            "desdeInicio": 81.87,
+            "part": 0.05,
             "isento": false,
             "aliqIR": 15
           },
           {
             "ativo": "CMIG4",
-            "saldoAnt": 567,
+            "saldoAnt": 535,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 535,
-            "rentMes": -5.64,
-            "rent12m": 4.06,
-            "desdeInicio": 19.02,
-            "part": 0.04,
+            "saldo": 558,
+            "rentMes": 4.3,
+            "rent12m": 8.15,
+            "desdeInicio": 24.14,
+            "part": 0.03,
             "isento": false,
             "aliqIR": 15
           },
           {
             "ativo": "EGIE3",
-            "saldoAnt": 536.4,
+            "saldoAnt": 528.84,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 528.84,
-            "rentMes": -1.41,
-            "rent12m": -20.09,
-            "desdeInicio": -21.43,
-            "part": 0.04,
+            "saldo": 530.28,
+            "rentMes": 0.27,
+            "rent12m": -21.37,
+            "desdeInicio": -21.22,
+            "part": 0.03,
             "isento": false,
             "aliqIR": 15
           }
@@ -977,178 +998,178 @@ var DADOS = {
       {
         "grupo": "FIIs — FUNDOS LISTADOS",
         "subtotal": {
-          "saldoAnt": 51570.88,
-          "aplicacoes": 4982.01,
+          "saldoAnt": 55586.37,
+          "aplicacoes": 0,
           "resgates": 0,
-          "saldo": 55586.37
+          "saldo": 55118.06
         },
         "ativos": [
           {
             "ativo": "CPTS11",
-            "saldoAnt": 8595.36,
+            "saldoAnt": 8538.21,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 8538.21,
-            "rentMes": 0.55,
-            "rent12m": 10.19,
-            "desdeInicio": 10.19,
-            "part": 0.59,
-            "isento": true,
-            "aliqIR": 0
-          },
-          {
-            "ativo": "HGLG11",
-            "saldoAnt": 8775,
-            "aplicacoes": 0,
-            "resgates": 0,
-            "saldo": 8830.2,
-            "rentMes": 1.44,
-            "rent12m": 4.31,
-            "desdeInicio": 14.91,
-            "part": 0.61,
-            "isento": true,
-            "aliqIR": 0
-          },
-          {
-            "ativo": "KNRI11",
-            "saldoAnt": 2976.35,
-            "aplicacoes": 4982.01,
-            "resgates": 0,
-            "saldo": 8132.8,
-            "rentMes": 0.61,
-            "rent12m": 21.92,
-            "desdeInicio": 22.21,
-            "part": 0.56,
-            "isento": true,
-            "aliqIR": 0
-          },
-          {
-            "ativo": "XPML11",
-            "saldoAnt": 6705.92,
-            "aplicacoes": 0,
-            "resgates": 0,
-            "saldo": 6515.84,
-            "rentMes": -1.93,
-            "rent12m": 10.89,
-            "desdeInicio": 33.59,
+            "saldo": 8606.79,
+            "rentMes": 2.03,
+            "rent12m": 12.43,
+            "desdeInicio": 12.43,
             "part": 0.45,
             "isento": true,
             "aliqIR": 0
           },
           {
-            "ativo": "VISC11",
-            "saldoAnt": 5514.65,
+            "ativo": "HGLG11",
+            "saldoAnt": 8830.2,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 5403.88,
-            "rentMes": -1.2,
-            "rent12m": 7.9,
-            "desdeInicio": 10.33,
-            "part": 0.37,
+            "saldo": 8806.8,
+            "rentMes": 0.52,
+            "rent12m": -0.42,
+            "desdeInicio": 15.51,
+            "part": 0.46,
+            "isento": true,
+            "aliqIR": 0
+          },
+          {
+            "ativo": "KNRI11",
+            "saldoAnt": 8132.8,
+            "aplicacoes": 0,
+            "resgates": 0,
+            "saldo": 8107.32,
+            "rentMes": 0.38,
+            "rent12m": 15.34,
+            "desdeInicio": 22.67,
+            "part": 0.42,
+            "isento": true,
+            "aliqIR": 0
+          },
+          {
+            "ativo": "XPML11",
+            "saldoAnt": 6515.84,
+            "aplicacoes": 0,
+            "resgates": 0,
+            "saldo": 6376.96,
+            "rentMes": -1.22,
+            "rent12m": 5.08,
+            "desdeInicio": 31.96,
+            "part": 0.33,
+            "isento": true,
+            "aliqIR": 0
+          },
+          {
+            "ativo": "VISC11",
+            "saldoAnt": 5403.88,
+            "aplicacoes": 0,
+            "resgates": 0,
+            "saldo": 5414.48,
+            "rentMes": 1.01,
+            "rent12m": 1.86,
+            "desdeInicio": 11.44,
+            "part": 0.28,
             "isento": true,
             "aliqIR": 0
           },
           {
             "ativo": "XPCI11",
-            "saldoAnt": 4896.6,
+            "saldoAnt": 4692,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 4692,
-            "rentMes": -3.04,
-            "rent12m": 1.97,
-            "desdeInicio": 1.97,
-            "part": 0.32,
+            "saldo": 4721.4,
+            "rentMes": 1.81,
+            "rent12m": 3.82,
+            "desdeInicio": 3.82,
+            "part": 0.24,
             "isento": true,
             "aliqIR": 0
           },
           {
             "ativo": "LVBI11",
-            "saldoAnt": 3066.9,
+            "saldoAnt": 2959.8,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 2959.8,
-            "rentMes": -2.79,
-            "rent12m": 5.23,
-            "desdeInicio": 6.49,
-            "part": 0.2,
-            "isento": true,
-            "aliqIR": 0
-          },
-          {
-            "ativo": "RZTR11",
-            "saldoAnt": 2962.76,
-            "aplicacoes": 0,
-            "resgates": 0,
-            "saldo": 2898.5,
-            "rentMes": -1.14,
-            "rent12m": 6.63,
-            "desdeInicio": 26.59,
-            "part": 0.2,
-            "isento": true,
-            "aliqIR": 0
-          },
-          {
-            "ativo": "HGBS11",
-            "saldoAnt": 2466.1,
-            "aplicacoes": 0,
-            "resgates": 0,
-            "saldo": 2407.6,
-            "rentMes": -1.48,
-            "rent12m": 7.55,
-            "desdeInicio": 8.47,
-            "part": 0.17,
-            "isento": true,
-            "aliqIR": 0
-          },
-          {
-            "ativo": "RBRX11",
-            "saldoAnt": 2215.6,
-            "aplicacoes": 0,
-            "resgates": 0,
-            "saldo": 2125.7,
-            "rentMes": -2.86,
-            "rent12m": -12.06,
-            "desdeInicio": -10.35,
+            "saldo": 2913,
+            "rentMes": -0.78,
+            "rent12m": -2.13,
+            "desdeInicio": 5.66,
             "part": 0.15,
             "isento": true,
             "aliqIR": 0
           },
           {
-            "ativo": "TRXF11",
-            "saldoAnt": 1983.74,
+            "ativo": "RZTR11",
+            "saldoAnt": 2898.5,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 1724.14,
-            "rentMes": -12.07,
-            "rent12m": -10.35,
-            "desdeInicio": -10.35,
+            "saldo": 2839.34,
+            "rentMes": -1.05,
+            "rent12m": 3.16,
+            "desdeInicio": 25.26,
+            "part": 0.15,
+            "isento": true,
+            "aliqIR": 0
+          },
+          {
+            "ativo": "HGBS11",
+            "saldoAnt": 2407.6,
+            "aplicacoes": 0,
+            "resgates": 0,
+            "saldo": 2392,
+            "rentMes": 0.26,
+            "rent12m": -0.01,
+            "desdeInicio": 8.75,
             "part": 0.12,
             "isento": true,
             "aliqIR": 0
           },
           {
-            "ativo": "MCRE11",
-            "saldoAnt": 951.5,
+            "ativo": "RBRX11",
+            "saldoAnt": 2125.7,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 903.1,
-            "rentMes": -3.94,
-            "rent12m": -8.98,
-            "desdeInicio": -8.98,
-            "part": 0.06,
+            "saldo": 2082.2,
+            "rentMes": -0.81,
+            "rent12m": -12.77,
+            "desdeInicio": -12.77,
+            "part": 0.11,
+            "isento": true,
+            "aliqIR": 0
+          },
+          {
+            "ativo": "TRXF11",
+            "saldoAnt": 1724.14,
+            "aplicacoes": 0,
+            "resgates": 0,
+            "saldo": 1558.92,
+            "rentMes": -8.43,
+            "rent12m": -17.9,
+            "desdeInicio": -17.9,
+            "part": 0.08,
+            "isento": true,
+            "aliqIR": 0
+          },
+          {
+            "ativo": "MCRE11",
+            "saldoAnt": 903.1,
+            "aplicacoes": 0,
+            "resgates": 0,
+            "saldo": 840.4,
+            "rentMes": -5.73,
+            "rent12m": -14.2,
+            "desdeInicio": -14.2,
+            "part": 0.04,
             "isento": true,
             "aliqIR": 0
           },
           {
             "ativo": "XPLG11",
-            "saldoAnt": 460.4,
+            "saldoAnt": 454.6,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 454.6,
-            "rentMes": -0.36,
-            "rent12m": 1.98,
-            "desdeInicio": 9.64,
-            "part": 0.03,
+            "saldo": 458.45,
+            "rentMes": 1.75,
+            "rent12m": 1.1,
+            "desdeInicio": 11.56,
+            "part": 0.02,
             "isento": true,
             "aliqIR": 0
           }
@@ -1157,85 +1178,98 @@ var DADOS = {
       {
         "grupo": "OUTROS",
         "subtotal": {
-          "saldoAnt": 0.2,
+          "saldoAnt": 0.11,
           "aplicacoes": 0,
           "resgates": 0,
-          "saldo": 0.11
+          "saldo": 0.27
         },
         "ativos": [
           {
-            "ativo": "HGBS12",
-            "saldoAnt": 0.2,
+            "ativo": "XPML12",
+            "saldoAnt": 0,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 0.11,
+            "saldo": 0.27,
             "rentMes": null,
-            "rent12m": 100,
-            "desdeInicio": null,
+            "rent12m": null,
+            "desdeInicio": -64,
             "part": 0,
             "isento": false,
-            "aliqIR": 0
+            "aliqIR": 15
+          },
+          {
+            "ativo": "BBDC2",
+            "saldoAnt": 0.11,
+            "aplicacoes": 0,
+            "resgates": 0,
+            "saldo": 0,
+            "rentMes": null,
+            "rent12m": -98.15,
+            "desdeInicio": -98.15,
+            "part": 0,
+            "isento": false,
+            "aliqIR": 15
           }
         ]
       },
       {
         "grupo": "SAFRA",
         "subtotal": {
-          "saldoAnt": 500525.23,
-          "aplicacoes": 101546.72,
-          "resgates": 149049.99,
-          "saldo": 457161.44999999995
+          "saldoAnt": 457161.45,
+          "aplicacoes": 0,
+          "resgates": 80863.86,
+          "saldo": 380695.71
         },
         "ativos": [
           {
             "ativo": "CDBPR Pré Emissão Terceiros (14,80% a.a.) - Banco Pine",
-            "saldoAnt": 180000,
+            "saldoAnt": 182982.03,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 182982.03,
-            "rentMes": 1.657,
+            "saldo": 184997.45,
+            "rentMes": 1.101,
             "rent12m": null,
             "desdeInicio": null,
-            "part": 9.16,
+            "part": 9.58,
             "isento": false,
             "aliqIR": 15
           },
           {
             "ativo": "CDBPR Pré Emissão Terceiros (14,77% a.a.) - Omni S/A Cred Fin Investimento",
-            "saldoAnt": 70000,
+            "saldoAnt": 71157.46,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 71157.46,
-            "rentMes": 1.653,
+            "saldo": 71939.72,
+            "rentMes": 1.099,
             "rent12m": null,
             "desdeInicio": null,
-            "part": 3.56,
+            "part": 3.72,
             "isento": false,
             "aliqIR": 15
           },
           {
             "ativo": "BCO BDMG (86% do CDI, Isento) [antes: TCM LCDDI]",
-            "saldoAnt": 250525.23,
-            "aplicacoes": 101546.72,
-            "resgates": 249486.85,
-            "saldo": 102585.1,
-            "rentMes": null,
+            "saldoAnt": 102585.1,
+            "aplicacoes": 0,
+            "resgates": 80863.86,
+            "saldo": 22342.73,
+            "rentMes": 0.606,
             "rent12m": null,
             "desdeInicio": null,
-            "part": 5.14,
+            "part": 1.16,
             "isento": true,
             "aliqIR": 0
           },
           {
             "ativo": "Banco Safra Conceito II (13% a.a., Isento)",
-            "saldoAnt": 0,
-            "aplicacoes": 100436.86,
+            "saldoAnt": 100436.86,
+            "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 100436.86,
-            "rentMes": null,
+            "saldo": 101415.81,
+            "rentMes": 0.975,
             "rent12m": null,
             "desdeInicio": null,
-            "part": 5.03,
+            "part": 5.25,
             "isento": true,
             "aliqIR": 0
           }
@@ -1244,35 +1278,35 @@ var DADOS = {
       {
         "grupo": "XP PREVIDÊNCIA",
         "subtotal": {
-          "saldoAnt": 90000,
+          "saldoAnt": 90349.75,
           "aplicacoes": 0,
           "resgates": 0,
-          "saldo": 90349.75
+          "saldo": 92616.01
         },
         "ativos": [
           {
             "ativo": "Adam XP Seg Prev I Fic Fim RI (Multimercados, VGBL)",
-            "saldoAnt": 45000,
+            "saldoAnt": 44123.97,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 44123.97,
-            "rentMes": -1.947,
+            "saldo": 45940.2,
+            "rentMes": 4.116,
             "rent12m": null,
             "desdeInicio": null,
-            "part": 2.21,
+            "part": 2.38,
             "isento": false,
             "aliqIR": 15
           },
           {
             "ativo": "Kinea Alpes Prev XP Seg MM CP FicFI (Pós-Fixado, VGBL)",
-            "saldoAnt": 45000,
+            "saldoAnt": 46225.78,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 46225.78,
-            "rentMes": 2.724,
+            "saldo": 46675.81,
+            "rentMes": 0.974,
             "rent12m": null,
             "desdeInicio": null,
-            "part": 2.31,
+            "part": 2.42,
             "isento": false,
             "aliqIR": 15
           }
@@ -1280,114 +1314,114 @@ var DADOS = {
       }
     ],
     "total": {
-      "saldoAnt": 1576822.36,
-      "aplicacoes": 196582.1,
-      "resgates": 278551.49,
-      "saldo": 1508318.84,
-      "rentMes": 1.07,
-      "rent12m": 15.76,
-      "desdeInicio": 73.86
+      "saldoAnt": 1997581.3,
+      "aplicacoes": 6305.61,
+      "resgates": 92492.53,
+      "saldo": 1931566.86,
+      "rentMes": 1.12,
+      "rent12m": 15.47,
+      "desdeInicio": 80
     }
   },
   "ganhosPorEstrategia": [
     {
       "estrategia": "Liquidez",
-      "noMes": 174.84,
-      "noAno": 2315.29,
-      "m03": 892.58,
-      "m06": 4535.34,
-      "m12": 36780.42,
-      "desdeInicio": 36780.42
+      "noMes": 21.85,
+      "noAno": 2511.98,
+      "m03": 1052.34,
+      "m06": 1144.79,
+      "m12": 4515.76,
+      "desdeInicio": 36977.11
     },
     {
       "estrategia": "Título Público",
-      "noMes": 4507.08,
-      "noAno": 1310.72,
-      "m03": -474.85,
-      "m06": 2889.02,
-      "m12": 3467.55,
-      "desdeInicio": 3467.55
+      "noMes": 0,
+      "noAno": 5817.8,
+      "m03": 4845.22,
+      "m06": 5471.66,
+      "m12": 7095.98,
+      "desdeInicio": 7974.63
     },
     {
       "estrategia": "Pós-fixado",
-      "noMes": 7505.33,
-      "noAno": 64826.83,
-      "m03": 31990.54,
-      "m06": 105529.88,
-      "m12": 174333.7,
-      "desdeInicio": 174333.7
+      "noMes": 9322.33,
+      "noAno": 84204.15,
+      "m03": 30403.76,
+      "m06": 60026.52,
+      "m12": 108581.38,
+      "desdeInicio": 193711.02
     },
     {
       "estrategia": "Inflação",
-      "noMes": 1086.54,
-      "noAno": 17231.09,
-      "m03": 9087.63,
-      "m06": 23978.57,
-      "m12": 35534.73,
-      "desdeInicio": 35534.73
+      "noMes": 913.58,
+      "noAno": 19231.21,
+      "m03": 4389.24,
+      "m06": 14011.62,
+      "m12": 23649.58,
+      "desdeInicio": 37534.85
     },
     {
       "estrategia": "Prefixado",
-      "noMes": 5928.74,
-      "noAno": 13672.52,
-      "m03": 4259.44,
-      "m06": 11231.77,
-      "m12": 20517.62,
-      "desdeInicio": 43290.77
+      "noMes": 4979.74,
+      "noAno": 24417.86,
+      "m03": 11753,
+      "m06": 17609.47,
+      "m12": 28667.55,
+      "desdeInicio": 54036.11
     },
     {
       "estrategia": "Ações",
-      "noMes": 554.57,
-      "noAno": 2754.42,
-      "m03": -494.52,
-      "m06": 338.31,
-      "m12": 5089.29,
-      "desdeInicio": 5249.33
+      "noMes": 2346.99,
+      "noAno": 5921.69,
+      "m03": 3782.01,
+      "m06": 3176.46,
+      "m12": 7234.4,
+      "desdeInicio": 8416.6
     },
     {
       "estrategia": "Global",
       "noMes": 0,
       "noAno": -273.63,
-      "m03": 27.97,
-      "m06": -132.19,
-      "m12": -3.9,
+      "m03": 0,
+      "m06": -29.28,
+      "m12": -192.94,
       "desdeInicio": 16.16
     },
     {
       "estrategia": "Fundos Listados (FIIs)",
-      "noMes": -476.49,
-      "noAno": 29.97,
-      "m03": -1485.03,
-      "m06": -789,
-      "m12": 2586.68,
-      "desdeInicio": 3436.52
+      "noMes": -468.31,
+      "noAno": -390.5,
+      "m03": -771.76,
+      "m06": -1563.31,
+      "m12": 624.98,
+      "desdeInicio": 3016.05
     },
     {
       "estrategia": "Outros",
-      "noMes": -5.83,
-      "noAno": 0.32,
-      "m03": 0,
-      "m06": 0.32,
-      "m12": 0.32,
-      "desdeInicio": -3.46
+      "noMes": 0,
+      "noAno": -5.51,
+      "m03": -5.83,
+      "m06": -5.83,
+      "m12": 59.19,
+      "desdeInicio": 1754.64
     },
     {
       "estrategia": "Previdência Privada",
-      "noMes": 349.75,
-      "noAno": 0,
-      "m03": 0,
-      "m06": 0,
-      "m12": 0,
-      "desdeInicio": 0
+      "noMes": 2266.26,
+      "noAno": 2616.01,
+      "m03": 2616.01,
+      "m06": 2616.01,
+      "m12": 2616.01,
+      "desdeInicio": 2616.01
     },
     {
       "estrategia": "TOTAL",
-      "noMes": 19624.53,
-      "noAno": 101867.53,
-      "m03": 43803.76,
-      "m06": 84616.12,
-      "m12": 165317.71,
-      "desdeInicio": 303869.64
+      "noMes": 19382.44,
+      "noAno": 144051.06,
+      "m03": 58063.99,
+      "m06": 102458.11,
+      "m12": 182851.89,
+      "desdeInicio": 346053.18
     }
   ],
   "ganhosMensaisPorEstrategia": {
@@ -1402,7 +1436,8 @@ var DADOS = {
       "Mai/2026",
       "Jun/2026",
       "Jul/2026",
-      "Ago/2026"
+      "Ago/2026",
+      "Set/2026"
     ],
     "linhas": [
       {
@@ -1418,7 +1453,8 @@ var DADOS = {
           12.52,
           26.03,
           854.03,
-          174.84
+          174.84,
+          21.85
         ]
       },
       {
@@ -1434,7 +1470,8 @@ var DADOS = {
           3.36,
           -769.46,
           338.14,
-          4507.08
+          4507.08,
+          0
         ]
       },
       {
@@ -1450,7 +1487,8 @@ var DADOS = {
           10527.74,
           10440.21,
           10542.26,
-          7505.33
+          7505.33,
+          9322.33
         ]
       },
       {
@@ -1466,7 +1504,8 @@ var DADOS = {
           3354.29,
           3303.53,
           2262.58,
-          1086.54
+          1086.54,
+          913.58
         ]
       },
       {
@@ -1482,7 +1521,8 @@ var DADOS = {
           1622.49,
           1528.86,
           979.89,
-          5928.74
+          5928.74,
+          4979.74
         ]
       },
       {
@@ -1498,7 +1538,8 @@ var DADOS = {
           -1507.54,
           13.46,
           699.56,
-          554.57
+          554.57,
+          2346.99
         ]
       },
       {
@@ -1512,6 +1553,7 @@ var DADOS = {
           -297.92,
           -208.71,
           87.97,
+          0,
           0,
           0,
           0
@@ -1530,7 +1572,8 @@ var DADOS = {
           -463.03,
           -624.07,
           -167.56,
-          -476.49
+          -476.49,
+          -468.31
         ]
       },
       {
@@ -1546,7 +1589,8 @@ var DADOS = {
           0,
           0,
           0,
-          -5.83
+          -5.83,
+          0
         ]
       },
       {
@@ -1562,7 +1606,8 @@ var DADOS = {
           0,
           0,
           0,
-          349.75
+          349.75,
+          2266.26
         ]
       }
     ]
@@ -1579,7 +1624,8 @@ var DADOS = {
       "Mai/2026",
       "Jun/2026",
       "Jul/2026",
-      "Ago/2026"
+      "Ago/2026",
+      "Set/2026"
     ],
     "classes": [
       {
@@ -1595,7 +1641,8 @@ var DADOS = {
           1044156.9,
           951055.17,
           1124710.87,
-          986800.24
+          986800.24,
+          916728.76
         ]
       },
       {
@@ -1611,7 +1658,8 @@ var DADOS = {
           156039.85,
           51234.88,
           352214.77,
-          457980.37
+          457980.37,
+          462960.11
         ]
       },
       {
@@ -1627,7 +1675,8 @@ var DADOS = {
           263292.07,
           266595.6,
           155636.55,
-          156723.09
+          156723.09,
+          157636.67
         ]
       },
       {
@@ -1643,6 +1692,7 @@ var DADOS = {
           50144.73,
           84292,
           189083.33,
+          198517.59,
           198517.59
         ]
       },
@@ -1659,7 +1709,8 @@ var DADOS = {
           19099.28,
           19059.11,
           37582.52,
-          42939.34
+          42939.34,
+          47989.39
         ]
       },
       {
@@ -1675,7 +1726,8 @@ var DADOS = {
           44089.53,
           43056.05,
           51570.88,
-          55586.48
+          55586.48,
+          55118.33
         ]
       },
       {
@@ -1688,6 +1740,7 @@ var DADOS = {
           2000,
           2329.68,
           2120.96,
+          0,
           0,
           0,
           0,
@@ -1707,7 +1760,8 @@ var DADOS = {
           0,
           3026.03,
           63189.64,
-          8684.44
+          8684.44,
+          0
         ]
       },
       {
@@ -1721,6 +1775,7 @@ var DADOS = {
           0,
           0,
           7500,
+          0,
           0,
           0,
           0
@@ -1739,7 +1794,8 @@ var DADOS = {
           0,
           90000,
           90000,
-          90349.75
+          90349.75,
+          92616.01
         ]
       }
     ]
@@ -1793,9 +1849,15 @@ var DADOS = {
         "fiis": 490.03,
         "acoes": 164.73,
         "total": 654.76
+      },
+      {
+        "mes": "Set/26",
+        "fiis": 524.33,
+        "acoes": 265.71,
+        "total": 790.04
       }
     ],
-    "totalAcumulado": 3557.33,
+    "totalAcumulado": 4347.37,
     "porAtivo": [
       {
         "ativo": "XPML11",
@@ -1808,9 +1870,10 @@ var DADOS = {
           58.88,
           58.88,
           58.88,
+          58.88,
           58.88
         ],
-        "total": 471.04
+        "total": 529.92
       },
       {
         "ativo": "CPTS11",
@@ -1823,9 +1886,10 @@ var DADOS = {
           60.75,
           67.05,
           67.05,
+          102.87,
           102.87
         ],
-        "total": 405.72
+        "total": 508.59
       },
       {
         "ativo": "VISC11",
@@ -1838,9 +1902,10 @@ var DADOS = {
           41.16,
           44.52,
           44.52,
+          44.52,
           44.52
         ],
-        "total": 319.26
+        "total": 363.78
       },
       {
         "ativo": "XPCI11",
@@ -1853,9 +1918,10 @@ var DADOS = {
           54,
           55.8,
           57,
-          55.8
+          55.8,
+          54
         ],
-        "total": 300
+        "total": 354
       },
       {
         "ativo": "RZTR11",
@@ -1868,9 +1934,10 @@ var DADOS = {
           34,
           34,
           30.6,
-          30.6
+          30.6,
+          28.9
         ],
-        "total": 265.2
+        "total": 294.1
       },
       {
         "ativo": "BBDC4",
@@ -1883,9 +1950,10 @@ var DADOS = {
           3.13,
           3.13,
           68.81,
-          0
+          0,
+          109.43
         ],
-        "total": 188.73
+        "total": 298.16
       },
       {
         "ativo": "LVBI11",
@@ -1898,9 +1966,10 @@ var DADOS = {
           22.5,
           22.5,
           22.5,
-          22.5
+          22.5,
+          24
         ],
-        "total": 180
+        "total": 204
       },
       {
         "ativo": "HGBS11",
@@ -1913,9 +1982,10 @@ var DADOS = {
           22.1,
           22.1,
           22.1,
+          22.1,
           22.1
         ],
-        "total": 172.9
+        "total": 195
       },
       {
         "ativo": "KNRI11",
@@ -1928,9 +1998,10 @@ var DADOS = {
           20.9,
           20.9,
           26.22,
-          20.9
+          20.9,
+          57.2
         ],
-        "total": 171.19
+        "total": 228.39
       },
       {
         "ativo": "HGLG11",
@@ -1943,9 +2014,10 @@ var DADOS = {
           20.9,
           20.9,
           20.9,
+          70.2,
           70.2
         ],
-        "total": 216.5
+        "total": 286.7
       },
       {
         "ativo": "PETR4",
@@ -1958,9 +2030,10 @@ var DADOS = {
           21.97,
           22.21,
           0,
+          23.42,
           23.42
         ],
-        "total": 137.59
+        "total": 161.01
       },
       {
         "ativo": "VALE3",
@@ -1973,9 +2046,10 @@ var DADOS = {
           0,
           0,
           0,
-          0
+          0,
+          54.44
         ],
-        "total": 103.73
+        "total": 158.17
       },
       {
         "ativo": "TAEE11",
@@ -1988,7 +2062,8 @@ var DADOS = {
           46.34,
           0,
           0,
-          23.42
+          23.42,
+          0
         ],
         "total": 114.4
       },
@@ -2003,9 +2078,10 @@ var DADOS = {
           20.46,
           20.46,
           33,
+          20.46,
           20.46
         ],
-        "total": 94.38
+        "total": 114.84
       },
       {
         "ativo": "RBRX11",
@@ -2018,9 +2094,10 @@ var DADOS = {
           20.7,
           26.1,
           26.1,
+          26.1,
           26.1
         ],
-        "total": 99
+        "total": 125.1
       },
       {
         "ativo": "ITUB3",
@@ -2033,9 +2110,10 @@ var DADOS = {
           1.31,
           1.31,
           1.5,
-          56.39
+          56.39,
+          1.5
         ],
-        "total": 117.12
+        "total": 118.62
       },
       {
         "ativo": "XPLG11",
@@ -2048,9 +2126,10 @@ var DADOS = {
           4.1,
           4.1,
           4.1,
+          4.1,
           4.1
         ],
-        "total": 32.8
+        "total": 36.9
       },
       {
         "ativo": "B3SA3",
@@ -2063,7 +2142,8 @@ var DADOS = {
           0,
           0,
           12.28,
-          3.12
+          3.12,
+          0
         ],
         "total": 28.32
       },
@@ -2078,9 +2158,10 @@ var DADOS = {
           0,
           12.1,
           12.1,
+          11,
           11
         ],
-        "total": 35.2
+        "total": 46.2
       },
       {
         "ativo": "CMIG4",
@@ -2092,6 +2173,7 @@ var DADOS = {
           0,
           0,
           19.86,
+          0,
           0,
           0
         ],
@@ -2106,6 +2188,7 @@ var DADOS = {
           0,
           0,
           10.14,
+          0,
           0,
           0,
           0
@@ -2123,40 +2206,62 @@ var DADOS = {
           0,
           7.12,
           0,
-          0
+          0,
+          18.54
         ],
-        "total": 9.76
+        "total": 28.3
       }
     ]
   },
   "alertas": [
     {
-      "ativo": "HGBS11",
-      "nivel": "atencao",
-      "tipo": "decisao",
-      "gerado": "Ago/2026",
-      "texto": "Resultado -9,76% vs preço médio (cotação R$18,74 vs médio R$22,24) — verificar vacância antes de novo aporte."
-    },
-    {
       "ativo": "EGIE3",
       "nivel": "atencao",
       "tipo": "decisao",
-      "gerado": "Ago/2026",
-      "texto": "Resultado -22,68% vs preço médio (cotação R$30,75 vs médio R$40,94) — definir tese de saída ou manutenção."
+      "gerado": "Set/2026",
+      "texto": "Cotação R$31,73 vs preço médio R$40,94 (-22,50%). Segue como posição mais deteriorada das ações — definir tese de saída ou manutenção."
+    },
+    {
+      "ativo": "TRXF11",
+      "nivel": "atencao",
+      "tipo": "decisao",
+      "gerado": "Set/2026",
+      "texto": "Cotação R$71,90 vs preço médio R$91,79 (-21,67%); -8,43% no mês e -17,90% desde o início. Reavaliar a tese (maior queda entre os FIIs)."
+    },
+    {
+      "ativo": "HGBS11",
+      "nivel": "atencao",
+      "tipo": "decisao",
+      "gerado": "Set/2026",
+      "texto": "Cotação R$19,41 vs preço médio R$22,24 (-12,72%) — verificar vacância antes de novo aporte."
     },
     {
       "ativo": "LVBI11",
       "nivel": "atencao",
       "tipo": "decisao",
-      "gerado": "Ago/2026",
-      "texto": "Resultado quase zerado (+1,74%). Vacância subindo (saída Nestlé ago/26, Solistica out/26) — não aumentar posição."
+      "gerado": "Set/2026",
+      "texto": "Resultado próximo de zero (0,20% vs preço médio). Vacância subindo (saída Nestlé ago/26, Solistica out/26) — não aumentar posição."
+    },
+    {
+      "ativo": "Safra — BDMG (TCM)",
+      "nivel": "info",
+      "tipo": "nota",
+      "gerado": "Set/2026",
+      "texto": "Em Set/2026 o BDMG (86% CDI, isento) teve dois resgates para custos fixos: R$ 50.014,15 (08/09, já refletido no saldo de Ago, que foi fotografado em 13/09) e R$ 80.863,86 (30/09). Saldo remanescente R$ 22.342,73. Não é perda."
+    },
+    {
+      "ativo": "Dados — fotografia Safra/XP",
+      "nivel": "info",
+      "tipo": "nota",
+      "gerado": "Set/2026",
+      "texto": "Os saldos de Safra/XP de Ago/2026 foram fotografados em 13/09 (não em 31/08). Por isso o ganho de Ago desses papéis cobre ~6 semanas e o de Set cobre 14/09–30/09; a soma Ago+Set está correta. A partir de Out, usar saldos de fim de mês."
     },
     {
       "ativo": "Safra — reestruturação Pós-fixado",
       "nivel": "info",
       "tipo": "nota",
       "gerado": "Ago/2026",
-      "texto": "Em Ago/2026 o TCM LCDDI (86% CDI) foi parcialmente resgatado: parte financiou o novo título 'Banco Safra Conceito II' (13% a.a., isento, R$100.436,86) e parte foi usada para pagar custos mensais. O saldo remanescente segue rendendo 86% do CDI, agora sob o nome 'BCO BDMG'."
+      "texto": "Em Ago/2026 o TCM LCDDI (86% CDI) foi parcialmente resgatado: parte financiou o novo título 'Banco Safra Conceito II' (13% a.a., isento, R$100.000 aplicados em 28/08) e parte foi usada para pagar custos mensais. O saldo remanescente segue rendendo 86% do CDI, agora sob o nome 'BCO BDMG'."
     }
   ],
   "estrategia": {
@@ -2504,7 +2609,8 @@ var DADOS = {
         "Abr/2026": 23518.29,
         "Jun/2026": 23100.19,
         "Jul/2026": 77768.99,
-        "Ago/2026": 84944.91
+        "Ago/2026": 84944.91,
+        "Set/2026": 84944.91
       },
       "venc": "2035-12-15",
       "isento": false,
@@ -2519,7 +2625,8 @@ var DADOS = {
         "Abr/2026": 16797.56,
         "Jun/2026": 16324.76,
         "Jul/2026": 16183.52,
-        "Ago/2026": 16797.15
+        "Ago/2026": 16797.15,
+        "Set/2026": 16797.15
       },
       "venc": "2035-05-15",
       "isento": false,
@@ -2534,7 +2641,8 @@ var DADOS = {
         "Abr/2026": 5116.38,
         "Jun/2026": 4945.05,
         "Jul/2026": 4899.21,
-        "Ago/2026": 4854.19
+        "Ago/2026": 4854.19,
+        "Set/2026": 4854.19
       },
       "venc": "2030-12-15",
       "isento": false,
@@ -2549,7 +2657,8 @@ var DADOS = {
         "Abr/2026": 4822.53,
         "Jun/2026": 4843.23,
         "Jul/2026": 4909.8,
-        "Ago/2026": 4983.12
+        "Ago/2026": 4983.12,
+        "Set/2026": 4983.12
       },
       "venc": "2031-12-15",
       "isento": false,
@@ -2564,7 +2673,8 @@ var DADOS = {
         "Abr/2026": 551312,
         "Jun/2026": 562736,
         "Jul/2026": 569162,
-        "Ago/2026": 575013
+        "Ago/2026": 575013,
+        "Set/2026": 580862.5
       },
       "venc": "TODAY",
       "isento": true,
@@ -2579,7 +2689,8 @@ var DADOS = {
         "Abr/2026": 100672.2,
         "Jun/2026": 102780.7,
         "Jul/2026": 103966.9,
-        "Ago/2026": 105047.2
+        "Ago/2026": 105047.2,
+        "Set/2026": 106127.3
       },
       "venc": "TODAY",
       "isento": true,
@@ -2593,7 +2704,8 @@ var DADOS = {
         "Mai/2026": 60597.43,
         "Jun/2026": 61385.65,
         "Jul/2026": 62251.78,
-        "Ago/2026": 63042.44
+        "Ago/2026": 63042.44,
+        "Set/2026": 63834.75
       },
       "venc": "2028-05-08",
       "isento": false,
@@ -2633,7 +2745,8 @@ var DADOS = {
         "Mai/2026": 50435.37,
         "Jun/2026": 51009.41,
         "Jul/2026": 51638.64,
-        "Ago/2026": 52212.55
+        "Ago/2026": 52212.55,
+        "Set/2026": 52786.77
       },
       "venc": "2030-10-15",
       "isento": true,
@@ -2648,7 +2761,8 @@ var DADOS = {
         "Abr/2026": 50776.86,
         "Jun/2026": 46204.86,
         "Jul/2026": 43953.54,
-        "Ago/2026": 41065.15
+        "Ago/2026": 41065.15,
+        "Set/2026": 38745.51
       },
       "venc": "2030-12-20",
       "isento": true,
@@ -2675,7 +2789,8 @@ var DADOS = {
         "Abr/2026": 40073.62,
         "Jun/2026": 41073.89,
         "Jul/2026": 41638.34,
-        "Ago/2026": 42153.43
+        "Ago/2026": 42153.43,
+        "Set/2026": 42669.43
       },
       "venc": "2030-04-26",
       "isento": false,
@@ -2701,7 +2816,8 @@ var DADOS = {
         "Abr/2026": 110.52,
         "Jun/2026": 3621.49,
         "Jul/2026": 1574.43,
-        "Ago/2026": 5681.36
+        "Ago/2026": 5681.36,
+        "Set/2026": 9359.76
       },
       "isento": false,
       "aliqIR": 22.5
@@ -2715,7 +2831,8 @@ var DADOS = {
         "Abr/2026": 150401.23,
         "Jun/2026": 154273.08,
         "Jul/2026": 155636.55,
-        "Ago/2026": 156723.09
+        "Ago/2026": 156723.09,
+        "Set/2026": 157636.67
       },
       "venc": "2028-04-24",
       "isento": false,
@@ -2756,7 +2873,8 @@ var DADOS = {
         "Abr/2026": 50108.55,
         "Jun/2026": 51234.88,
         "Jul/2026": 51877.77,
-        "Ago/2026": 52471.8
+        "Ago/2026": 52471.8,
+        "Set/2026": 53072.64
       },
       "venc": "2028-04-24",
       "isento": false,
@@ -2771,7 +2889,8 @@ var DADOS = {
         "Abr/2026": 3787.11,
         "Jun/2026": 4425,
         "Jul/2026": 4562,
-        "Ago/2026": 5336.96
+        "Ago/2026": 5336.96,
+        "Set/2026": 6007.8
       },
       "venc": null,
       "isento": false,
@@ -2786,7 +2905,8 @@ var DADOS = {
         "Abr/2026": 3864,
         "Jun/2026": 3620,
         "Jul/2026": 3686,
-        "Ago/2026": 3438
+        "Ago/2026": 3438,
+        "Set/2026": 3702
       },
       "venc": null,
       "isento": false,
@@ -2801,7 +2921,8 @@ var DADOS = {
         "Abr/2026": 3975.48,
         "Jun/2026": 3061.8,
         "Jul/2026": 3517.02,
-        "Ago/2026": 4772.1
+        "Ago/2026": 4727.1,
+        "Set/2026": 5157.6
       },
       "venc": null,
       "isento": false,
@@ -2816,7 +2937,8 @@ var DADOS = {
         "Abr/2026": 2516.58,
         "Jun/2026": 2414.28,
         "Jul/2026": 2364.68,
-        "Ago/2026": 2413.35
+        "Ago/2026": 2413.35,
+        "Set/2026": 2167.21
       },
       "venc": null,
       "isento": false,
@@ -2831,7 +2953,8 @@ var DADOS = {
         "Abr/2026": 2168.52,
         "Jun/2026": 2426.58,
         "Jul/2026": 2419.26,
-        "Ago/2026": 3440.8
+        "Ago/2026": 3440.8,
+        "Set/2026": 3679.28
       },
       "venc": null,
       "isento": false,
@@ -2846,7 +2969,8 @@ var DADOS = {
         "Abr/2026": 244.31,
         "Jun/2026": 1214.51,
         "Jul/2026": 1302.35,
-        "Ago/2026": 3339.14
+        "Ago/2026": 3339.14,
+        "Set/2026": 3714.27
       },
       "venc": null,
       "isento": false,
@@ -2861,7 +2985,8 @@ var DADOS = {
         "Abr/2026": 901.5,
         "Jun/2026": 726.5,
         "Jul/2026": 786.5,
-        "Ago/2026": 811
+        "Ago/2026": 811,
+        "Set/2026": 917
       },
       "venc": null,
       "isento": false,
@@ -2876,7 +3001,8 @@ var DADOS = {
         "Abr/2026": 635.58,
         "Jun/2026": 626.94,
         "Jul/2026": 536.4,
-        "Ago/2026": 528.84
+        "Ago/2026": 528.84,
+        "Set/2026": 530.28
       },
       "venc": null,
       "isento": false,
@@ -2891,7 +3017,8 @@ var DADOS = {
         "Abr/2026": 615,
         "Jun/2026": 543.5,
         "Jul/2026": 567,
-        "Ago/2026": 535
+        "Ago/2026": 535,
+        "Set/2026": 558
       },
       "venc": null,
       "isento": false,
@@ -2906,7 +3033,8 @@ var DADOS = {
         "Abr/2026": 7120.64,
         "Jun/2026": 6686.08,
         "Jul/2026": 6705.92,
-        "Ago/2026": 6515.84
+        "Ago/2026": 6515.84,
+        "Set/2026": 6376.96
       },
       "venc": null,
       "isento": true,
@@ -2921,7 +3049,8 @@ var DADOS = {
         "Abr/2026": 5352.75,
         "Jun/2026": 5594.95,
         "Jul/2026": 8595.36,
-        "Ago/2026": 8538.21
+        "Ago/2026": 8538.21,
+        "Set/2026": 8606.79
       },
       "venc": null,
       "isento": true,
@@ -2936,7 +3065,8 @@ var DADOS = {
         "Abr/2026": 5359.13,
         "Jun/2026": 5553.34,
         "Jul/2026": 5514.65,
-        "Ago/2026": 5403.88
+        "Ago/2026": 5403.88,
+        "Set/2026": 5414.48
       },
       "venc": null,
       "isento": true,
@@ -2951,7 +3081,8 @@ var DADOS = {
         "Abr/2026": 5029.2,
         "Jun/2026": 5032.2,
         "Jul/2026": 4896.6,
-        "Ago/2026": 4692
+        "Ago/2026": 4692,
+        "Set/2026": 4721.4
       },
       "venc": null,
       "isento": true,
@@ -2966,7 +3097,8 @@ var DADOS = {
         "Abr/2026": 3238.5,
         "Jun/2026": 3118.5,
         "Jul/2026": 3066.9,
-        "Ago/2026": 2959.8
+        "Ago/2026": 2959.8,
+        "Set/2026": 2913
       },
       "venc": null,
       "isento": true,
@@ -2981,7 +3113,8 @@ var DADOS = {
         "Abr/2026": 3168.82,
         "Jun/2026": 2896.17,
         "Jul/2026": 2976.35,
-        "Ago/2026": 8132.8
+        "Ago/2026": 8132.8,
+        "Set/2026": 8107.32
       },
       "venc": null,
       "isento": true,
@@ -2996,7 +3129,8 @@ var DADOS = {
         "Abr/2026": 3028.72,
         "Jun/2026": 3018.86,
         "Jul/2026": 2962.76,
-        "Ago/2026": 2898.5
+        "Ago/2026": 2898.5,
+        "Set/2026": 2839.34
       },
       "venc": null,
       "isento": true,
@@ -3011,7 +3145,8 @@ var DADOS = {
         "Abr/2026": 2950.7,
         "Jun/2026": 2848.1,
         "Jul/2026": 8775,
-        "Ago/2026": 8830.2
+        "Ago/2026": 8830.2,
+        "Set/2026": 8806.8
       },
       "venc": null,
       "isento": true,
@@ -3026,7 +3161,8 @@ var DADOS = {
         "Abr/2026": 2679.3,
         "Jun/2026": 2512.9,
         "Jul/2026": 2466.1,
-        "Ago/2026": 2407.6
+        "Ago/2026": 2407.6,
+        "Set/2026": 2392
       },
       "venc": null,
       "isento": true,
@@ -3041,7 +3177,8 @@ var DADOS = {
         "Abr/2026": 2021.7,
         "Jun/2026": 2340.3,
         "Jul/2026": 2215.6,
-        "Ago/2026": 2125.7
+        "Ago/2026": 2125.7,
+        "Set/2026": 2082.2
       },
       "venc": null,
       "isento": true,
@@ -3056,7 +3193,8 @@ var DADOS = {
         "Abr/2026": 1996.72,
         "Jun/2026": 1986.6,
         "Jul/2026": 1983.74,
-        "Ago/2026": 1724.14
+        "Ago/2026": 1724.14,
+        "Set/2026": 1558.92
       },
       "venc": null,
       "isento": true,
@@ -3070,7 +3208,8 @@ var DADOS = {
         "Mai/2026": 1015.3,
         "Jun/2026": 1003.2,
         "Jul/2026": 951.5,
-        "Ago/2026": 903.1
+        "Ago/2026": 903.1,
+        "Set/2026": 840.4
       },
       "venc": null,
       "isento": true,
@@ -3085,7 +3224,8 @@ var DADOS = {
         "Abr/2026": 499.65,
         "Jun/2026": 464.85,
         "Jul/2026": 460.4,
-        "Ago/2026": 454.6
+        "Ago/2026": 454.6,
+        "Set/2026": 458.45
       },
       "venc": null,
       "isento": true,
@@ -3110,7 +3250,8 @@ var DADOS = {
       "historico": {
         "Jun/2026": 45000,
         "Jul/2026": 45000,
-        "Ago/2026": 44123.97
+        "Ago/2026": 44123.97,
+        "Set/2026": 45940.2
       },
       "isento": false,
       "aliqIR": 15
@@ -3123,7 +3264,8 @@ var DADOS = {
       "historico": {
         "Jun/2026": 45000,
         "Jul/2026": 45000,
-        "Ago/2026": 46225.78
+        "Ago/2026": 46225.78,
+        "Set/2026": 46675.81
       },
       "isento": false,
       "aliqIR": 15
@@ -3134,7 +3276,8 @@ var DADOS = {
       "taxa": "86% do CDI",
       "historico": {
         "Jul/2026": 250525.23,
-        "Ago/2026": 102585.1
+        "Ago/2026": 102585.1,
+        "Set/2026": 22342.73
       },
       "venc": null,
       "isento": true,
@@ -3146,7 +3289,8 @@ var DADOS = {
       "taxa": "14,80% a.a.",
       "historico": {
         "Jul/2026": 180000,
-        "Ago/2026": 182982.03
+        "Ago/2026": 182982.03,
+        "Set/2026": 184997.45
       },
       "venc": "2029-07-31",
       "isento": false,
@@ -3158,7 +3302,8 @@ var DADOS = {
       "taxa": "14,77% a.a.",
       "historico": {
         "Jul/2026": 70000,
-        "Ago/2026": 71157.46
+        "Ago/2026": 71157.46,
+        "Set/2026": 71939.72
       },
       "venc": "2028-07-31",
       "isento": false,
@@ -3169,7 +3314,8 @@ var DADOS = {
       "classe": "PREFIXADO",
       "taxa": "13% a.a. (Isento)",
       "historico": {
-        "Ago/2026": 100436.86
+        "Ago/2026": 100436.86,
+        "Set/2026": 101415.81
       },
       "venc": "2027-09-11",
       "isento": true,
@@ -3177,22 +3323,22 @@ var DADOS = {
     }
   ],
   "posicaoAtivos": {
-    "atualizadoEm": "2026-09-13",
+    "atualizadoEm": "2026-10-12",
     "fonteDividendos": "Acumulado registrado em dividendos.porAtivo (pode não cobrir ações em meses anteriores a Jul/2026, ver campo 'histórico agregado')",
     "ativos": [
       {
         "ativo": "IVVB11",
         "tipo": "ETF (Exterior)",
-        "qtd": 29,
-        "precoMedio": 428.36,
-        "custoTotal": 12422.44,
-        "cotacaoAtual": 443.15,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 12851.35,
-        "ganhoCapital": 428.91,
+        "qtd": 35,
+        "precoMedio": 432.16,
+        "custoTotal": 15125.5,
+        "cotacaoAtual": 439.25,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 15373.75,
+        "ganhoCapital": 248.25,
         "dividendosRecebidos": 0,
-        "resultado": 428.91,
-        "resultadoPct": 3.45
+        "resultado": 248.25,
+        "resultadoPct": 1.64
       },
       {
         "ativo": "HGLG11",
@@ -3200,13 +3346,13 @@ var DADOS = {
         "qtd": 60,
         "precoMedio": 152.11,
         "custoTotal": 9126.6,
-        "cotacaoAtual": 146,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 8760,
-        "ganhoCapital": -366.6,
-        "dividendosRecebidos": 216.5,
-        "resultado": -150.1,
-        "resultadoPct": -1.64
+        "cotacaoAtual": 157.58,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 9454.8,
+        "ganhoCapital": 328.2,
+        "dividendosRecebidos": 286.7,
+        "resultado": 614.9,
+        "resultadoPct": 6.74
       },
       {
         "ativo": "CPTS11",
@@ -3214,13 +3360,13 @@ var DADOS = {
         "qtd": 1143,
         "precoMedio": 7.7,
         "custoTotal": 8801.1,
-        "cotacaoAtual": 7.48,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 8549.64,
-        "ganhoCapital": -251.46,
-        "dividendosRecebidos": 405.72,
-        "resultado": 154.26,
-        "resultadoPct": 1.75
+        "cotacaoAtual": 7.93,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 9063.99,
+        "ganhoCapital": 262.89,
+        "dividendosRecebidos": 508.59,
+        "resultado": 771.48,
+        "resultadoPct": 8.77
       },
       {
         "ativo": "KNRI11",
@@ -3228,13 +3374,13 @@ var DADOS = {
         "qtd": 52,
         "precoMedio": 153.71,
         "custoTotal": 7992.92,
-        "cotacaoAtual": 157.4,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 8184.8,
-        "ganhoCapital": 191.88,
-        "dividendosRecebidos": 171.19,
-        "resultado": 363.07,
-        "resultadoPct": 4.54
+        "cotacaoAtual": 165.98,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 8630.96,
+        "ganhoCapital": 638.04,
+        "dividendosRecebidos": 228.39,
+        "resultado": 866.43,
+        "resultadoPct": 10.84
       },
       {
         "ativo": "XPML11",
@@ -3242,13 +3388,13 @@ var DADOS = {
         "qtd": 64,
         "precoMedio": 106.21,
         "custoTotal": 6797.44,
-        "cotacaoAtual": 102.65,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 6569.6,
-        "ganhoCapital": -227.84,
-        "dividendosRecebidos": 471.04,
-        "resultado": 243.2,
-        "resultadoPct": 3.58
+        "cotacaoAtual": 108.07,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 6916.48,
+        "ganhoCapital": 119.04,
+        "dividendosRecebidos": 529.92,
+        "resultado": 648.96,
+        "resultadoPct": 9.55
       },
       {
         "ativo": "ITUB3",
@@ -3256,13 +3402,13 @@ var DADOS = {
         "qtd": 124,
         "precoMedio": 34.6,
         "custoTotal": 4290.4,
-        "cotacaoAtual": 46.63,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 5782.12,
-        "ganhoCapital": 1491.72,
-        "dividendosRecebidos": 117.12,
-        "resultado": 1608.84,
-        "resultadoPct": 37.5
+        "cotacaoAtual": 54.22,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 6723.28,
+        "ganhoCapital": 2432.88,
+        "dividendosRecebidos": 118.62,
+        "resultado": 2551.5,
+        "resultadoPct": 59.47
       },
       {
         "ativo": "ALOS3",
@@ -3270,13 +3416,13 @@ var DADOS = {
         "qtd": 200,
         "precoMedio": 27.42,
         "custoTotal": 5484,
-        "cotacaoAtual": 28.63,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 5726,
-        "ganhoCapital": 242,
+        "cotacaoAtual": 35.83,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 7166,
+        "ganhoCapital": 1682,
         "dividendosRecebidos": 0,
-        "resultado": 242,
-        "resultadoPct": 4.41
+        "resultado": 1682,
+        "resultadoPct": 30.67
       },
       {
         "ativo": "VISC11",
@@ -3284,13 +3430,13 @@ var DADOS = {
         "qtd": 53,
         "precoMedio": 111.05,
         "custoTotal": 5885.65,
-        "cotacaoAtual": 104.83,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 5555.99,
-        "ganhoCapital": -329.66,
-        "dividendosRecebidos": 319.26,
-        "resultado": -10.4,
-        "resultadoPct": -0.18
+        "cotacaoAtual": 114,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 6042,
+        "ganhoCapital": 156.35,
+        "dividendosRecebidos": 363.78,
+        "resultado": 520.13,
+        "resultadoPct": 8.84
       },
       {
         "ativo": "PETR4",
@@ -3298,13 +3444,13 @@ var DADOS = {
         "qtd": 105,
         "precoMedio": 33.71,
         "custoTotal": 3539.55,
-        "cotacaoAtual": 49,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 5145,
-        "ganhoCapital": 1605.45,
-        "dividendosRecebidos": 137.59,
-        "resultado": 1743.04,
-        "resultadoPct": 49.24
+        "cotacaoAtual": 56,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 5880,
+        "ganhoCapital": 2340.45,
+        "dividendosRecebidos": 161.01,
+        "resultado": 2501.46,
+        "resultadoPct": 70.67
       },
       {
         "ativo": "XPCI11",
@@ -3312,13 +3458,13 @@ var DADOS = {
         "qtd": 60,
         "precoMedio": 83.72,
         "custoTotal": 5023.2,
-        "cotacaoAtual": 77.3,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 4638,
-        "ganhoCapital": -385.2,
-        "dividendosRecebidos": 300,
-        "resultado": -85.2,
-        "resultadoPct": -1.7
+        "cotacaoAtual": 83.8,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 5028,
+        "ganhoCapital": 4.8,
+        "dividendosRecebidos": 354,
+        "resultado": 358.8,
+        "resultadoPct": 7.14
       },
       {
         "ativo": "BBDC4",
@@ -3326,13 +3472,13 @@ var DADOS = {
         "qtd": 200,
         "precoMedio": 12.02,
         "custoTotal": 2404,
-        "cotacaoAtual": 18.59,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 3718,
-        "ganhoCapital": 1314,
-        "dividendosRecebidos": 188.73,
-        "resultado": 1502.73,
-        "resultadoPct": 62.51
+        "cotacaoAtual": 21.61,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 4322,
+        "ganhoCapital": 1918,
+        "dividendosRecebidos": 298.16,
+        "resultado": 2216.16,
+        "resultadoPct": 92.19
       },
       {
         "ativo": "BBAS3",
@@ -3340,13 +3486,13 @@ var DADOS = {
         "qtd": 161,
         "precoMedio": 19.88,
         "custoTotal": 3200.68,
-        "cotacaoAtual": 22.4,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 3606.4,
-        "ganhoCapital": 405.72,
-        "dividendosRecebidos": 9.76,
-        "resultado": 415.48,
-        "resultadoPct": 12.98
+        "cotacaoAtual": 24.64,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 3967.04,
+        "ganhoCapital": 766.36,
+        "dividendosRecebidos": 28.3,
+        "resultado": 794.66,
+        "resultadoPct": 24.83
       },
       {
         "ativo": "TAEE11",
@@ -3354,13 +3500,13 @@ var DADOS = {
         "qtd": 88,
         "precoMedio": 36.93,
         "custoTotal": 3249.84,
-        "cotacaoAtual": 40.8,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 3590.4,
-        "ganhoCapital": 340.56,
+        "cotacaoAtual": 46.45,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 4087.6,
+        "ganhoCapital": 837.76,
         "dividendosRecebidos": 114.4,
-        "resultado": 454.96,
-        "resultadoPct": 14
+        "resultado": 952.16,
+        "resultadoPct": 29.3
       },
       {
         "ativo": "LVBI11",
@@ -3368,13 +3514,13 @@ var DADOS = {
         "qtd": 30,
         "precoMedio": 102.58,
         "custoTotal": 3077.4,
-        "cotacaoAtual": 98.36,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 2950.8,
-        "ganhoCapital": -126.6,
-        "dividendosRecebidos": 180,
-        "resultado": 53.4,
-        "resultadoPct": 1.74
+        "cotacaoAtual": 102.79,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 3083.7,
+        "ganhoCapital": 6.3,
+        "dividendosRecebidos": 204,
+        "resultado": 210.3,
+        "resultadoPct": 6.83
       },
       {
         "ativo": "RZTR11",
@@ -3382,13 +3528,13 @@ var DADOS = {
         "qtd": 34,
         "precoMedio": 89.65,
         "custoTotal": 3048.1,
-        "cotacaoAtual": 83.75,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 2847.5,
-        "ganhoCapital": -200.6,
-        "dividendosRecebidos": 265.2,
-        "resultado": 64.6,
-        "resultadoPct": 2.12
+        "cotacaoAtual": 87.06,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 2960.04,
+        "ganhoCapital": -88.06,
+        "dividendosRecebidos": 294.1,
+        "resultado": 206.04,
+        "resultadoPct": 6.76
       },
       {
         "ativo": "HGBS11",
@@ -3396,13 +3542,13 @@ var DADOS = {
         "qtd": 130,
         "precoMedio": 22.24,
         "custoTotal": 2891.2,
-        "cotacaoAtual": 18.74,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 2436.2,
-        "ganhoCapital": -455,
-        "dividendosRecebidos": 172.9,
-        "resultado": -282.1,
-        "resultadoPct": -9.76
+        "cotacaoAtual": 19.41,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 2523.3,
+        "ganhoCapital": -367.9,
+        "dividendosRecebidos": 195,
+        "resultado": -172.9,
+        "resultadoPct": -5.98
       },
       {
         "ativo": "VALE3",
@@ -3410,13 +3556,13 @@ var DADOS = {
         "qtd": 31,
         "precoMedio": 56.98,
         "custoTotal": 1766.38,
-        "cotacaoAtual": 77.82,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 2412.42,
-        "ganhoCapital": 646.04,
-        "dividendosRecebidos": 103.73,
-        "resultado": 749.77,
-        "resultadoPct": 42.45
+        "cotacaoAtual": 67.9,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 2104.9,
+        "ganhoCapital": 338.52,
+        "dividendosRecebidos": 158.17,
+        "resultado": 496.69,
+        "resultadoPct": 28.12
       },
       {
         "ativo": "RBRX11",
@@ -3424,13 +3570,13 @@ var DADOS = {
         "qtd": 290,
         "precoMedio": 8.62,
         "custoTotal": 2499.8,
-        "cotacaoAtual": 7.24,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 2099.6,
-        "ganhoCapital": -400.2,
-        "dividendosRecebidos": 99,
-        "resultado": -301.2,
-        "resultadoPct": -12.05
+        "cotacaoAtual": 7.92,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 2296.8,
+        "ganhoCapital": -203,
+        "dividendosRecebidos": 125.1,
+        "resultado": -77.9,
+        "resultadoPct": -3.12
       },
       {
         "ativo": "TRXF11",
@@ -3438,13 +3584,13 @@ var DADOS = {
         "qtd": 22,
         "precoMedio": 91.79,
         "custoTotal": 2019.38,
-        "cotacaoAtual": 72.93,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 1604.46,
-        "ganhoCapital": -414.92,
-        "dividendosRecebidos": 94.38,
-        "resultado": -320.54,
-        "resultadoPct": -15.87
+        "cotacaoAtual": 71.9,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 1581.8,
+        "ganhoCapital": -437.58,
+        "dividendosRecebidos": 114.84,
+        "resultado": -322.74,
+        "resultadoPct": -15.98
       },
       {
         "ativo": "MCRE11",
@@ -3452,13 +3598,13 @@ var DADOS = {
         "qtd": 110,
         "precoMedio": 9.41,
         "custoTotal": 1035.1,
-        "cotacaoAtual": 8.03,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 883.3,
-        "ganhoCapital": -151.8,
-        "dividendosRecebidos": 35.2,
-        "resultado": -116.6,
-        "resultadoPct": -11.26
+        "cotacaoAtual": 8.69,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 955.9,
+        "ganhoCapital": -79.2,
+        "dividendosRecebidos": 46.2,
+        "resultado": -33,
+        "resultadoPct": -3.19
       },
       {
         "ativo": "B3SA3",
@@ -3466,13 +3612,13 @@ var DADOS = {
         "qtd": 50,
         "precoMedio": 10.57,
         "custoTotal": 528.5,
-        "cotacaoAtual": 17.37,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 868.5,
-        "ganhoCapital": 340,
+        "cotacaoAtual": 23.35,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 1167.5,
+        "ganhoCapital": 639,
         "dividendosRecebidos": 28.32,
-        "resultado": 368.32,
-        "resultadoPct": 69.69
+        "resultado": 667.32,
+        "resultadoPct": 126.27
       },
       {
         "ativo": "CMIG4",
@@ -3480,13 +3626,13 @@ var DADOS = {
         "qtd": 50,
         "precoMedio": 10.04,
         "custoTotal": 502,
-        "cotacaoAtual": 11.45,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 572.5,
-        "ganhoCapital": 70.5,
+        "cotacaoAtual": 12.13,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 606.5,
+        "ganhoCapital": 104.5,
         "dividendosRecebidos": 19.86,
-        "resultado": 90.36,
-        "resultadoPct": 18
+        "resultado": 124.36,
+        "resultadoPct": 24.77
       },
       {
         "ativo": "EGIE3",
@@ -3494,13 +3640,13 @@ var DADOS = {
         "qtd": 18,
         "precoMedio": 40.94,
         "custoTotal": 736.92,
-        "cotacaoAtual": 30.75,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 553.5,
-        "ganhoCapital": -183.42,
+        "cotacaoAtual": 31.73,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 571.14,
+        "ganhoCapital": -165.78,
         "dividendosRecebidos": 16.25,
-        "resultado": -167.17,
-        "resultadoPct": -22.68
+        "resultado": -149.53,
+        "resultadoPct": -20.29
       },
       {
         "ativo": "XPLG11",
@@ -3508,13 +3654,13 @@ var DADOS = {
         "qtd": 5,
         "precoMedio": 107.57,
         "custoTotal": 537.85,
-        "cotacaoAtual": 91.65,
-        "dataCotacao": "2026-09-13",
-        "valorAtual": 458.25,
-        "ganhoCapital": -79.6,
-        "dividendosRecebidos": 32.8,
-        "resultado": -46.8,
-        "resultadoPct": -8.7
+        "cotacaoAtual": 102.25,
+        "dataCotacao": "2026-10-12",
+        "valorAtual": 511.25,
+        "ganhoCapital": -26.6,
+        "dividendosRecebidos": 36.9,
+        "resultado": 10.3,
+        "resultadoPct": 1.92
       }
     ]
   }
