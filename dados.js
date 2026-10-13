@@ -158,7 +158,7 @@ var DADOS = {
       "ganhos": 19624.53,
       "dividendos": 654.87,
       "rentMes": 1.24,
-      "rentAno": 10.0,
+      "rentAno": 10,
       "rent12m": 15.7,
       "pctCdi12m": 113.34,
       "selic": 14.75,
@@ -368,7 +368,7 @@ var DADOS = {
           null,
           null
         ],
-        "ano_pct": 10.0,
+        "ano_pct": 10,
         "acum_pct": 78.08
       }
     ]
@@ -485,7 +485,7 @@ var DADOS = {
     {
       "periodo": "06 meses",
       "carteira": 7.17,
-      "cdi": 7.0,
+      "cdi": 7,
       "pctCdi": 102.49,
       "ibov": null,
       "ipca": null,
@@ -525,7 +525,7 @@ var DADOS = {
       "pctCdi": 103.62,
       "ibov": 63.01,
       "ipca": 24.76,
-      "vol": 1.0
+      "vol": 1
     }
   ],
   "posicaoDetalhada": {
@@ -535,7 +535,7 @@ var DADOS = {
         "grupo": "LIQUIDEZ",
         "subtotal": {
           "saldoAnt": 63189.64,
-          "aplicacoes": 7000.0,
+          "aplicacoes": 7000,
           "resgates": 61680.04,
           "saldo": 8684.44
         },
@@ -543,7 +543,7 @@ var DADOS = {
           {
             "ativo": "CDB LIQUIDEZ DIÁRIA",
             "saldoAnt": 63189.64,
-            "aplicacoes": 7000.0,
+            "aplicacoes": 7000,
             "resgates": 61680.04,
             "saldo": 8684.44,
             "rentMes": 35.32,
@@ -655,10 +655,10 @@ var DADOS = {
         "ativos": [
           {
             "ativo": "LCI LIQUIDEZ 6 MESES (Isento)",
-            "saldoAnt": 569162.0,
+            "saldoAnt": 569162,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 575013.0,
+            "saldo": 575013,
             "rentMes": 1.21,
             "rent12m": 16.3,
             "desdeInicio": 17.87,
@@ -753,7 +753,7 @@ var DADOS = {
             "rentMes": null,
             "rent12m": -56.25,
             "desdeInicio": -56.25,
-            "part": 0.0,
+            "part": 0,
             "isento": true,
             "aliqIR": 0
           }
@@ -807,7 +807,7 @@ var DADOS = {
           },
           {
             "ativo": "CDB BANCO SENFF PRE (14/07/2028)",
-            "saldoAnt": 50337.0,
+            "saldoAnt": 50337,
             "aplicacoes": 0,
             "resgates": 0,
             "saldo": 50932.22,
@@ -844,10 +844,10 @@ var DADOS = {
           },
           {
             "ativo": "ALOS3",
-            "saldoAnt": 5418.0,
+            "saldoAnt": 5418,
             "aplicacoes": 0,
             "resgates": 58.38,
-            "saldo": 5338.0,
+            "saldo": 5338,
             "rentMes": -0.43,
             "rent12m": -1.27,
             "desdeInicio": -1.27,
@@ -857,7 +857,7 @@ var DADOS = {
           },
           {
             "ativo": "ITUB3",
-            "saldoAnt": 4562.0,
+            "saldoAnt": 4562,
             "aplicacoes": 1005.84,
             "resgates": 0,
             "saldo": 5336.96,
@@ -896,10 +896,10 @@ var DADOS = {
           },
           {
             "ativo": "BBDC4",
-            "saldoAnt": 3686.0,
+            "saldoAnt": 3686,
             "aplicacoes": 0,
             "resgates": 3.13,
-            "saldo": 3438.0,
+            "saldo": 3438,
             "rentMes": -6.65,
             "rent12m": 8.81,
             "desdeInicio": 54.08,
@@ -910,7 +910,7 @@ var DADOS = {
           {
             "ativo": "BBAS3",
             "saldoAnt": 1302.35,
-            "aplicacoes": 1928.0,
+            "aplicacoes": 1928,
             "resgates": 0,
             "saldo": 3339.14,
             "rentMes": -0.54,
@@ -938,7 +938,7 @@ var DADOS = {
             "saldoAnt": 786.5,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 811.0,
+            "saldo": 811,
             "rentMes": 3.12,
             "rent12m": 29.78,
             "desdeInicio": 60.85,
@@ -948,10 +948,10 @@ var DADOS = {
           },
           {
             "ativo": "CMIG4",
-            "saldoAnt": 567.0,
+            "saldoAnt": 567,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 535.0,
+            "saldo": 535,
             "rentMes": -5.64,
             "rent12m": 4.06,
             "desdeInicio": 19.02,
@@ -998,7 +998,7 @@ var DADOS = {
           },
           {
             "ativo": "HGLG11",
-            "saldoAnt": 8775.0,
+            "saldoAnt": 8775,
             "aplicacoes": 0,
             "resgates": 0,
             "saldo": 8830.2,
@@ -1053,7 +1053,7 @@ var DADOS = {
             "saldoAnt": 4896.6,
             "aplicacoes": 0,
             "resgates": 0,
-            "saldo": 4692.0,
+            "saldo": 4692,
             "rentMes": -3.04,
             "rent12m": 1.97,
             "desdeInicio": 1.97,
@@ -1170,9 +1170,9 @@ var DADOS = {
             "resgates": 0,
             "saldo": 0.11,
             "rentMes": null,
-            "rent12m": 100.0,
+            "rent12m": 100,
             "desdeInicio": null,
-            "part": 0.0,
+            "part": 0,
             "isento": false,
             "aliqIR": 0
           }
@@ -1189,7 +1189,7 @@ var DADOS = {
         "ativos": [
           {
             "ativo": "CDBPR Pré Emissão Terceiros (14,80% a.a.) - Banco Pine",
-            "saldoAnt": 180000.0,
+            "saldoAnt": 180000,
             "aplicacoes": 0,
             "resgates": 0,
             "saldo": 182982.03,
@@ -1202,7 +1202,7 @@ var DADOS = {
           },
           {
             "ativo": "CDBPR Pré Emissão Terceiros (14,77% a.a.) - Omni S/A Cred Fin Investimento",
-            "saldoAnt": 70000.0,
+            "saldoAnt": 70000,
             "aplicacoes": 0,
             "resgates": 0,
             "saldo": 71157.46,
@@ -1244,7 +1244,7 @@ var DADOS = {
       {
         "grupo": "XP PREVIDÊNCIA",
         "subtotal": {
-          "saldoAnt": 90000.0,
+          "saldoAnt": 90000,
           "aplicacoes": 0,
           "resgates": 0,
           "saldo": 90349.75
@@ -1252,7 +1252,7 @@ var DADOS = {
         "ativos": [
           {
             "ativo": "Adam XP Seg Prev I Fic Fim RI (Multimercados, VGBL)",
-            "saldoAnt": 45000.0,
+            "saldoAnt": 45000,
             "aplicacoes": 0,
             "resgates": 0,
             "saldo": 44123.97,
@@ -1265,7 +1265,7 @@ var DADOS = {
           },
           {
             "ativo": "Kinea Alpes Prev XP Seg MM CP FicFI (Pós-Fixado, VGBL)",
-            "saldoAnt": 45000.0,
+            "saldoAnt": 45000,
             "aplicacoes": 0,
             "resgates": 0,
             "saldo": 46225.78,
@@ -1855,7 +1855,7 @@ var DADOS = {
           57,
           55.8
         ],
-        "total": 300.0
+        "total": 300
       },
       {
         "ativo": "RZTR11",
@@ -1900,7 +1900,7 @@ var DADOS = {
           22.5,
           22.5
         ],
-        "total": 180.0
+        "total": 180
       },
       {
         "ativo": "HGBS11",
@@ -2020,7 +2020,7 @@ var DADOS = {
           26.1,
           26.1
         ],
-        "total": 99.0
+        "total": 99
       },
       {
         "ativo": "ITUB3",
@@ -2078,7 +2078,7 @@ var DADOS = {
           0,
           12.1,
           12.1,
-          11.0
+          11
         ],
         "total": 35.2
       },
@@ -2441,11 +2441,11 @@ var DADOS = {
         "ipva": 0
       },
       "pago": {
-        "parcelaAp": false,
-        "cartaoInd": false,
-        "haras": false,
-        "cartaoConj": false,
-        "contaCorrente": false,
+        "parcelaAp": true,
+        "cartaoInd": true,
+        "haras": true,
+        "cartaoConj": true,
+        "contaCorrente": true,
         "condominio": true,
         "iptu": true,
         "escola": true,
@@ -2564,7 +2564,7 @@ var DADOS = {
         "Abr/2026": 551312,
         "Jun/2026": 562736,
         "Jul/2026": 569162,
-        "Ago/2026": 575013.0
+        "Ago/2026": 575013
       },
       "venc": "TODAY",
       "isento": true,
@@ -2786,7 +2786,7 @@ var DADOS = {
         "Abr/2026": 3864,
         "Jun/2026": 3620,
         "Jul/2026": 3686,
-        "Ago/2026": 3438.0
+        "Ago/2026": 3438
       },
       "venc": null,
       "isento": false,
@@ -2861,7 +2861,7 @@ var DADOS = {
         "Abr/2026": 901.5,
         "Jun/2026": 726.5,
         "Jul/2026": 786.5,
-        "Ago/2026": 811.0
+        "Ago/2026": 811
       },
       "venc": null,
       "isento": false,
@@ -2891,7 +2891,7 @@ var DADOS = {
         "Abr/2026": 615,
         "Jun/2026": 543.5,
         "Jul/2026": 567,
-        "Ago/2026": 535.0
+        "Ago/2026": 535
       },
       "venc": null,
       "isento": false,
@@ -2951,7 +2951,7 @@ var DADOS = {
         "Abr/2026": 5029.2,
         "Jun/2026": 5032.2,
         "Jul/2026": 4896.6,
-        "Ago/2026": 4692.0
+        "Ago/2026": 4692
       },
       "venc": null,
       "isento": true,
@@ -3200,9 +3200,9 @@ var DADOS = {
         "qtd": 60,
         "precoMedio": 152.11,
         "custoTotal": 9126.6,
-        "cotacaoAtual": 146.0,
+        "cotacaoAtual": 146,
         "dataCotacao": "2026-09-13",
-        "valorAtual": 8760.0,
+        "valorAtual": 8760,
         "ganhoCapital": -366.6,
         "dividendosRecebidos": 216.5,
         "resultado": -150.1,
@@ -3272,10 +3272,10 @@ var DADOS = {
         "custoTotal": 5484,
         "cotacaoAtual": 28.63,
         "dataCotacao": "2026-09-13",
-        "valorAtual": 5726.0,
-        "ganhoCapital": 242.0,
+        "valorAtual": 5726,
+        "ganhoCapital": 242,
         "dividendosRecebidos": 0,
-        "resultado": 242.0,
+        "resultado": 242,
         "resultadoPct": 4.41
       },
       {
@@ -3298,9 +3298,9 @@ var DADOS = {
         "qtd": 105,
         "precoMedio": 33.71,
         "custoTotal": 3539.55,
-        "cotacaoAtual": 49.0,
+        "cotacaoAtual": 49,
         "dataCotacao": "2026-09-13",
-        "valorAtual": 5145.0,
+        "valorAtual": 5145,
         "ganhoCapital": 1605.45,
         "dividendosRecebidos": 137.59,
         "resultado": 1743.04,
@@ -3314,9 +3314,9 @@ var DADOS = {
         "custoTotal": 5023.2,
         "cotacaoAtual": 77.3,
         "dataCotacao": "2026-09-13",
-        "valorAtual": 4638.0,
+        "valorAtual": 4638,
         "ganhoCapital": -385.2,
-        "dividendosRecebidos": 300.0,
+        "dividendosRecebidos": 300,
         "resultado": -85.2,
         "resultadoPct": -1.7
       },
@@ -3328,8 +3328,8 @@ var DADOS = {
         "custoTotal": 2404,
         "cotacaoAtual": 18.59,
         "dataCotacao": "2026-09-13",
-        "valorAtual": 3718.0,
-        "ganhoCapital": 1314.0,
+        "valorAtual": 3718,
+        "ganhoCapital": 1314,
         "dividendosRecebidos": 188.73,
         "resultado": 1502.73,
         "resultadoPct": 62.51
@@ -3360,7 +3360,7 @@ var DADOS = {
         "ganhoCapital": 340.56,
         "dividendosRecebidos": 114.4,
         "resultado": 454.96,
-        "resultadoPct": 14.0
+        "resultadoPct": 14
       },
       {
         "ativo": "LVBI11",
@@ -3372,7 +3372,7 @@ var DADOS = {
         "dataCotacao": "2026-09-13",
         "valorAtual": 2950.8,
         "ganhoCapital": -126.6,
-        "dividendosRecebidos": 180.0,
+        "dividendosRecebidos": 180,
         "resultado": 53.4,
         "resultadoPct": 1.74
       },
@@ -3399,7 +3399,7 @@ var DADOS = {
         "cotacaoAtual": 18.74,
         "dataCotacao": "2026-09-13",
         "valorAtual": 2436.2,
-        "ganhoCapital": -455.0,
+        "ganhoCapital": -455,
         "dividendosRecebidos": 172.9,
         "resultado": -282.1,
         "resultadoPct": -9.76
@@ -3428,7 +3428,7 @@ var DADOS = {
         "dataCotacao": "2026-09-13",
         "valorAtual": 2099.6,
         "ganhoCapital": -400.2,
-        "dividendosRecebidos": 99.0,
+        "dividendosRecebidos": 99,
         "resultado": -301.2,
         "resultadoPct": -12.05
       },
@@ -3469,7 +3469,7 @@ var DADOS = {
         "cotacaoAtual": 17.37,
         "dataCotacao": "2026-09-13",
         "valorAtual": 868.5,
-        "ganhoCapital": 340.0,
+        "ganhoCapital": 340,
         "dividendosRecebidos": 28.32,
         "resultado": 368.32,
         "resultadoPct": 69.69
@@ -3486,7 +3486,7 @@ var DADOS = {
         "ganhoCapital": 70.5,
         "dividendosRecebidos": 19.86,
         "resultado": 90.36,
-        "resultadoPct": 18.0
+        "resultadoPct": 18
       },
       {
         "ativo": "EGIE3",
